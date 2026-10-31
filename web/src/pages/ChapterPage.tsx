@@ -1,5 +1,5 @@
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { cached, formatPeriod, type Chapter } from '../api';
 import ChapterText from '../components/ChapterText';
@@ -8,6 +8,7 @@ import Player from '../components/Player';
 import Quiz from '../components/Quiz';
 import Status from '../components/Status';
 import VoiceSheet from '../components/VoiceSheet';
+import { getProgress, saveProgress } from '../progress';
 import { chapterSegments } from '../speech/chapterText';
 import { useVoiceSettings } from '../speech/settings';
 import { usePlayer } from '../speech/usePlayer';
@@ -47,10 +48,22 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
   // The title is read aloud too: it is the first heading of the text.
   const segments = useMemo(() => chapterSegments(`# ${chapter.title}\n\n${chapter.markdown}`), [chapter]);
   const [voice, setVoice] = useVoiceSettings();
-  const player = usePlayer(segments, voice, 0, chapter.title);
+  // Start where this device left off (a finished chapter starts from the top again).
+  const [start] = useState(() => {
+    const p = getProgress(chapter.id);
+    return p && !p.done && p.count === segments.length ? p.index : 0;
+  });
+  const player = usePlayer(segments, voice, start, chapter.title);
+  const [finished, setFinished] = useState(false);
   const [showVoices, setShowVoices] = useState(false);
   const [hero, ...moreImages] = chapter.images;
   const reading = player.state === 'playing' || player.index > 0;
+
+  // Remember the sentence; when the last one has been read, offer the next chapter.
+  useEffect(() => saveProgress(chapter.id, player.index, segments.length), [chapter.id, player.index, segments.length]);
+  useEffect(() => {
+    if (player.state === 'playing' && player.index === segments.length - 1) setFinished(true);
+  }, [player.state, player.index, segments.length]);
 
   return (
     <div className="flex h-full flex-col">
@@ -97,6 +110,19 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
         </article>
       </main>
 
+      {finished && player.state !== 'playing' && chapter.next && (
+        <div className="border-t border-line bg-surface-2 px-4 py-3">
+          <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
+            <p className="text-sm">Kapitlet er slut.</p>
+            <Link
+              to={`/kapitel/${chapter.next.id}`}
+              className="flex min-h-11 items-center gap-1 rounded-full bg-accent px-4 text-sm font-medium text-on-accent hover:bg-accent-strong"
+            >
+              Næste: {chapter.next.title} <ChevronRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      )}
       <Player
         index={player.index}
         count={segments.length}

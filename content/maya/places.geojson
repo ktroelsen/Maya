@@ -1,12 +1,218 @@
 {
   "type": "FeatureCollection",
   "features": [
-    { "type": "Feature", "properties": { "id": "tikal", "name": "Tikal", "chapters": ["01-moed-mayaerne", "05-klassisk-tid"] }, "geometry": { "type": "Point", "coordinates": [-89.6233, 17.2220] } },
-    { "type": "Feature", "properties": { "id": "calakmul", "name": "Calakmul", "chapters": ["01-moed-mayaerne", "05-klassisk-tid"] }, "geometry": { "type": "Point", "coordinates": [-89.7376, 18.1053] } },
-    { "type": "Feature", "properties": { "id": "caracol", "name": "Caracol", "chapters": ["05-klassisk-tid"] }, "geometry": { "type": "Point", "coordinates": [-89.1173, 16.7637] } },
-    { "type": "Feature", "properties": { "id": "palenque", "name": "Palenque", "chapters": ["01-moed-mayaerne", "05-klassisk-tid"] }, "geometry": { "type": "Point", "coordinates": [-92.0464, 17.4840] } },
-    { "type": "Feature", "properties": { "id": "copan", "name": "Copán", "chapters": ["01-moed-mayaerne", "05-klassisk-tid"] }, "geometry": { "type": "Point", "coordinates": [-89.1414, 14.8379] } },
-    { "type": "Feature", "properties": { "id": "quirigua", "name": "Quiriguá", "chapters": ["05-klassisk-tid"] }, "geometry": { "type": "Point", "coordinates": [-89.0400, 15.2700] } },
-    { "type": "Feature", "properties": { "id": "chichen-itza", "name": "Chichén Itzá", "chapters": ["01-moed-mayaerne"] }, "geometry": { "type": "Point", "coordinates": [-88.5686, 20.6829] } }
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "tikal",
+        "name": "Tikal",
+        "chapters": [
+          "01-moed-mayaerne",
+          "02-landet",
+          "05-klassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.6233,
+          17.222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "calakmul",
+        "name": "Calakmul",
+        "chapters": [
+          "01-moed-mayaerne",
+          "02-landet",
+          "05-klassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.7376,
+          18.1053
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "caracol",
+        "name": "Caracol",
+        "chapters": [
+          "05-klassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.1173,
+          16.7637
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "palenque",
+        "name": "Palenque",
+        "chapters": [
+          "01-moed-mayaerne",
+          "02-landet",
+          "05-klassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -92.0464,
+          17.484
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "copan",
+        "name": "Copán",
+        "chapters": [
+          "01-moed-mayaerne",
+          "02-landet",
+          "05-klassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.1414,
+          14.8379
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "quirigua",
+        "name": "Quiriguá",
+        "chapters": [
+          "05-klassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.04,
+          15.27
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "chichen-itza",
+        "name": "Chichén Itzá",
+        "chapters": [
+          "01-moed-mayaerne",
+          "02-landet"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.5686,
+          20.6829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kaminaljuyu",
+        "name": "Kaminaljuyu",
+        "chapters": [
+          "02-landet"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.5486,
+          14.6286
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "motagua",
+        "name": "Motagua-dalen (jade)",
+        "chapters": [
+          "02-landet"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.6,
+          15.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "aguada-fenix",
+        "name": "Aguada Fénix",
+        "chapters": [
+          "03-begyndelsen"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.15,
+          17.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ceibal",
+        "name": "Ceibal",
+        "chapters": [
+          "03-begyndelsen"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.0614,
+          16.5117
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cuello",
+        "name": "Cuello",
+        "chapters": [
+          "03-begyndelsen"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.682,
+          18.06
+        ]
+      }
+    }
   ]
 }

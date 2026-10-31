@@ -1,7 +1,80 @@
 [
-  { "term": "k'uhul ajaw", "definition": "»Hellig herre«. Titel for de klassiske mayakonger.", "chapters": ["01-moed-mayaerne", "05-klassisk-tid"] },
-  { "term": "stela", "definition": "Høj stensøjle med relieffer og indskrifter, rejst af kongerne på byens pladser. Flertal: stelaer.", "chapters": ["05-klassisk-tid"] },
-  { "term": "Kaanul", "definition": "Slangeriget. Kongerigets navn, med hovedstad i Calakmul i det meste af klassisk tid.", "chapters": ["05-klassisk-tid"] },
-  { "term": "milpa", "definition": "Mark, hvor majs, bønner og squash dyrkes sammen.", "chapters": [] },
-  { "term": "cenote", "definition": "Naturlig brønd i kalkstenen på Yucatán, ofte hellig.", "chapters": [] }
+  {
+    "term": "k'uhul ajaw",
+    "definition": "»Hellig herre«. Titel for de klassiske mayakonger.",
+    "chapters": [
+      "01-moed-mayaerne",
+      "05-klassisk-tid"
+    ]
+  },
+  {
+    "term": "stela",
+    "definition": "Høj stensøjle med relieffer og indskrifter, rejst af kongerne på byens pladser. Flertal: stelaer.",
+    "chapters": [
+      "05-klassisk-tid"
+    ]
+  },
+  {
+    "term": "Kaanul",
+    "definition": "Slangeriget. Kongerigets navn, med hovedstad i Calakmul i det meste af klassisk tid.",
+    "chapters": [
+      "05-klassisk-tid"
+    ]
+  },
+  {
+    "term": "milpa",
+    "definition": "Mark, hvor majs, bønner og squash dyrkes sammen.",
+    "chapters": [
+      "03-begyndelsen"
+    ]
+  },
+  {
+    "term": "cenote",
+    "definition": "Naturlig brønd i kalkstenen på Yucatán, ofte hellig.",
+    "chapters": [
+      "02-landet"
+    ]
+  },
+  {
+    "term": "teosinte",
+    "definition": "Vildt græs fra det sydvestlige Mexico, som majsen er forædlet fra.",
+    "chapters": [
+      "03-begyndelsen"
+    ]
+  },
+  {
+    "term": "metate",
+    "definition": "Flad sten, som majsen males på med en håndsten (mano).",
+    "chapters": [
+      "03-begyndelsen"
+    ]
+  },
+  {
+    "term": "bajo",
+    "definition": "Lavtliggende sump i regnskoven, der oversvømmes i regntiden.",
+    "chapters": [
+      "02-landet"
+    ]
+  },
+  {
+    "term": "obsidian",
+    "definition": "Sort, glasagtig vulkansk sten fra højlandet. Brugt til knive og spydspidser.",
+    "chapters": [
+      "02-landet"
+    ]
+  },
+  {
+    "term": "Popol Vuh",
+    "definition": "K'iche'-mayaernes hellige bog med skabelsesberetningen og heltetvillingernes historie. Nedskrevet i 1500-tallet.",
+    "chapters": [
+      "03-begyndelsen"
+    ]
+  },
+  {
+    "term": "lidar",
+    "definition": "Laserscanning fra fly, der kan »se« gennem skoven og afsløre skjulte bygninger.",
+    "chapters": [
+      "03-begyndelsen"
+    ]
+  }
 ]

@@ -2,6 +2,10 @@
 
 En illustreret app der fortæller historien om mayaerne – hvem de var, hvor de boede, hvornår og hvordan det hele startede – med kort, billeder, tidslinje, oplæsning og podcasts. Den skal bygges så kodedelen kan genbruges til fremtidige emner (andre udstillinger, rejser, historiske emner).
 
+**Udstillingen:** *Maya – Kongeriget under junglen* på Moesgård Museum, Aarhus (9. oktober 2026 – 8. august 2027). Ifølge omtalen dækker den klassisk tid (ca. 250–900 e.Kr.), har ca. 200 genstande udlånt fra Mexico og har en jademaske fra en herskers grav som et af hovedværkerne. Vi bekræfter detaljerne (hvilket kongerige, hvilke værker) i fase 5.
+
+**Kører på:** https://maya.kaspert.dk
+
 ## 1. Vision og principper
 
 - **Fortælling før fakta-liste**: Indholdet er bygget som kapitler, ikke som et leksikon. Man skal kunne læse/lytte sig igennem fra start til slut på 30–60 min.
@@ -11,44 +15,58 @@ En illustreret app der fortæller historien om mayaerne – hvem de var, hvor de
 
 ## 2. Teknisk arkitektur
 
+Samme opbygning som **read** (read.kaspert.dk), så deploy, oplæsning og konventioner kan genbruges direkte.
+
 ```
 Maya/
-├─ src/
-│  ├─ Server/            ASP.NET Core (.NET 8 LTS) – API + serverer React-build
-│  │   ├─ Endpoints/     /api/topics, /api/topics/{id}/chapters, /api/media ...
-│  │   ├─ Content/       læser indholdspakker fra disk (JSON + Markdown)
-│  │   └─ wwwroot/       React-build lægges her ved publish
-│  └─ Client/            React + TypeScript + Vite
-│      ├─ components/    Generiske moduler: Chapter, Timeline, Map, Gallery,
-│      │                 ReadAloud, PodcastPlayer, Glossary, Quiz
-│      ├─ theme/         Design tokens (farver, typografi) pr. emne
-│      └─ pages/
-├─ content/
-│  └─ maya/
-│      ├─ topic.json     Titel, tema, kapitel-rækkefølge
-│      ├─ chapters/*.md  Tekst med front-matter (periode, steder, billeder)
-│      ├─ timeline.json  Perioder og begivenheder
-│      ├─ places.geojson Byer, regioner, koordinater
-│      ├─ glossary.json  Ord: k'uhul ajaw, milpa, stela, cenote ...
-│      └─ media/         Billeder, lyd, podcasts
+├─ src/Maya.Api/          ASP.NET Core minimal API, .NET 10 – serverer API + React-build (wwwroot)
+│   ├─ Content/           Læser indholdspakker fra disk (JSON + Markdown)
+│   ├─ Tts/               Google Chirp 3 HD + cache – kopieret fra read
+│   ├─ Vision/            Billedgenkendelse med Gemini – porteret fra mission-bear-hug
+│   └─ web.config         Som read (OutOfProcess, self-contained)
+├─ web/                   React 19 + Vite + Tailwind 4 + TypeScript, PWA
+│   └─ src/
+│       ├─ speech/        SpeechEngine, WebSpeechEngine, GoogleSpeechEngine, usePlayer – fra read
+│       ├─ components/    Generiske moduler: Chapter, Timeline, Map, Gallery,
+│       │                 Player, PodcastPlayer, Glossary, Quiz, CameraGuide
+│       └─ theme/         Design tokens pr. emne
+├─ content/maya/
+│   ├─ topic.json         Titel, tema, kapitelrækkefølge, podcasts
+│   ├─ chapters/*.md      Tekst med front-matter (periode, steder, billeder, kilder, quiz)
+│   ├─ timeline.json      Perioder og begivenheder
+│   ├─ places.geojson     Byer, regioner, koordinater
+│   ├─ glossary.json      Ord: k'uhul ajaw, milpa, stela, cenote ...
+│   └─ media/             Billeder, podcasts
+├─ tests/Maya.Tests/
+├─ .github/workflows/     ci.yml, deploy.yml, claude.yml – som read
 └─ docs/
 ```
 
 | Område | Valg | Begrundelse |
 |---|---|---|
-| Backend | ASP.NET Core minimal API, .NET 8 | Kører på Simply.com (Windows/IIS), samme stak som tidligere apps |
-| Frontend | React + TypeScript + Vite | Hurtig udvikling, nem at genbruge komponenter |
-| Kort | Leaflet + react-leaflet, evt. med eget illustreret kortlag | Gratis, ingen API-nøgle; kan skifte mellem "rigtigt" kort og tegnet kort |
-| Tidslinje | Egen komponent (SVG) | Skal kunne vise lange perioder (2000 f.Kr.–i dag) og zoome; fuld kontrol over stil |
-| Oplæsning | Fase 1: Web Speech API (gratis, i browseren). Fase 2: forudgenererede MP3'er (Azure TTS dansk stemme) | Browserens danske stemmer varierer i kvalitet; MP3 giver ens oplevelse og virker offline |
-| Podcasts | NotebookLM "Audio Overview" eksporteres og lægges i `media/podcasts/`, kobles til kapitler i `topic.json` | Ingen kode-afhængighed til NotebookLM |
-| Offline | PWA (service worker) | Brug på udstillingen uden net |
-| Database | Ingen i starten – filbaseret indhold | Simpelt at hoste og versionere i git. Kan udvides senere |
+| Backend | ASP.NET Core minimal API, **.NET 10** | Samme som read |
+| Frontend | React 19 + Vite + Tailwind 4 + TypeScript | Samme som read; Tailwind gør tema-tokens nemme |
+| Kort | Leaflet + react-leaflet, plus eget illustreret kortlag (SVG i codex-stil) | Gratis, ingen nøgle; kan skifte mellem rigtigt og tegnet kort |
+| Tidslinje | Egen SVG-komponent | Lange perioder (2000 f.Kr.–i dag), zoom, codex-stil |
+| Oplæsning | **Som read**: browserens stemme + Google Chirp 3 HD (danske AI-stemmer), valgt i en stemmemenu. Kapitlet afspilles som ét MP3-spor, så det læser videre med slukket skærm | Genbrug af afprøvet kode. Teksten er fast, så lyden caches og koster kun første gang |
+| Podcasts | NotebookLM-lyd i `media/podcasts/`, koblet til kapitler i `topic.json` | Ingen kode-afhængighed til NotebookLM |
+| Offline | PWA. Knap "Hent til offline", der gemmer tekst, billeder, kapitel-lyd og podcasts i service worker-cachen | Brug på museet uden net |
+| Billedgenkendelse | **Fra mission-bear-hug ("Udforsk → Museum")**: tag et billede af en genstand eller et skilt → Gemini genkender, oversætter og fortæller, med appens kapitler som baggrundsviden | Genbrug; giver en "guide i lommen" på udstillingen |
+| Indhold | Filer i git, ingen database og ingen redigering i appen | Simpelt at hoste og versionere |
+| Hosting | Simply (IIS, 32-bit), self-contained `win-x86`, Web Deploy fra GitHub Actions | Præcis som read (`docs/simply-deploy.md`) |
 
-### Hosting på Simply.com
-- `dotnet publish -c Release` → upload via Web Deploy/FTP til Simply-webhotellet (som de andre apps).
-- React bygges som en del af publish (MSBuild-target kører `npm run build` og kopierer til `wwwroot`).
-- Tidligt i forløbet laves en "hello world"-deploy for at sikre at .NET-version og opsætning passer.
+### Hosting på Simply (maya.kaspert.dk)
+- Opret `maya.kaspert.dk` som **eget site med egen mappe** hos Simply, og bestil SSL (Let's Encrypt).
+- GitHub environment `Production` med secrets: `SIMPLY_WEBDEPLOY_URL` (`kaspert.dk`), `SIMPLY_WEBDEPLOY_SITE` (`maya.kaspert.dk`), `SIMPLY_WEBDEPLOY_USERNAME`, `SIMPLY_WEBDEPLOY_PASSEORD`, `GOOGLE_TTS_API_KEY`, `GEMINI_API_KEY`.
+- Flow: branch → PR → CI grøn → merge til `main` → automatisk deploy (som read). Første deploy køres manuelt, og loggen tjekkes for slettede filer (erfaringen fra read).
+
+### Hvad genbruges fra de andre repoer
+| Fra | Hvad | Tilpasning |
+|---|---|---|
+| read | `Tts/` (GoogleTts, TtsCache, TtsStreams, Mp3, endpoints) | Næsten uændret |
+| read | `web/src/speech/` + `Player`, `VoiceSheet` | Afspiller kapitler i stedet for gemte tekster |
+| read | `ci.yml`, `deploy.yml`, `web.config`, `simply-deploy.md`, PWA-ikoner/manifest | Navne og secrets |
+| mission-bear-hug | `ExploreAssistantService` (genkend kunstværk, læs skilt, spørg) og dens prompts | Porteres fra Blazor/Clean Architecture til en lille `Vision/`-klasse i minimal API; React-side i stedet for Razor; kapiteltekster sendes med som baggrund |
 
 ## 3. Indhold – foreløbig kapiteloversigt
 
@@ -65,9 +83,15 @@ Maya/
 11. **Postklassisk tid** (ca. 900–1500) – Chichén Itzá, Mayapán, handelsbyer ved kysten.
 12. **Spanierne kommer** – erobringen 1520'erne–1697 (Nojpetén/Tayasal falder sidst).
 13. **Mayaerne i dag** – sprog, traditioner, genopdagelse, lidar-fund.
-14. **Klar til udstillingen** – tjekliste: hvad skal jeg kigge efter? (tilpasses udstillingens værker)
+14. **Klar til Moesgård** – hvad skal jeg kigge efter? Jademasker, stelaer, keramik osv. koblet til kapitlerne. Tilpasses udstillingens værker.
+
+Fokus vægtes mod **klassisk tid (kapitel 5–10)**, da det er udstillingens periode.
 
 Hvert kapitel: tekst (kort + "læs mere"), 1–3 illustrationer, markerede steder på kortet, markering på tidslinjen, oplæsning, evt. podcast, 2–3 quizspørgsmål.
+
+**Navigation:** En fortællelinje fra kapitel 1 til 14 med "næste/forrige", men man kan altid hoppe direkte til et kapitel, et sted på kortet, en periode på tidslinjen eller et ord i ordlisten. Kort, tidslinje og ordliste er også selvstændige faner. Bygget til mobil først (bundmenu, store trykflader).
+
+**Podcasts (blandet):** 1 samlet introduktion (ca. 15–20 min) + korte afsnit, hvor emnet fortjener det, fx "Skrift og kalender", "Konger og krig i klassisk tid", "Kollapset" og "Hvad skal vi se på Moesgård". Jeg laver kildetekster til NotebookLM pr. podcast.
 
 **Kildekritik**: Fakta tjekkes mod anerkendte kilder (museer, universiteter). Kilder listes pr. kapitel i front-matter.
 
@@ -81,34 +105,48 @@ Billederne skal "ligne noget rigtigt" men være vores egne. Tre kandidater (lave
 | **B. Arkæologisk akvarel** | Som 1800-tals ekspeditionstegninger (Catherwood): blød akvarel, sepia-blæk, ruiner i junglen | Ser "rigtigt" ud, museumsagtigt | Svært at gøre konsistent |
 | **C. Moderne flad illustration** | Rene former, begrænset palet, let skygge | Nemmest at lave mange af, nemt med SVG | Kan virke generisk |
 
-Forslag: **A til ikoner/glyffer/dekoration + B til store scenebilleder**, bundet sammen af én fælles farvepalet.
-Billederne kan laves med billed-AI ud fra en fast "stil-prompt", tegnes selv, eller begge. Jeg kan lave SVG-grafik (glyffer, kort, tidslinje, ornamenter) direkte i koden; fotorealistiske/malede scener kræver et billedværktøj eller jeres egne tegninger. Evt. suppleres med licensfri fotos af rigtige genstande (Wikimedia Commons, museers open access).
+**Valgt: A – Codex-stil** til alt.
+**Værktøj: Gemini.** Geminis billedgenerering kan bruge et referencebillede, hvilket er det vigtigste for en ensartet stil. Arbejdsgang:
+1. Vi laver ét "stilark": et godkendt billede i codex-stil + farvepalet (mayablå, rød okker, sort kontur, cremet barkpapir).
+2. En fast prompt-skabelon i `docs/billedstil.md`: `[motiv] i stil som det vedhæftede billede: maya-kodeks, flade farver, ...`.
+3. Hvert nyt billede laves med stilarket vedhæftet + skabelonen, så de ligner hinanden.
+4. Billeder gemmes som WebP i `content/maya/media/` med en kort note om, hvad der er rekonstruktion og ikke en rigtig genstand. Jeg kan lave SVG-grafik (glyffer, kort, tidslinje, ornamenter) direkte i koden; fotorealistiske/malede scener kræver et billedværktøj eller jeres egne tegninger. Evt. suppleres med licensfri fotos af rigtige genstande (Wikimedia Commons, museers open access).
 
 ## 5. Udviklingsproces – faser
 
 | Fase | Indhold | Resultat |
 |---|---|---|
 | **0. Brainstorm** | Afklare spørgsmålene nedenfor | Beslutninger skrevet ind i denne plan |
-| **1. Skelet + deploy** | .NET + React-projekt, build-pipeline, deploy "hello world" til Simply | Kører online – risiko for hosting fjernet tidligt |
+| **1. Skelet + deploy** | .NET 10 + React-projekt efter read's skabelon, CI + deploy-workflows, deploy til maya.kaspert.dk | Kører online – risiko for hosting fjernet tidligt |
 | **2. Indholdsmodel** | JSON/Markdown-format, API der læser indholdspakker, 2 prøvekapitler | Motoren er generisk og dokumenteret |
-| **3. Kernemoduler** | Kapitelvisning, tidslinje, kort, galleri, oplæsning, podcastafspiller | Alle byggeklodser virker med prøveindhold |
+| **3. Kernemoduler** | Kapitelvisning med navigation, tidslinje, kort, galleri, oplæsning (fra read), podcastafspiller | Alle byggeklodser virker med prøveindhold |
 | **4. Billedstil** | 3 prøvebilleder → vælg stil → stilguide + palet + prompt-skabelon | Fastlagt stil, design tokens |
 | **5. Indhold** | Research og skrivning af alle kapitler, illustrationer, NotebookLM-podcasts | Komplet maya-pakke |
-| **6. Ekstra** | Quiz, ordliste, "på udstillingen"-tilstand, offline/PWA, MP3-oplæsning | Klar til brug |
+| **6. Ekstra** | Quiz, ordliste, glyf-/kalenderleg, offline-download, billedgenkendelse (fra mission-bear-hug) | Klar til brug |
 | **7. Polering** | Mobiltest, tilgængelighed, ydelse, endelig deploy | Færdig app |
 | **8. Genbrug** | Skabelon-dokumentation: "Sådan laver du et nyt emne" | Klar til næste udstilling |
 
 Fase 1–3 kan køre parallelt med 4–5 (indhold og billeder kan laves mens koden bygges).
 
-## 6. Åbne spørgsmål (brainstorm)
+## 6. Beslutninger (brainstorm 31. oktober 2026)
 
-Se svar fra brainstorm – udfyldes efterhånden:
+- [x] Udstilling: Moesgård Museum, *Maya – Kongeriget under junglen*
+- [x] Målgruppe: voksne, mest mobil. Ingen børnetilstand
+- [x] Sprog: kun dansk
+- [x] Navigation: fortællelinje, men man kan hoppe frit rundt
+- [x] Omfang: 30–60 min at komme igennem
+- [x] Offline: ja
+- [x] Quiz, ordliste og interaktive elementer: ja
+- [x] Oplæsning: stemmer som i read (browser + Google Chirp 3 HD)
+- [x] Podcasts: blandet – en samlet intro og korte afsnit, hvor det giver mening
+- [x] Billedstil: A (codex-stil), lavet med Gemini
+- [x] Licensfri fotos af rigtige genstande: ja (Wikimedia Commons, museers open access)
+- [x] Teknik: .NET 10, deploy som read
+- [x] Domæne: maya.kaspert.dk
+- [x] Indhold redigeres kun i filerne
+- [x] Billedgenkendelse fra mission-bear-hug genbruges
 
-- [ ] Hvilken udstilling, hvor og hvornår? (deadline)
-- [ ] Målgruppe: voksne, børn, begge?
-- [ ] Sprog: kun dansk?
-- [ ] Billedstil: A, B, C eller mix?
-- [ ] Oplæsning: browserstemme ok, eller betale lidt for bedre dansk stemme?
-- [ ] Simply-opsætning: .NET-version, deploy-metode, domæne/subdomæne
-- [ ] Skal der være login/redigering, eller er indholdet statisk?
-- [ ] Ekstra funktioner: quiz, ordliste, børnetilstand, offline?
+### Stadig åbne
+- [ ] Login: skal appen være åben for alle, eller have et kodeord som read? (Google-stemmen og Gemini koster penge pr. kald)
+- [ ] Gemini-nøgle: må den ligge på serveren (secret), eller skal man indtaste sin egen som i mission-bear-hug?
+- [ ] Hvornår skal I på Moesgård? (deadline)

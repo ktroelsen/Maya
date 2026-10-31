@@ -1,5 +1,6 @@
 import { BookOpen, BookText, History, Map, type LucideIcon } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router';
+import OfflineBanner from './OfflineBanner';
 
 const nav: { to: string; label: string; icon: LucideIcon }[] = [
   { to: '/', label: 'Kapitler', icon: BookOpen },
@@ -37,6 +38,7 @@ export default function Layout() {
           </nav>
         </div>
       </header>
+      <OfflineBanner />
 
       <main className="flex-1 overflow-y-auto pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-10">
         <div className="mx-auto max-w-3xl px-4 py-6 md:py-10">

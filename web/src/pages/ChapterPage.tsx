@@ -4,10 +4,12 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { cached, formatPeriod, type Chapter } from '../api';
 import ChapterText from '../components/ChapterText';
 import Figure from '../components/Figure';
+import OfflineBanner from '../components/OfflineBanner';
 import Player from '../components/Player';
 import Quiz from '../components/Quiz';
 import Status from '../components/Status';
 import VoiceSheet from '../components/VoiceSheet';
+import { useOnline } from '../offline';
 import { getProgress, saveProgress } from '../progress';
 import { chapterSegments } from '../speech/chapterText';
 import { useVoiceSettings } from '../speech/settings';
@@ -40,6 +42,7 @@ function TopBar({ title, number }: { title: string; number?: number }) {
           <h1 className="truncate font-semibold">{title}</h1>
         </div>
       </div>
+      <OfflineBanner />
     </header>
   );
 }
@@ -56,6 +59,7 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
   const player = usePlayer(segments, voice, start, chapter.title);
   const [finished, setFinished] = useState(false);
   const [showVoices, setShowVoices] = useState(false);
+  const online = useOnline();
   const [hero, ...moreImages] = chapter.images;
   const reading = player.state === 'playing' || player.index > 0;
 
@@ -133,6 +137,14 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
             </Link>
           </div>
         </div>
+      )}
+      {!online && voice.provider === 'google' && (
+        <p className="border-t border-line bg-surface-2 px-4 py-2 text-center text-sm">
+          Google-stemmen kræver net.{' '}
+          <button onClick={() => setVoice({ provider: 'browser' })} className="font-medium text-accent underline">
+            Brug enhedens stemme
+          </button>
+        </p>
       )}
       <Player
         index={player.index}

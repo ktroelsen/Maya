@@ -1,6 +1,7 @@
 import { Check, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router';
 import { fetchTopic, formatPeriod, mediaUrl } from '../api';
+import OfflineCard from '../components/OfflineCard';
 import Status from '../components/Status';
 import { lastUnfinished, useProgress } from '../progress';
 import { useLoad } from '../useLoad';
@@ -69,6 +70,7 @@ export default function Home() {
           </li>
         ))}
       </ol>
+      <OfflineCard />
     </div>
   );
 }

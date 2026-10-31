@@ -163,7 +163,7 @@ Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten 
 | 3 | 3. nov | ✅ Oplæsning (fra read) + tidslinje i codex-stil (fremhæver kapitlets begivenheder). Kapitel 3–4 og 6–8 med illustrationer. Kildetekst og prompts til NotebookLM i `docs/podcasts/` |
 | 4 | 4. nov | ✅ Kort (Leaflet + OpenStreetMap i sepia, codex-markører, kapitlets steder fremhævet). Kapitel 9–11 med illustrationer |
 | 5 | 5. nov | ✅ Kapitel 12–14 inkl. "Klar til Moesgård" (punktlister i kapitler). Ordliste (40 ord). ⏳ Podcasts: venter på MP3 fra NotebookLM. ⏳ Kapitel 14 tilpasses udstillingens værker, når listen kendes |
-| 6 | 6. nov | Offline-download (PWA), mobiltest, rettelser. Billedgenkendelse, hvis der er tid |
+| 6 | 6. nov | ✅ »Hent til offline« (alle tekster, billeder, data og selve appen), offline-banner, hint om enhedens stemme offline. Testet offline i Chromium og i mørk tilstand. ⏳ Billedgenkendelse |
 | 7 | 7. nov | Besøg på Moesgård 🎉 |
 
 **Skal med:** alle 14 kapitler (fokus på 5–10 og 14), oplæsning, tidslinje, kort, illustrationer, offline.

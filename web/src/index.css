@@ -93,6 +93,33 @@ body {
 .map-dot-dim {
   opacity: 0.35;
 }
+.map-dot-ruin {
+  background: #9a8f80;
+  border-color: #5c544a;
+  opacity: 0.8;
+}
+.map-dot-landscape {
+  background: transparent;
+  border-color: var(--color-jade);
+  border-style: dashed;
+}
+.map-dot-pulse {
+  background: var(--color-blue);
+  animation: map-pulse 1.2s ease-out infinite;
+}
+@keyframes map-pulse {
+  0% {
+    box-shadow: 0 0 0 2px #f3e9d2, 0 0 0 2px rgb(34 87 138 / 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 2px #f3e9d2, 0 0 0 16px rgb(34 87 138 / 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-dot-pulse {
+    animation: none;
+  }
+}
 .leaflet-popup-content-wrapper {
   border-radius: 0.75rem;
   border: 2px solid var(--color-accent);

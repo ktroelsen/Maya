@@ -1,0 +1,19 @@
+{
+  "periods": [
+    { "id": "arkaisk", "label": "Arkaisk tid", "from": -8000, "to": -2000 },
+    { "id": "praeklassisk", "label": "Præklassisk tid", "from": -2000, "to": 250 },
+    { "id": "klassisk", "label": "Klassisk tid", "from": 250, "to": 900 },
+    { "id": "postklassisk", "label": "Postklassisk tid", "from": 900, "to": 1524 },
+    { "id": "kolonitid", "label": "Kolonitid og i dag", "from": 1524, "to": 2026 }
+  ],
+  "events": [
+    { "year": 378, "label": "Sihyaj K'ahk' ankommer til Tikal", "chapter": "05-klassisk-tid", "place": "tikal" },
+    { "year": 562, "label": "Caracol besejrer Tikal", "chapter": "05-klassisk-tid", "place": "caracol" },
+    { "year": 615, "label": "Pakal bliver konge i Palenque", "chapter": "05-klassisk-tid", "place": "palenque" },
+    { "year": 695, "label": "Tikal besejrer Calakmul", "chapter": "05-klassisk-tid", "place": "tikal" },
+    { "year": 734, "label": "Jasaw Chan K'awiil dør og begraves under Tempel I", "chapter": "05-klassisk-tid", "place": "tikal" },
+    { "year": 738, "label": "Copáns konge henrettes af Quiriguá", "chapter": "05-klassisk-tid", "place": "copan" },
+    { "year": 909, "label": "Sidste kendte dato i den lange kalender", "chapter": "05-klassisk-tid" },
+    { "year": 1697, "label": "Nojpetén, det sidste selvstændige mayarige, falder", "chapter": "01-moed-mayaerne" }
+  ]
+}

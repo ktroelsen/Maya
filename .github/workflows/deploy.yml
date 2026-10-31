@@ -1,0 +1,120 @@
+name: Deploy to Simply
+
+on:
+  # Hæng af CI: deploy kører først når CI er grøn på main (ikke parallelt med CI).
+  workflow_run:
+    workflows: [CI]
+    branches: [main]
+    types: [completed]
+  workflow_dispatch:          # tillader manuel kørsel fra GitHub UI
+
+# Kun én deploy ad gangen, så to samtidige pushes ikke slås om IIS-sitet.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # Deploy kun når den udløsende CI-kørsel lykkedes (workflow_dispatch har ingen
+    # workflow_run-kontekst, så den lukkes også igennem).
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: windows-latest
+    environment: Production     # binder til GitHub Environment "Production" (secrets ligger der)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Deploy præcis den commit CI validerede (ikke bare tip of main).
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      # Byg SPA'en og læg den i API'ets wwwroot, så den ene .NET-app serverer både
+      # frontend og API under samme origin.
+      - name: Build frontend into wwwroot
+        shell: pwsh
+        run: |
+          npm ci --prefix web
+          npm run build --prefix web
+          Remove-Item -Recurse -Force src/Maya.Api/wwwroot -ErrorAction SilentlyContinue
+          Copy-Item -Recurse web/dist src/Maya.Api/wwwroot
+
+      # Self-contained win-x86: Simply har ikke .NET 10-runtime, og app poolen kører 32-bit
+      # (se docs/simply-deploy.md). Commit-SHA'en vises som version i /api/health.
+      - name: Publish backend (self-contained)
+        run: dotnet publish src/Maya.Api/Maya.Api.csproj -c Release -r win-x86 --self-contained -o publish -p:SourceRevisionId=${{ github.sha }}
+
+      # Hemmeligheder lægges i appsettings.Production.json fra GitHub Secrets, så de
+      # aldrig står i repoet. Uden GOOGLE_TTS_API_KEY tilbydes kun enhedens egen stemme;
+      # GEMINI_API_KEY bruges af billedgenkendelsen (kommer senere).
+      - name: Configure production secrets
+        shell: pwsh
+        env:
+          GOOGLE_TTS_API_KEY: ${{ secrets.GOOGLE_TTS_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if (-not $env:GOOGLE_TTS_API_KEY) {
+            Write-Warning "GOOGLE_TTS_API_KEY secret not set; only the device's own voice is offered."
+          }
+          if (-not $env:GEMINI_API_KEY) {
+            Write-Warning "GEMINI_API_KEY secret not set; image recognition will be disabled."
+          }
+          # -Depth: ConvertTo-Json stops at depth 2 by default and would write Tts.Google as a string.
+          @{
+            Tts = @{ Google = @{ ApiKey = $env:GOOGLE_TTS_API_KEY } }
+            Gemini = @{ ApiKey = $env:GEMINI_API_KEY }
+          } | ConvertTo-Json -Depth 5 | Set-Content publish/appsettings.Production.json -Encoding utf8
+
+      # Synkronisér publish/ til IIS-sitets rod via Web Deploy. AppOffline stopper appen så
+      # de låste exe/dll'er kan udskiftes; App_Data (lyd-cachen) skippes, så data
+      # overlever redeploys. logs/ (ANCM stdout-logs ved fejlfinding) skippes også: en låst
+      # logfil fik ellers hele synkroniseringen til at fejle (erfaring fra stamtrae).
+      - name: Deploy to Simply via Web Deploy
+        shell: pwsh
+        env:
+          WEBDEPLOY_URL: ${{ secrets.SIMPLY_WEBDEPLOY_URL }}
+          WEBDEPLOY_SITE: ${{ secrets.SIMPLY_WEBDEPLOY_SITE }}
+          WEBDEPLOY_USERNAME: ${{ secrets.SIMPLY_WEBDEPLOY_USERNAME }}
+          WEBDEPLOY_PASSWORD: ${{ secrets.SIMPLY_WEBDEPLOY_PASSEORD }}
+        run: |
+          $msdeploy = "${env:ProgramFiles}\IIS\Microsoft Web Deploy V3\msdeploy.exe"
+          if (-not (Test-Path $msdeploy)) {
+            $msdeploy = "${env:ProgramFiles(x86)}\IIS\Microsoft Web Deploy V3\msdeploy.exe"
+          }
+          if (-not (Test-Path $msdeploy)) {
+            Write-Error "msdeploy.exe not found on the runner"
+            exit 1
+          }
+
+          # Byg hvert argument som én samlet streng (PowerShells komma-split
+          # kolliderer ellers med msdeploys komma-separerede provider-settings).
+          $source = "-source:contentPath=$PWD\publish"
+          $dest = "-dest:contentPath=$($env:WEBDEPLOY_SITE),computerName=https://$($env:WEBDEPLOY_URL):8172/msdeploy.axd?site=$($env:WEBDEPLOY_SITE),userName=$($env:WEBDEPLOY_USERNAME),password=$($env:WEBDEPLOY_PASSWORD),authType=Basic"
+
+          $skipDir = '-skip:objectName=dirPath,absolutePath=.*(App_Data|\\logs).*'
+          $skipFile = '-skip:objectName=filePath,absolutePath=.*(App_Data|\\logs\\).*'
+
+          & $msdeploy `
+            -verb:sync `
+            $source `
+            $dest `
+            -allowUntrusted `
+            -enableRule:AppOffline `
+            $skipDir `
+            $skipFile
+
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "msdeploy failed with exit code $LASTEXITCODE"
+            exit $LASTEXITCODE
+          }

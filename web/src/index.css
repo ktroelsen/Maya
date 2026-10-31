@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+/* Codex palette (docs/billedstil.md). Semantic tokens; dark mode swaps their values, so
+   components only use bg-ink / bg-surface / text-fg / text-muted / border-line / accent. */
+@theme {
+  --color-ink: #f3e9d2;          /* bark paper */
+  --color-surface: #faf4e6;
+  --color-surface-2: #eadcbd;
+  --color-line: #d9c7a0;
+  --color-fg: #1c1a17;           /* black outline */
+  --color-muted: #6b5d4a;
+  --color-accent: #b5432a;       /* red ochre */
+  --color-accent-strong: #933421;
+  --color-on-accent: #fffaf0;
+  --color-blue: #2e6fa7;         /* Maya blue */
+  --color-ochre: #d9a441;        /* yellow ochre */
+  --color-jade: #3f7a5a;
+  --color-mark: rgb(217 164 65 / 0.35);
+  --color-danger: #a3201b;
+
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ink: #1c1712;
+    --color-surface: #262019;
+    --color-surface-2: #332a20;
+    --color-line: #463a2c;
+    --color-fg: #f1e6cf;
+    --color-muted: #b3a389;
+    --color-accent: #e0704f;
+    --color-accent-strong: #c95a3a;
+    --color-on-accent: #1c1712;
+    --color-blue: #6fa8d8;
+    --color-ochre: #e2b45a;
+    --color-jade: #6fae8a;
+    --color-mark: rgb(226 180 90 / 0.25);
+    --color-danger: #f28b82;
+  }
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-ink text-fg antialiased;
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Thin codex-style frame: red ochre line with a little paper margin. */
+.codex-frame {
+  @apply rounded-xl border-2 border-accent/70 p-1;
+}

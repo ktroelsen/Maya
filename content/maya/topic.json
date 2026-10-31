@@ -1,0 +1,24 @@
+{
+  "id": "maya",
+  "title": "Mayaerne",
+  "subtitle": "Forberedelse til »Maya – Kongeriget under junglen« på Moesgård",
+  "cover": "stil/tempel1-codex-stilark.webp",
+  "intro": "Hvem var mayaerne, hvor boede de, og hvordan blev junglens kongeriger til? Læs eller lyt dig igennem fortællingen fra de første majsmarker til mayaerne i dag – og bliv klar til udstillingen.",
+  "chapters": [
+    "01-moed-mayaerne",
+    "02-landet",
+    "03-begyndelsen",
+    "04-praeklassisk-tid",
+    "05-klassisk-tid",
+    "06-hverdagsliv",
+    "07-tro-og-ritualer",
+    "08-viden",
+    "09-kunst-og-arkitektur",
+    "10-kollapset",
+    "11-postklassisk-tid",
+    "12-spanierne-kommer",
+    "13-mayaerne-i-dag",
+    "14-klar-til-moesgaard"
+  ],
+  "podcasts": []
+}

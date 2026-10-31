@@ -1,0 +1,21 @@
+# Node / frontend
+node_modules/
+web/dist/
+*.log
+.env*
+!.env.example
+
+# .NET
+[Bb]in/
+[Oo]bj/
+*.user
+.vs/
+TestResults/
+
+# Runtime data (saved texts, data-protection keys) and build output copied in at deploy
+src/Maya.Api/App_Data/
+src/Maya.Api/wwwroot/
+publish/
+
+.claude/
+.DS_Store

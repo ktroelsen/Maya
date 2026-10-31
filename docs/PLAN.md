@@ -158,7 +158,7 @@ Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten 
 
 | Dag | Dato | Mål |
 |---|---|---|
-| 1 | 1. nov | Skelet fra read (.NET 10 + React), CI/deploy, maya.kaspert.dk online. Indholdsmodel + API |
+| 1 | 1. nov | ✅ Skelet fra read (.NET 10 + React), CI/deploy, indholdsmodel + API, kapitelvisning med oplæsning, 2 prøvekapitler. ⏳ maya.kaspert.dk online (kræver merge til `main`) |
 | 2 | 2. nov | Kapitelvisning, navigation (næste/forrige, bundmenu), tema i codex-stil. Kapitel 1, 2 og 5 skrevet |
 | 3 | 3. nov | Oplæsning (fra read) + tidslinje. Kapitel 3–4 og 6–8. Kildetekster til NotebookLM-intro |
 | 4 | 4. nov | Kort (Leaflet + steder). Kapitel 9–11. Illustrationer til klassisk tid |

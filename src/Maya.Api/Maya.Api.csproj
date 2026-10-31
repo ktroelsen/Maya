@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Simply: run the self-contained exe out-of-process (see docs/simply-deploy.md). -->
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <!-- Local keys for development: dotnet user-secrets set "Tts:Google:ApiKey" ... (see README). -->
+    <UserSecretsId>maya-api-3b8e1f5c-6a2d-4e9b-8c71-0d4f2a9e6b13</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+  </ItemGroup>
+
+  <!-- The content packages (content/<topic>/) ship next to the app, in content/. -->
+  <ItemGroup>
+    <None Include="..\..\content\**\*" LinkBase="content" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

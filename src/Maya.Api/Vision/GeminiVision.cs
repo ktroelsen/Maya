@@ -120,6 +120,12 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
             var headings = c.Markdown.Split('\n').Where(l => l.StartsWith("## ")).Select(l => l[3..].Trim());
             sb.AppendLine($"- {c.Id} – {c.Title} – {c.Summary} – {string.Join("; ", headings)}");
         }
+        if (content.GuideNotes is { Length: > 0 } notes)
+        {
+            sb.AppendLine();
+            sb.AppendLine("Særlig baggrund (brug den, når billedet passer):");
+            sb.AppendLine(notes);
+        }
         return sb.ToString();
     }
 

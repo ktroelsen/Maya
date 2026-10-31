@@ -4,7 +4,7 @@ Kildetekst til NotebookLM. Den giver det samlede overblik, også over de kapitle
 
 ## Udstillingen
 
-*Maya – Kongeriget under junglen* vises på Moesgård Museum i Aarhus fra 9. oktober 2026 til 8. august 2027. Ifølge omtalen handler den om klassisk tid (ca. 250–900 e.Kr.), har omkring 200 genstande udlånt fra Mexico og har en jademaske fra en herskers grav som et af hovedværkerne.
+*Maya – riget under junglen* vises på Moesgård Museum ved Aarhus fra 9. oktober 2026 til 8. august 2027. Den handler om Slangedynastiet, Kaanul, »mayaernes mægtigste rige«, med omkring 200 genstande lånt fra Mexico. Dynastiet blev grundlagt i Dzibanche i begyndelsen af 400-tallet af Yuknom Ch'en I; kong »Himmelvidne« besejrede Tikal i 562; senere styredes riget fra Calakmul under Yuknom Ch'en II. Hovedværkerne er syv jademasker fra herskergrave i Dzibanche (bl.a. Yuknom Ch'en I, Himmelvidne og Uk'ay Kan), og alle på nær én vises for første gang. Den røde tråd er slangehieroglyffen. Udstillingen har tolv rum, fra »Jagten på riget under junglen« over majsen, Calakmul, paladset, boldspillet og tempelpyramiden til »Jademasken og det evige liv«.
 
 ## Hovedlinjen
 

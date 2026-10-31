@@ -41,6 +41,9 @@ public class ContentStore
     public string MediaDir => Path.Combine(TopicDir, "media");
     public Topic Topic => _topic.Value;
 
+    /// <summary>Optional guide.md: extra background for the photo guide (e.g. the exhibition's highlights), or null.</summary>
+    public string? GuideNotes => DataFile("guide.md")?.Trim();
+
     /// <summary>One of the optional data files (timeline.json, places.geojson, glossary.json) as raw JSON, or null.</summary>
     public string? DataFile(string name)
     {

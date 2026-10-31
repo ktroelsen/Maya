@@ -2,7 +2,7 @@
 
 En illustreret app der fortæller historien om mayaerne – hvem de var, hvor de boede, hvornår og hvordan det hele startede – med kort, billeder, tidslinje, oplæsning og podcasts. Den skal bygges så kodedelen kan genbruges til fremtidige emner (andre udstillinger, rejser, historiske emner).
 
-**Udstillingen:** *Maya – Kongeriget under junglen* på Moesgård Museum, Aarhus (9. oktober 2026 – 8. august 2027). Ifølge omtalen dækker den klassisk tid (ca. 250–900 e.Kr.), har ca. 200 genstande udlånt fra Mexico og har en jademaske fra en herskers grav som et af hovedværkerne. Vi bekræfter detaljerne (hvilket kongerige, hvilke værker) i fase 5. **Besøg: 7. november 2026.**
+**Udstillingen:** *Maya – riget under junglen* på Moesgård Museum, Aarhus (9. oktober 2026 – 8. august 2027). Den handler om **Slangedynastiet (Kaanul)** i klassisk tid (ca. 250–900 e.Kr.), har ca. 200 genstande lånt fra Mexico (INAH), og hovedværkerne er **7 jademasker fra herskergrave i Dzibanche**. Detaljer og åbne spørgsmål: `docs/moesgaard-mangler.md`. **Besøg: 7. november 2026.**
 
 **Kører på:** https://maya.kaspert.dk
 
@@ -130,7 +130,7 @@ Fase 1–3 kan køre parallelt med 4–5 (indhold og billeder kan laves mens kod
 
 ## 6. Beslutninger (brainstorm 31. oktober 2026)
 
-- [x] Udstilling: Moesgård Museum, *Maya – Kongeriget under junglen*
+- [x] Udstilling: Moesgård Museum, *Maya – riget under junglen*
 - [x] Målgruppe: voksne, mest mobil. Ingen børnetilstand
 - [x] Sprog: kun dansk
 - [x] Navigation: fortællelinje, men man kan hoppe frit rundt
@@ -169,3 +169,20 @@ Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten 
 **Skal med:** alle 14 kapitler (fokus på 5–10 og 14), oplæsning, tidslinje, kort, illustrationer, offline.
 **Hvis der er tid:** podcast-afsnit ud over introen, ordliste, quiz, billedgenkendelse.
 **Efter besøget:** quiz, glyf-/kalenderleg, polering, skabelon-dokumentation (fase 8).
+
+## 8. Senere: flere emner i samme app (fase 8)
+
+Besluttet 31. oktober: én app med flere emner (mayaerne, vikingerne …), samme funktioner og samme udtryk – kun tekster og billeder er forskellige. Laves **efter besøget**, når Maya-appen er på plads. Skøn: ca. en dags arbejde på motoren + vejledning; derefter er et nyt emne kun indhold (svarende til dag 2–5).
+
+**Plan:**
+- Backend: indlæs alle mapper under `content/`; adresser med emnet (`/api/topics`, `/api/topics/{emne}/…`, `/media/{emne}/…`); guiden får emnet med.
+- Frontend: forside med emnerne; ruter som `/{emne}/kapitel/…`; emnets navn i topbjælken; neutralt app-navn og ikon (én app på hjemmeskærmen).
+- Læseposition, »læst«-flueben og »Hent til offline« pr. emne.
+- Værktøjerne (billeder, podcast) tager emnet som parameter; podcast-afsnit flyttes ind i emnets mappe.
+- Domæne: fx historie.kaspert.dk, hvor maya.kaspert.dk sender videre til `/maya`, så links og installationer virker.
+- Vejledning: »Sådan laver du et nyt emne«.
+
+**Husk allerede nu, når der bygges noget nyt** (så fase 8 bliver let):
+- Intet emne-specifikt i koden – alt emne-specifikt i `content/<emne>/` (også tekster til guiden og podcasts).
+- Nøgler i telefonens lager (`localStorage`, cache-navne) og id'er skal kunne få emnet foran.
+- Rester at rydde op i fase 8: »Mayaerne« står fast i topbjælken, `index.html`, manifestet og som kunstner på låseskærmen; lagernøgler hedder `maya.*`; projektet hedder `Maya.Api`.

@@ -96,6 +96,7 @@ public class VisionTests(VisionFactory factory) : IClassFixture<VisionFactory>
         Assert.Equal("gemini-test-key", key);
         var system = body["systemInstruction"]!["parts"]![0]!["text"]!.GetValue<string>();
         Assert.Contains("05-klassisk-tid", system);
+        Assert.Contains("Dzibanche", system);   // from the topic's guide.md
         var parts = body["contents"]![0]!["parts"]!.AsArray();
         Assert.Equal("image/jpeg", parts[0]!["inlineData"]!["mimeType"]!.GetValue<string>());
         var text = parts[1]!["text"]!.GetValue<string>();

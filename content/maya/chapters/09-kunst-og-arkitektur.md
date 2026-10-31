@@ -2,7 +2,7 @@
 title: Kunst og arkitektur
 summary: Pyramider uden rigtige buer, vægmalerier i mayablå, jademasker og malede bægre.
 period: { from: 250, to: 900, label: "Især klassisk tid, ca. 250–900 e.Kr." }
-places: [bonampak, palenque, copan, tikal, calakmul, jaina]
+places: [bonampak, palenque, copan, tikal, calakmul, dzibanche, jaina]
 images:
   - src: kapitler/kunst.webp
     alt: En maler maler et vægmaleri i mayablå, mens en håndværker samler en jademaske af små stykker
@@ -56,7 +56,7 @@ Mayablå er en af de mest holdbare farver, man kender. Den blev lavet af indigo 
 
 ## Jade – mere værd end guld
 
-Den grønne jade fra Motagua-dalen var det mest værdifulde materiale, mayaerne kendte. Den var grøn som de unge majsplanter og som vand, og den stod for liv og evighed. Konger blev begravet med halskæder, ørepropper og armbånd af jade – og nogle med en dødsmaske lavet af hundredvis af små stykker jade, med øjne af muslingeskal og obsidian. Pakal i Palenque fik en, og flere er fundet i Calakmul.
+Den grønne jade fra Motagua-dalen var det mest værdifulde materiale, mayaerne kendte. Den var grøn som de unge majsplanter og som vand, og den stod for liv og evighed. Konger blev begravet med halskæder, ørepropper og armbånd af jade – og nogle med en dødsmaske lavet af hundredvis af små stykker jade, med øjne af muslingeskal og obsidian. Pakal i Palenque fik en, og flere er fundet i Calakmul. I herskergravene i Dzibanche, Slangerigets første hovedstad, er der fundet syv jademasker – dem kan man se på Moesgård.
 
 Jade er så hårdt, at det ikke kan skæres med en kniv. Det blev savet med snore og sand og slebet i uger og måneder.
 

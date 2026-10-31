@@ -17,9 +17,10 @@
   },
   {
     "term": "Kaanul",
-    "definition": "Slangeriget. Kongerigets navn, med hovedstad i Calakmul i det meste af klassisk tid.",
+    "definition": "Slangeriget (Moesgård staver det »Kanul«). Mayaernes mægtigste rige, grundlagt i Dzibanche i 400-tallet og senere styret fra Calakmul. Udstillingen på Moesgård handler om det.",
     "chapters": [
-      "05-klassisk-tid"
+      "05-klassisk-tid",
+      "14-klar-til-moesgaard"
     ]
   },
   {
@@ -280,6 +281,30 @@
     "term": "eccentric",
     "definition": "Forunderligt formet figur af flint eller obsidian, lagt som offer under bygninger.",
     "chapters": [
+      "14-klar-til-moesgaard"
+    ]
+  },
+  {
+    "term": "Dzibanche",
+    "definition": "By i det sydlige Quintana Roo i Mexico, Slangerigets første hovedstad. Her er udstillingens syv jademasker fundet.",
+    "chapters": [
+      "05-klassisk-tid",
+      "14-klar-til-moesgaard"
+    ]
+  },
+  {
+    "term": "slangehieroglyf",
+    "definition": "Slangerigets emblemglyf, et slangehoved. Den røde tråd i udstillingen på Moesgård.",
+    "chapters": [
+      "05-klassisk-tid",
+      "14-klar-til-moesgaard"
+    ]
+  },
+  {
+    "term": "pitz",
+    "definition": "Mayaernes ord for boldspillet.",
+    "chapters": [
+      "07-tro-og-ritualer",
       "14-klar-til-moesgaard"
     ]
   }

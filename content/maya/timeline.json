@@ -89,8 +89,20 @@
       "place": "tikal"
     },
     {
+      "year": 402,
+      "label": "Ca. 402: Yuknom Ch'en I grundlægger Slangedynastiet i Dzibanche",
+      "chapter": "05-klassisk-tid",
+      "place": "dzibanche"
+    },
+    {
+      "year": 455,
+      "label": "Yuknom Ch'en I begraves med jademaske i Jaguartemplet",
+      "chapter": "14-klar-til-moesgaard",
+      "place": "dzibanche"
+    },
+    {
       "year": 562,
-      "label": "Caracol besejrer Tikal",
+      "label": "Slangeriget (kong Himmelvidne) og Caracol besejrer Tikal",
       "chapter": "05-klassisk-tid",
       "place": "caracol"
     },
@@ -107,8 +119,14 @@
       "place": "palenque"
     },
     {
+      "year": 636,
+      "label": "Yuknom Ch'en II bliver konge – Slangeriget styres fra Calakmul",
+      "chapter": "05-klassisk-tid",
+      "place": "calakmul"
+    },
+    {
       "year": 695,
-      "label": "Tikal besejrer Calakmul",
+      "label": "Tikal besejrer Slangeriget og Calakmul",
       "chapter": "05-klassisk-tid",
       "place": "tikal"
     },
@@ -222,6 +240,11 @@
       "year": 1847,
       "label": "Kastekrigen begynder på Yucatán",
       "chapter": "13-mayaerne-i-dag"
+    },
+    {
+      "year": 1922,
+      "label": "Danskeren Frans Blom på ekspedition i mayaområdet",
+      "chapter": "14-klar-til-moesgaard"
     },
     {
       "year": 1960,

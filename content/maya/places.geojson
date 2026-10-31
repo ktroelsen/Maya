@@ -73,8 +73,7 @@
           "02-landet",
           "05-klassisk-tid",
           "08-viden",
-          "09-kunst-og-arkitektur",
-          "14-klar-til-moesgaard"
+          "09-kunst-og-arkitektur"
         ]
       },
       "geometry": {
@@ -391,8 +390,7 @@
         "id": "jaina",
         "name": "Jaina",
         "chapters": [
-          "09-kunst-og-arkitektur",
-          "14-klar-til-moesgaard"
+          "09-kunst-og-arkitektur"
         ]
       },
       "geometry": {
@@ -726,6 +724,25 @@
         "coordinates": [
           -89.45,
           18.67
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "dzibanche",
+        "name": "Dzibanche",
+        "chapters": [
+          "05-klassisk-tid",
+          "09-kunst-og-arkitektur",
+          "14-klar-til-moesgaard"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.7619,
+          18.6386
         ]
       }
     }

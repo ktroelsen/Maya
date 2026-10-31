@@ -1,14 +1,16 @@
 ---
 title: Klassisk tid – kongerigerne
-summary: Fra ca. 250 til 900 e.Kr. blomstrede junglens kongeriger. Tikal og Calakmul kæmpede om magten.
+summary: Fra ca. 250 til 900 e.Kr. blomstrede junglens kongeriger. Slangeriget Kaanul og Tikal kæmpede om magten.
 period: { from: 250, to: 900, label: "ca. 250–900 e.Kr." }
-places: [tikal, calakmul, caracol, palenque, copan, quirigua]
+places: [tikal, dzibanche, calakmul, caracol, palenque, copan, quirigua]
 images:
   - src: stil/tempel1-codex-stilark.webp
     alt: Tempel I i Tikal med stelaer foran, tegnet i codex-stil
     caption: Tempel I i Tikal blev bygget som gravmonument for kong Jasaw Chan K'awiil, der døde omkring 734.
     illustration: true
 sources:
+  - title: Moesgård Museum – Maya. Riget under junglen
+    url: https://moesgaardmuseum.dk/udstillinger/aktuelle-udstillinger/maya-riget-under-junglen
   - title: Simon Martin & Nikolai Grube – Chronicle of the Maya Kings and Queens (2. udg. 2008)
   - title: Encyclopaedia Britannica – Tikal
     url: https://www.britannica.com/place/Tikal
@@ -20,7 +22,11 @@ quiz:
     answer: 0
     explanation: De klassiske mayakonger kaldte sig k'uhul ajaw, hellig herre – de var både politiske ledere og bindeled til guderne.
   - question: Hvilke to kongeriger var de store rivaler i klassisk tid?
-    options: ["Palenque og Copán", "Tikal og Calakmul", "Chichén Itzá og Mayapán"]
+    options: ["Palenque og Copán", "Tikal og Slangeriget Kaanul", "Chichén Itzá og Mayapán"]
+    answer: 1
+    explanation: Slangeriget blev grundlagt i Dzibanche og styredes senere fra Calakmul. Det er Slangeriget, udstillingen på Moesgård handler om.
+  - question: Hvor blev Slangedynastiet grundlagt?
+    options: ["I Tikal", "I Dzibanche", "I Palenque"]
     answer: 1
   - question: Hvem blev begravet under Tempel I i Tikal?
     options: ["Kong Pakal", "Kong Jasaw Chan K'awiil", "Kong Waxaklajuun Ubaah K'awiil"]
@@ -35,17 +41,21 @@ I centrum af hvert kongerige stod kongen, »k'uhul ajaw«, den hellige herre. Ha
 
 Kongerne lod deres bedrifter hugge ind i høje stensøjler, stelaer, som blev stillet op på byens pladser. Her står, hvornår kongen blev født, hvornår han blev indsat på tronen, hvilke krige han vandt, og hvilke fanger han tog. Fordi forskerne i dag kan læse det meste af mayaskriften, kender vi navnene på hundredvis af konger og dronninger.
 
-## Tikal og Calakmul
+## Slangeriget og Tikal
 
-To kongeriger var stærkere end alle de andre. Tikal, i regnskoven i det nordlige Guatemala, var en af de største byer med måske 60.000 indbyggere eller flere. Lidt mod nord lå Calakmul, hovedstad for Slangeriget, Kaanul.
+To kongeriger var stærkere end alle de andre. Det ene var Tikal, i regnskoven i det nordlige Guatemala, en af de største byer med måske 60.000 indbyggere eller flere. Det andet var Kaanul – Slangeriget – som er det, udstillingen på Moesgård handler om. Kongerne skrev rigets navn med et slangehoved, og den slangehieroglyf går igen overalt, hvor Slangeriget var.
+
+Ifølge Moesgårds udstilling blev Slangedynastiet grundlagt i byen Dzibanche i det sydlige Quintana Roo i Mexico i begyndelsen af 400-tallet. Grundlæggeren hed Yuknom Ch'en den Første. Han døde omkring år 455 og blev begravet i Jaguartemplet i Dzibanche med en maske af jade.
 
 I år 378 skete noget dramatisk i Tikal. En fremmed krigsherre ved navn Sihyaj K'ahk' ankom med forbindelser til stormagten Teotihuacan langt mod vest i det centrale Mexico. Samme dag døde Tikals konge, og kort efter sad en ny konge med bånd til Teotihuacan på tronen. I de næste to hundrede år var Tikal den førende magt.
 
-Men Calakmul byggede et netværk af allierede rundt om Tikal. I 562 blev Tikal besejret af byen Caracol, som var allieret med Calakmul. Derefter blev der i over hundrede år næsten ikke rejst nye monumenter i Tikal. Under kong Yuknoom Ch'een den Store i 600-tallet var Calakmul den stærkeste magt i mayaområdet.
+Men Slangeriget byggede et netværk af allierede rundt om Tikal. I 562 blev Tikal besejret af Slangerigets konge, som forskerne kalder Himmelvidne, sammen med den allierede by Caracol. Derefter blev der i over hundrede år næsten ikke rejst nye monumenter i Tikal.
+
+I 600-tallet flyttede Slangeriget sit hovedsæde til Calakmul, en kæmpe by i regnskoven i Campeche. Under kong Yuknom Ch'en den Anden, også kaldet den Store, var Calakmul den stærkeste magt i hele mayaområdet. Han regerede i halvtreds år og bandt kongerige efter kongerige til sig med alliancer, ægteskaber og krig.
 
 ## Tikal rejser sig igen
 
-I 695 vendte lykken. Tikals konge Jasaw Chan K'awiil besejrede Calakmul i et stort slag. Han satte gang i en ny storhedstid, og da han døde omkring 734, blev han begravet i en grav fuld af jade under det tempel, vi i dag kalder Tempel I. Templet er omkring 47 meter højt og et af de mest kendte billeder på mayaernes verden.
+I 695 vendte lykken. Tikals konge Jasaw Chan K'awiil besejrede Slangeriget og Calakmul i et stort slag, og Slangeriget mistede meget af sin magt. Han satte gang i en ny storhedstid, og da han døde omkring 734, blev han begravet i en grav fuld af jade under det tempel, vi i dag kalder Tempel I. Templet er omkring 47 meter højt og et af de mest kendte billeder på mayaernes verden.
 
 ## Andre kongeriger
 

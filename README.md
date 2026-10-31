@@ -1,6 +1,6 @@
 # Mayaerne
 
-En illustreret app om mayaernes historie – kapitler, tidslinje, kort, ordliste, quiz og oplæsning – som forberedelse til udstillingen *Maya – Kongeriget under junglen* på Moesgård. Bygget, så motoren kan genbruges til nye emner: alt indhold ligger i `content/<emne>/`.
+En illustreret app om mayaernes historie – kapitler, tidslinje, kort, ordliste, quiz og oplæsning – som forberedelse til udstillingen *Maya – riget under junglen* på Moesgård. Bygget, så motoren kan genbruges til nye emner: alt indhold ligger i `content/<emne>/`.
 
 Kører på https://maya.kaspert.dk. Se `docs/PLAN.md` for plan og beslutninger.
 

@@ -38,7 +38,7 @@ EPISODES = {
         'chapters': None,  # all
         'extra': ['intro-kilde.md'],
         'brief': (
-            'En samlet introduktion for voksne, der skal se udstillingen »Maya – Kongeriget under junglen« på Moesgård. '
+            'En samlet introduktion for voksne, der skal se udstillingen »Maya – riget under junglen« på Moesgård. '
             'Følg historien i kronologisk rækkefølge, men som et sammendrag: vælg de bedste historier og de vigtigste pointer '
             'i stedet for at gennemgå alt. Brug konkrete personer (fx Jasaw Chan K\'awiil, Pakal, dronning K\'abal Xook, '
             'heltetvillingerne). Ryd op i myterne (mayaerne forsvandt ikke, 2012). Slut med, hvad man skal kigge efter på '

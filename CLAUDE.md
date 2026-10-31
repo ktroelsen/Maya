@@ -5,6 +5,7 @@
 - Frontend: `npm --prefix web run lint` og `npm --prefix web run build`.
 - UI-tekster og indhold er på dansk; kode og kommentarer på engelsk.
 - Genbrug: motoren må ikke kende ordet "maya". Alt emne-specifikt ligger i `content/<emne>/` (`topic.json`, `chapters/*.md` med YAML front-matter, `timeline.json`, `places.geojson`, `glossary.json`, `media/`). Emnet vælges med `Content:Topic`. Kapitlernes nummer er deres plads i `topic.json`; kapitler, der ikke er skrevet endnu, springes over.
+- Flere emner i samme app er planlagt (fase 8 i `docs/PLAN.md`). Byg alt nyt, så emnet kan komme med i adresser, lagernøgler og prompts – intet emne-specifikt i koden.
 - Indhold kopieres med ud ved build/publish (`content/**` → `content/` ved siden af appen) og læses én gang (`ContentStore`). Medier serveres under `/media/`.
 - Intet login. Google-stemmen (`src/Maya.Api/Tts/`, kopieret fra read) er begrænset pr. IP (`Tts:RequestsPerMinute`, kun de kald, der syntetiserer) og pr. dag (`Tts:DailyCharLimit`); lyden caches i `App_Data/tts-cache`.
 - Oplæsning i frontend (`web/src/speech/`) er kopieret fra read: browserens stemme eller Google Chirp 3 HD bag `SpeechEngine`; kald altid den fælles `engine` fra `speech/settings.ts`. Kapitlets Markdown laves til sætninger i `speech/chapterText.ts`.

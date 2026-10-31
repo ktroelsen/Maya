@@ -28,11 +28,15 @@ Kongerne, templerne og krigene fylder meget i historiebøgerne. Men langt de fle
 
 ## Huset og gården
 
+![Maya-familie i gårdspladsen ved et stråtækt hus, hvor en kvinde væver stof.](afsnit/06-hverdagsliv-1.webp "En maya-familie arbejder i gården ved deres stråtækte hus på en lav platform af sten.")
+
 En almindelig familie boede i huse af træ, flettede grene og ler, med stråtag af palmeblade. Husene stod på lave platforme af sten og jord, så de holdt sig tørre i regntiden. Flere huse lå omkring en lille gårdsplads, hvor en storfamilie – bedsteforældre, børn og børnebørn – levede sammen. Her blev der lavet mad, vævet og arbejdet.
 
 De døde blev ofte begravet under husets gulv. På den måde blev forfædrene boende hos familien.
 
 ## Amerikas Pompeji
+
+![En maya-landsby med stråtækte huse og afgrøder dækket af et lag vulkansk aske.](afsnit/06-hverdagsliv-2.webp "Landsbyen Joya de Cerén med huse, redskaber og afgrøder, som blev bevaret under et lag af vulkansk aske.")
 
 Det meste af hverdagslivet er forsvundet, for træ og strå rådner. Men ét sted er det bevaret. Omkring år 600 gik et vulkanudbrud i gang ved landsbyen Joya de Cerén i El Salvador. Indbyggerne nåede at flygte, men landsbyen blev begravet under flere meter aske.
 
@@ -40,11 +44,15 @@ Da arkæologerne gravede den frem, fandt de huse med vægge og tage, potter med 
 
 ## Mad og drikke
 
+![En maya-kvinde i kodeksstil hælder skummende kakaodrik mellem to keramiske bægere.](afsnit/06-hverdagsliv-3.webp "En maya-kvinde hælder kakao fra ét bæger til et andet for at skabe det eftertragtede skum.")
+
 Majs var grundlaget. Den blev spist som tamales og som en tyk, varm drik, ul. Dertil kom bønner, squash, chili, avocado og frugter. Kød kom fra hjorte, kalkuner, fisk og hunde, som blev opdrættet til at spise.
 
 Kakao var en luksus. Den blev drukket som en bitter drik, ofte med chili eller honning. Man hældte den fra et bæger op i et andet, holdt lavt, så den skummede – skummet var det fineste. Kakaobønner var så værdifulde, at de senere blev brugt som penge.
 
 ## Arbejde og handel
+
+![Et historisk maya-marked med en vævende kvinde, en handelsmand og en bærer.](afsnit/06-hverdagsliv-4.webp "Et maya-marked, hvor en kvinde væver bomuld, mens en handelsmand og en bærer udveksler varer.")
 
 Mændene arbejdede mest på markerne, mens kvinderne lavede mad og vævede tøj af bomuld på en båndvæv, der var bundet om livet. Det farvede tøj var både tøj og værdi: det blev betalt som skat til kongerne.
 
@@ -54,8 +62,12 @@ I Calakmul har arkæologer fundet vægmalerier fra 600-tallet, der viser et mark
 
 ## Skønhed
 
+![Maya-noble med formet kranie, jadeøreringe og indlagte jadetænder kigger i et spejl.](afsnit/06-hverdagsliv-5.webp "En maya-noble med kunstigt formet pande, jade-smykker og jadeindlagte tænder spejler sig i et obsidianspejl.")
+
 Mayaerne havde deres egne skønhedsidealer. Mange fik som spæde hovedet formet ved at binde det mellem to brædder, så panden blev lang og skrå – som majsguden. Nogle fik filet tænderne og sat små stykker jade ind i dem. Tatoveringer, ørepropper af jade og store hovedpynter viste, hvem man var.
 
 ## Skel mellem folk
+
+![En maya-konge på en pyramide over for bønder og håndværkere i kodeks-stil.](afsnit/06-hverdagsliv-6.webp "Kongen og adelen står øverst på pyramiden, mens bønder og håndværkere samles nedenfor under en ceremoni.")
 
 Samfundet var delt. Øverst stod kongen og hans familie, derefter adelen, præster og skrivere. Så kom håndværkere og handlende, og nederst bønderne. Krigsfanger kunne blive slaver eller ofret. Men selv bønderne var en del af byens liv: de byggede templerne, deltog i festerne og så kongen danse på pladsen.

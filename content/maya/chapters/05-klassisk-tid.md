@@ -37,11 +37,15 @@ Omkring år 250 efter Kristus begyndte det, vi i dag kalder mayaernes klassiske 
 
 ## Hellige konger
 
+![En maya-konge står i fin dragt ved siden af en udskåret stensøjle.](afsnit/05-klassisk-tid-1.webp "En maya-konge i ceremoniel dragt står ved en nyligt udhugget stensøjle med hieroglyffer.")
+
 I centrum af hvert kongerige stod kongen, »k'uhul ajaw«, den hellige herre. Han – og en gang imellem hun – var ikke bare hersker, men et bindeled mellem menneskene og guderne. Kongen ofrede sit eget blod ved store ceremonier, dansede i gudernes dragter og spillede det rituelle boldspil.
 
 Kongerne lod deres bedrifter hugge ind i høje stensøjler, stelaer, som blev stillet op på byens pladser. Her står, hvornår kongen blev født, hvornår han blev indsat på tronen, hvilke krige han vandt, og hvilke fanger han tog. Fordi forskerne i dag kan læse det meste af mayaskriften, kender vi navnene på hundredvis af konger og dronninger.
 
 ## Slangeriget og Tikal
+
+![Maya-konge fra Slangeriget siddende på en trone i regnskoven omgivet af hieroglyffer og krigsfanger.](afsnit/05-klassisk-tid-2.webp "Slangerigets konge modtager hyldest og krigsfanger med Kaanul-rigets slangehieroglyf ved sin side.")
 
 To kongeriger var stærkere end alle de andre. Det ene var Tikal, i regnskoven i det nordlige Guatemala, en af de største byer med måske 60.000 indbyggere eller flere. Det andet var Kaanul – Slangeriget – som er det, udstillingen på Moesgård handler om. Kongerne skrev rigets navn med et slangehoved, og den slangehieroglyf går igen overalt, hvor Slangeriget var.
 
@@ -55,14 +59,20 @@ I 600-tallet flyttede Slangeriget sit hovedsæde til Calakmul, en kæmpe by i re
 
 ## Tikal rejser sig igen
 
+![Mayakongens sejrsfejring foran det høje tempel i Tikal i kodeksstil.](afsnit/05-klassisk-tid-3.webp "Kong Jasaw Chan K'awiil af Tikal fejrer sejren over Calakmul foran det nyrejste Tempel I.")
+
 I 695 vendte lykken. Tikals konge Jasaw Chan K'awiil besejrede Slangeriget og Calakmul i et stort slag, og Slangeriget mistede meget af sin magt. Han satte gang i en ny storhedstid, og da han døde omkring 734, blev han begravet i en grav fuld af jade under det tempel, vi i dag kalder Tempel I. Templet er omkring 47 meter højt og et af de mest kendte billeder på mayaernes verden.
 
 ## Andre kongeriger
+
+![Maya-konge med jademaske siddende på en trone ved en udskåret stensøjle.](afsnit/05-klassisk-tid-4.webp "Kong Pakal af Palenque med sin berømte jademaske ved siden af en udskåret Copán-stela.")
 
 Mod vest lå Palenque, hvor kong K'inich Janaab Pakal regerede i 68 år, fra 615 til 683. Han blev begravet under Inskriptionernes Tempel med en dødsmaske af jade over ansigtet – en af de mest berømte genstande fra mayaverdenen.
 
 Mod syd lå Copán, kendt for sine smukt udhuggede stelaer. I 738 blev Copáns konge, Waxaklajuun Ubaah K'awiil, taget til fange og halshugget af kongen af den mindre nabo Quiriguá. Krig mellem kongerigerne var en del af hverdagen.
 
 ## Slutningen nærmer sig
+
+![En Maya-stenhugger ved en ufuldendt stela foran en forladt pyramide i junglen.](afsnit/05-klassisk-tid-5.webp "En stenhugger efterlader sin ufuldendte stela, mens junglen langsomt overtager den forladte Maya-by.")
 
 I 800-tallet gik det tilbage for de sydlige kongeriger. Der blev rejst færre og færre monumenter, og byerne blev langsomt forladt. Det sidst kendte monument med en dato i den lange kalender er fra år 909. Hvorfor det skete, handler kapitlet om kollapset om.

@@ -29,11 +29,15 @@ Man har længe troet, at mayaernes storhedstid først begyndte omkring år 250 e
 
 ## Fra landsby til by
 
+![Mayaer og olmekere handler med jade foran en tidlig ceremoniplads.](afsnit/04-praeklassisk-tid-1.webp "Tidlige mayaer og olmekere udveksler jadesmykker på en nyanlagt ceremoniplads med pyramide og platform.")
+
 I tiden fra ca. 1000 til 400 før Kristus voksede nogle landsbyer sig større. Folk begyndte at bygge store platforme og pladser til fælles ceremonier. Ved Ceibal i Guatemala byggede man allerede omkring år 1000 før Kristus en ceremoniplads efter et mønster, som mayaerne skulle bruge i over tusind år: en åben plads med en lang, lav platform på den ene side og en pyramide over for.
 
 Mod vest, ved den mexicanske Golfkyst, levede olmekerne, som byggede byer som La Venta. Olmekerne og de tidlige mayaer handlede med hinanden og delte mange ideer om guder, jade og ceremonier. Hvem der lærte mest af hvem, diskuterer forskerne stadig.
 
 ## El Mirador – den store by i nord
+
+![En hvid og rød trappepyramide med store gude-stukmasker i maya-kodeksstil.](afsnit/04-praeklassisk-tid-2.webp "Den kæmpemæssige La Danta-pyramide i El Mirador, udsmykket med røde stukmasker og triadiske templer på toppen.")
 
 I det nordlige Guatemala, tæt ved grænsen til Mexico, ligger et område, der kaldes Mirador-bassinet. Her lå byen Nakbe, hvor man byggede de første store pyramider for omkring 2700 år siden. Senere blev nabobyen El Mirador den største by i hele mayaområdet.
 
@@ -43,15 +47,21 @@ Pyramiderne var beklædt med hvid kalkpuds og prydet med enorme masker af gudern
 
 ## Veje gennem skoven
 
+![Maya-rejsende på en hævet hvid stenvej gennem junglen.](afsnit/04-praeklassisk-tid-3.webp "Maya-rejsende vandrer langs en bred, hvidpudset stenvej (sacbe), som skærer igennem den tætte jungle.")
+
 Byerne i Mirador-bassinet var bundet sammen af hævede veje af sten og kalk, som hedder sacbe – »hvid vej« (flertal sacbeob). De var op til 40 meter brede og løb kilometervis gennem sumpene. Med lidar har forskere fundet over 400 bebyggelser i området, forbundet af næsten 180 kilometer veje.
 
 ## Den tidligste skrift og de første konger
+
+![En maya-konge bliver kronet foran Majsguden i klassisk maya-tegnestil.](afsnit/04-praeklassisk-tid-4.webp "En præklassisk maya-konge modtager sit herskersymbol foran Majsguden, inspireret af San Bartolo-vægmalerierne.")
 
 Ved San Bartolo, ikke langt fra Tikal, fandt forskere i 2001 et rum med vægmalerier fra omkring 100 før Kristus. De viser majsguden og skabelsen af verden – og en konge, der bliver kronet. Det er et af de tidligste tegn på, at mayaerne havde konger. I San Bartolo er der også fundet hieroglyffer fra omkring 300–200 før Kristus, den tidligste mayaskrift, vi kender.
 
 Mod syd, i højlandet, voksede byen Kaminaljuyu sig stor og rig på handel med obsidian og jade.
 
 ## En stor by forlades
+
+![Maya-familier vandrer væk fra en forladt pyramide mod en ny by.](afsnit/04-praeklassisk-tid-5.webp "Indbyggere forlader El Mirador under tørke og drager mod voksende byer som Tikal.")
 
 Omkring år 150 efter Kristus blev El Mirador og mange af de andre store byer i området forladt. Måske var der tørke. Måske var skoven brændt af til kalk, så jorden skyllede ud i sumpene, som byerne var afhængige af. Måske var det krig. Sandsynligvis var det flere ting på én gang – et forvarsel om det, der skulle ske igen 700 år senere.
 

@@ -1,7 +1,7 @@
-import { ArrowLeft, ChevronLeft, ChevronRight, History, MapPin } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, History, Images, MapPin, ScrollText } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { cached, formatPeriod, type Chapter } from '../api';
+import { cached, formatPeriod, mediaUrl, type Chapter } from '../api';
 import ChapterText from '../components/ChapterText';
 import Figure from '../components/Figure';
 import OfflineBanner from '../components/OfflineBanner';
@@ -12,7 +12,8 @@ import Status from '../components/Status';
 import VoiceSheet from '../components/VoiceSheet';
 import { useOnline } from '../offline';
 import { getProgress, saveProgress } from '../progress';
-import { chapterSegments } from '../speech/chapterText';
+import { chapterContent } from '../speech/chapterText';
+import { useReaderView } from '../readerView';
 import { useVoiceSettings } from '../speech/settings';
 import { usePlayer } from '../speech/usePlayer';
 import { useLoad } from '../useLoad';
@@ -50,7 +51,8 @@ function TopBar({ title, number }: { title: string; number?: number }) {
 
 function ChapterView({ chapter }: { chapter: Chapter }) {
   // The title is read aloud too: it is the first heading of the text.
-  const segments = useMemo(() => chapterSegments(`# ${chapter.title}\n\n${chapter.markdown}`), [chapter]);
+  const { segments, figures } = useMemo(() => chapterContent(`# ${chapter.title}\n\n${chapter.markdown}`), [chapter]);
+  const [view, setView] = useReaderView();
   const [voice, setVoice] = useVoiceSettings();
   // Start where this device left off (a finished chapter starts from the top again).
   const [start] = useState(() => {
@@ -63,6 +65,16 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
   const online = useOnline();
   const [hero, ...moreImages] = chapter.images;
   const reading = player.state === 'playing' || player.index > 0;
+  const slideshow = view === 'pictures';
+
+  // The slideshow shows the picture of the section being read (before the first one: the hero).
+  const paragraph = segments[player.index]?.paragraph ?? 0;
+  const shownFigure = [...figures].reverse().find((f) => f.paragraph <= paragraph);
+  const slide = shownFigure
+    ? { src: shownFigure.src, alt: shownFigure.alt, caption: shownFigure.caption }
+    : hero
+      ? { src: hero.src, alt: hero.alt ?? '', caption: hero.caption }
+      : null;
 
   // Remember the sentence; when the last one has been read, offer the next chapter.
   useEffect(() => saveProgress(chapter.id, player.index, segments.length), [chapter.id, player.index, segments.length]);
@@ -75,8 +87,20 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
       <TopBar title={chapter.title} number={chapter.number} />
 
       <main className="min-h-0 flex-1 overflow-y-auto">
+        {slideshow && slide && (
+          <div className="sticky top-0 z-10 border-b border-line bg-ink px-5 pt-4 pb-3 shadow-sm">
+            <div className="mx-auto max-w-3xl">
+              <div className="codex-frame bg-surface">
+                <img key={slide.src} src={mediaUrl(slide.src)} alt={slide.alt} className="fade-in max-h-[45vh] w-full rounded-lg object-contain" />
+              </div>
+              <p className="mt-2 line-clamp-3 min-h-[3lh] font-serif text-base leading-snug md:text-lg" aria-live="polite">
+                {reading ? segments[player.index]?.text : (slide.caption ?? '')}
+              </p>
+            </div>
+          </div>
+        )}
         <article className="mx-auto max-w-3xl px-5 py-6">
-          {hero && <Figure image={hero} className="mb-6" />}
+          {hero && !slideshow && <Figure image={hero} className="mb-6" />}
           <div className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
             {chapter.period && (
               <Link to={`/tidslinje?kapitel=${chapter.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-blue hover:underline">
@@ -92,7 +116,15 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
           {!player.supported && (
             <p className="mb-4 rounded-xl bg-surface p-3 text-sm text-danger">Denne browser kan ikke læse op.</p>
           )}
-          <ChapterText segments={segments} current={player.index} active={reading} onSelect={player.seek} />
+          <ChapterText
+            segments={segments}
+            figures={figures}
+            current={player.index}
+            active={reading}
+            follow={reading && !slideshow}
+            showFigures={!slideshow}
+            onSelect={player.seek}
+          />
 
           {moreImages.map((img) => (
             <Figure key={img.src} image={img} className="my-6" />
@@ -156,6 +188,25 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
           </button>
         </p>
       )}
+      <div className="flex justify-center border-t border-line bg-surface pt-2" role="group" aria-label="Visning under oplæsning">
+        {(
+          [
+            ['follow', ScrollText, 'Følg teksten'],
+            ['pictures', Images, 'Billedshow'],
+          ] as const
+        ).map(([value, Icon, label]) => (
+          <button
+            key={value}
+            onClick={() => setView(value)}
+            aria-pressed={view === value}
+            className={`flex items-center gap-1.5 border px-3 py-1.5 text-sm first:rounded-l-full last:rounded-r-full ${
+              view === value ? 'border-accent bg-accent text-on-accent' : 'border-line text-muted hover:text-fg'
+            }`}
+          >
+            <Icon className="h-4 w-4" /> {label}
+          </button>
+        ))}
+      </div>
       <Player
         index={player.index}
         count={segments.length}

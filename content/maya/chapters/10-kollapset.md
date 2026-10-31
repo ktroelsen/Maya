@@ -32,6 +32,8 @@ Omkring år 800 var mayaernes lavland et af de tættest befolkede steder på jor
 
 ## Ikke en katastrofe, men en lang nedtur
 
+![Et halvfærdigt Maya-stenmonument og efterladt værktøj foran en overgroet pyramide.](afsnit/10-kollapset-1.webp "Et ufuldendt stensøjlemonument står forladt med mejsler og værktøj tilbage i skyggen af en jungleovergroet pyramide.")
+
 Kollapset kom ikke på én dag. Det tog over hundrede år, og det ramte byerne forskelligt.
 
 Ved Dos Pilas i Petexbatún-området begyndte det tidligt. Efter årtiers krige blev byen forladt omkring 760. Indbyggerne havde revet stenene ned fra paladserne og bygget mure tværs over pladserne. I Cancuén blev kongen og hans familie dræbt omkring år 800, og deres lig blev kastet i byens vandreservoir.
@@ -40,23 +42,33 @@ I Copán blev det sidste monument aldrig færdigt. Det er dateret 822, og billed
 
 ## Tørke
 
+![En maya-præst kigger på et udtørret vandreservoir og visnende majs i codex-stil.](afsnit/10-kollapset-2.webp "En maya-præst og hersker ved et udtørret reservoir med visnende majsplanter under en alvorlig tørke.")
+
 En vigtig del af forklaringen er klimaet. Forskere har boret ned i bunden af søer på Yucatán, blandt andet Chichancanab, og målt lagene af mudder og gips. Når det er tørt, fordamper søen, og der aflejres mere gips. Lagene viser, at der mellem ca. 800 og 1000 var gentagne, alvorlige tørker. I de værste perioder faldt der op mod halvt så meget regn som normalt.
 
 Stalagmitter fra en hule i Belize fortæller det samme. Lavlandets byer levede af majs og regnvand opsamlet i reservoirer. Nogle få dårlige år kunne man klare. Men tørke efter tørke betød sult.
 
 ## For mange mennesker og for lidt skov
 
+![Tegning i codex-stil af skovrydning, kalkbrænding og jorderosion i Maya-riget.](afsnit/10-kollapset-3.webp "Maya-bønder fælder skov til brænde og kalkbrænding, mens regnen skyller den bare jord væk fra markerne.")
+
 Befolkningen var vokset meget i de sidste århundreder af klassisk tid. Skoven var fældet til marker og til brænde – det krævede enorme mængder træ at brænde kalk til puds. Uden skov skyllede den tynde jord væk, når det endelig regnede, og markerne gav mindre.
 
 ## Krig
+
+![Maya-krigere på en forsvarsmur og bundne krigsfanger foran en tempelpyramide.](afsnit/10-kollapset-4.webp "Maya-krigere forsvarer en by med nyligt opførte træpalisader, mens bundne krigsfanger bringes for en konge.")
 
 Samtidig blev krigene værre. Tikal og Calakmul havde kæmpet i århundreder, men nu sloges også de mindre kongeriger. Der blev bygget forsvarsmure, og flere og flere monumenter fortæller om krig og fanger. Krig ødelagde marker og handelsruter, og folk søgte væk fra de udsatte byer.
 
 ## Kongerne mistede magten
 
+![En maya-konge på et tempel overfor utilfredse bønder ved visnede marker.](afsnit/10-kollapset-5.webp "En maya-konge står på sit tempel, mens folket nedenfor mister troen på hans magt under tørken.")
+
 Kongerne var hellige. Deres opgave var at holde guderne tilfredse og sørge for regn og høst. Når regnen udeblev år efter år, mens kongerne fortsatte med at bygge og føre krig, mistede folk måske troen på dem. Der var også kommet flere og flere adelige, som alle skulle forsørges. Til sidst holdt systemet med de hellige konger op med at virke.
 
 ## Folket forsvandt ikke
+
+![Mayaer på vandring mod nye byer og søer i et klassisk kodeks-design.](afsnit/10-kollapset-6.webp "Maya-familier vandrer mod nye byer i nord som Chichén Itzá og Uxmal med deres ejendele.")
 
 Det er vigtigt at huske: Mayaerne forsvandt ikke. Mange døde af sult og krig, men mange flyttede – mod nord, mod kysten og til egne med vand. Ved søerne i Petén boede der stadig mayaer, og i nord voksede nye byer som Chichén Itzá og Uxmal. Mayaernes historie fortsatte, men på en ny måde.
 

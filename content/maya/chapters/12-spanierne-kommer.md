@@ -30,9 +30,13 @@ Da spanierne kom til Amerika, var der ikke ét mayarige, de kunne besejre med é
 
 ## Det første møde
 
+![En lang maya-handelskano med varer møder et spansk skib i codex-stil.](afsnit/12-spanierne-kommer-1.webp "En stor mayahandelskano fyldt med kakaobønner, tekstiler og obsidian-våben møder et spansk skib ud for kysten.")
+
 I 1502, på sin fjerde rejse, mødte Christoffer Columbus en stor kano ud for kysten af Honduras. Den var lang som en galej, havde et tag af palmeblade i midten og blev roet af omkring 25 mand. Lasten var kakaobønner, farvet bomuldsstof, kobberøkser og sværd af træ med skarpe flækker af obsidian. Det var en handelskano fra mayaområdet. Columbus tog lasten og sejlede videre.
 
 ## Skibbrudne
+
+![Gonzalo Guerrero i mayadragt med sin familie og Jerónimo de Aguilar ved kysten.](afsnit/12-spanierne-kommer-2.webp "Gonzalo Guerrero lever som mayakriger med sin familie, mens Jerónimo de Aguilar lever som slave på Yucatán.")
 
 I 1511 forliste et spansk skib i Det Caribiske Hav. Nogle overlevende drev i land på Yucatán. To af dem overlevede i mange år: Jerónimo de Aguilar og Gonzalo Guerrero.
 
@@ -40,9 +44,13 @@ Aguilar blev slave, men lærte maya og blev reddet af Hernán Cortés i 1519. Ha
 
 ## Sygdommene kom først
 
+![En syg maya-familie ligger på måtter i et hus i maya-kodexstil.](afsnit/12-spanierne-kommer-3.webp "En maya-familie ramt af sygdom plejes i hjemmet, mens ukendte epidemier spreder sig i området.")
+
 Det farligste, spanierne bragte med, var ikke våben, men sygdomme. Mayaerne havde aldrig mødt kopper, mæslinger og influenza. Epidemierne spredte sig ofte, før spanierne selv kom frem. I løbet af det første århundrede efter erobringen døde en meget stor del af befolkningen – mange steder langt over halvdelen.
 
 ## Højlandet erobres
+
+![Spanske soldater og Maya-herskere foran et brændende tempel i Maya-kodeksstil.](afsnit/12-spanierne-kommer-4.webp "Spanske conquistadorer og deres mexicanske allierede konfronterer K'iche'-herskerne foran den brændende by Q'umarkaj.")
 
 I 1524 marcherede Pedro de Alvarado ind i Guatemalas højland med spanske soldater og tusindvis af allierede krigere fra Mexico. K'iche'erne blev besejret i store slag. Ifølge k'iche'ernes egen tradition faldt deres helt Tecún Umán i kamp mod Alvarado. Spanierne lokkede k'iche'-kongerne til forhandlinger, brændte dem og satte ild til hovedstaden Q'umarkaj.
 
@@ -50,18 +58,26 @@ Kaqchikel-folket hjalp først spanierne mod deres gamle fjender, k'iche'erne. Me
 
 ## Yucatán
 
+![Spaniere og mayaer bygger domkirke af genbrugte tempelsten i Mérida.](afsnit/12-spanierne-kommer-5.webp "Spanske conquistadorer og mayaer ved opførelsen af domkirken i Mérida med sten fra templet i T'ho.")
+
 Yucatán var sværere at erobre. Spanske ekspeditioner blev slået tilbage ved Champotón i 1517 og igen senere. Først efter tre krige under Francisco de Montejo, hans søn og hans nevø – fra 1527 til 1546 – fik spanierne kontrol over det meste af halvøen. I 1542 grundlagde de byen Mérida oven på mayabyen T'ho og byggede katedralen med sten fra de gamle templer.
 
 ## Bøgerne brændes
 
+![Maya-foldebøger og træfigurer brænder på en plads foran en spansk munk.](afsnit/12-spanierne-kommer-6.webp "Munken Diego de Landa overværer afbrændingen af mayaernes foldebøger og gudefigurer på pladsen i Maní.")
+
 Missionærerne ville omvende mayaerne til kristendommen. I 1562 fandt munken Diego de Landa ud af, at mange mayaer stadig dyrkede deres gamle guder i hemmelighed. Han lod mange tortere, og i byen Maní lod han bøger og gudebilleder brænde. Ironisk nok skrev Landa senere en bog om mayaernes skikke med en liste over skrifttegn. Den blev en af nøglerne, da forskerne mange hundrede år senere skulle knække mayaskriften.
 
 ## Det sidste mayarige
+
+![Et spansk skib angriber maya-krigere i kanoer på søen foran Nojpetén.](afsnit/12-spanierne-kommer-7.webp "Spanierne angriber itza-folkets ø-hovedstad Nojpetén på Petén Itzá-søen i 1697.")
 
 Dybt inde i skoven i Petén levede itza-folket. Deres hovedstad, Nojpetén, lå på en ø i søen Petén Itzá. Hernán Cortés kom forbi i 1525 og efterlod en halt hest, som itzaerne ifølge senere spanske beretninger gjorde til et gudebillede.
 
 Itzaerne holdt spanierne ude i over 170 år. Først den 13. marts 1697 angreb spanierne øen med et bevæbnet skib, der var bygget ved søen. Nojpetén faldt, og det sidste selvstændige mayarige var væk. Byen Flores ligger i dag på øen.
 
 ## Mayaerne lever videre
+
+![En maya-skriver sidder i sit hus og nedskriver gamle historier på papir.](afsnit/12-spanierne-kommer-8.webp "En maya-skriver nedskriver sine forfædres myter med latinske bogstaver ved siden af en traditionel kodeks.")
 
 Mayaerne blev tvunget til at arbejde for spanierne, betale skat og flytte til nye landsbyer omkring kirkerne. Men de holdt fast i deres sprog og mange af deres skikke. Nogle skrev deres historie og myter ned med latinske bogstaver – sådan blev Popol Vuh og Chilam Balam-bøgerne bevaret.

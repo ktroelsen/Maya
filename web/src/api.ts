@@ -65,6 +65,8 @@ export type Chapter = {
   period: Period | null;
   places: string[];
   images: Image[];
+  /** Pictures in the text, one per section: the reader's slideshow. */
+  figures: Image[];
   sources: Source[];
   quiz: QuizQuestion[];
   markdown: string;

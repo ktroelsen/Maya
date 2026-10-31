@@ -36,7 +36,7 @@ export async function downloadForOffline(onProgress: (done: number, total: numbe
 
   const media = new Set<string>();
   if (topic.cover) media.add(mediaUrl(topic.cover));
-  for (const c of chapters) for (const img of c.images) media.add(mediaUrl(img.src));
+  for (const c of chapters) for (const img of [...c.images, ...(c.figures ?? [])]) media.add(mediaUrl(img.src));
   for (const p of topic.podcasts) media.add(mediaUrl(p.src));
 
   const content = ['/api/health', '/api/topic', '/api/topic/timeline', '/api/topic/places', '/api/topic/glossary', ...chapterUrls, ...media];

@@ -170,6 +170,10 @@ Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten 
 **Hvis der er tid:** podcast-afsnit ud over introen, ordliste, quiz, billedgenkendelse.
 **Efter besøget:** quiz, glyf-/kalenderleg, polering, skabelon-dokumentation (fase 8).
 
+## 7b. Billedshow (31. oktober)
+
+Under oplæsning kan man vælge »Følg teksten« (siden ruller med) eller »Billedshow« (afsnittets billede bliver stående øverst med sætningen som undertekst). 76 afsnitsbilleder i codex-stil; praktiske afsnit i kapitel 14 har ingen. Offline-pakken er nu ca. 13 MB.
+
 ## 8. Senere: flere emner i samme app (fase 8)
 
 Besluttet 31. oktober: én app med flere emner (mayaerne, vikingerne …), samme funktioner og samme udtryk – kun tekster og billeder er forskellige. Laves **efter besøget**, når Maya-appen er på plads. Skøn: ca. en dags arbejde på motoren + vejledning; derefter er et nyt emne kun indhold (svarende til dag 2–5).

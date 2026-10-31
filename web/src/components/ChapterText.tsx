@@ -1,30 +1,48 @@
 import { useEffect, useMemo, useRef } from 'react';
-import type { ChapterSegment } from '../speech/chapterText';
+import Figure from './Figure';
+import type { ChapterFigure, ChapterSegment } from '../speech/chapterText';
 
 type Props = {
   segments: ChapterSegment[];
+  figures: ChapterFigure[];
   current: number;
-  active: boolean; // reading: highlight and keep the sentence in view
+  active: boolean; // reading: highlight the sentence
+  follow: boolean; // keep the sentence being read in view
+  showFigures: boolean; // the pictures in the text (off when a slideshow shows them)
   onSelect: (index: number) => void;
 };
 
 // The chapter as headings, paragraphs and lists of tappable sentences; the one being read is highlighted.
-export default function ChapterText({ segments, current, active, onSelect }: Props) {
+export default function ChapterText({ segments, figures, current, active, follow, showFigures, onSelect }: Props) {
   const refs = useRef<(HTMLSpanElement | null)[]>([]);
 
+  // Text blocks and pictures in the order they stand in the chapter.
   const blocks = useMemo(() => {
     const groups: { segment: ChapterSegment; index: number }[][] = [];
     segments.forEach((segment, index) => (groups[segment.paragraph] ??= []).push({ segment, index }));
-    return groups.filter(Boolean);
-  }, [segments]);
+    const items: ({ paragraph: number; group: (typeof groups)[number] } | { paragraph: number; figure: ChapterFigure })[] = [
+      ...groups.flatMap((group, paragraph) => (group ? [{ paragraph, group }] : [])),
+      ...(showFigures ? figures : []).map((figure) => ({ paragraph: figure.paragraph, figure })),
+    ];
+    return items.sort((a, b) => a.paragraph - b.paragraph);
+  }, [segments, figures, showFigures]);
 
   useEffect(() => {
-    if (active) refs.current[current]?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-  }, [current, active]);
+    if (follow) refs.current[current]?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }, [current, follow]);
 
   return (
     <div className="font-serif text-lg leading-relaxed md:text-xl md:leading-relaxed">
-      {blocks.map((group, b) => {
+      {blocks.map((item, b) => {
+        if ('figure' in item)
+          return (
+            <Figure
+              key={`f${item.paragraph}`}
+              image={{ src: item.figure.src, alt: item.figure.alt, caption: item.figure.caption, credit: null, illustration: true }}
+              className="mb-6 font-sans"
+            />
+          );
+        const group = item.group;
         const sentence = (text: string, index: number) => (
           <span
             ref={(el) => {

@@ -8,7 +8,7 @@ type Props = {
   onSelect: (index: number) => void;
 };
 
-// The chapter as headings and paragraphs of tappable sentences; the one being read is highlighted.
+// The chapter as headings, paragraphs and lists of tappable sentences; the one being read is highlighted.
 export default function ChapterText({ segments, current, active, onSelect }: Props) {
   const refs = useRef<(HTMLSpanElement | null)[]>([]);
 
@@ -25,20 +25,23 @@ export default function ChapterText({ segments, current, active, onSelect }: Pro
   return (
     <div className="font-serif text-lg leading-relaxed md:text-xl md:leading-relaxed">
       {blocks.map((group, b) => {
+        const sentence = (text: string, index: number) => (
+          <span
+            ref={(el) => {
+              refs.current[index] = el;
+            }}
+            onClick={() => onSelect(index)}
+            className={`-mx-0.5 cursor-pointer rounded px-0.5 transition-colors ${
+              active && index === current ? 'bg-mark' : 'hover:bg-surface-2'
+            }`}
+          >
+            {text}
+          </span>
+        );
         const sentences = group.map(({ segment, index }) => (
           <span key={index}>
             {index > group[0].index ? ' ' : null}
-            <span
-              ref={(el) => {
-                refs.current[index] = el;
-              }}
-              onClick={() => onSelect(index)}
-              className={`-mx-0.5 cursor-pointer rounded px-0.5 transition-colors ${
-                active && index === current ? 'bg-mark' : 'hover:bg-surface-2'
-              }`}
-            >
-              {segment.text}
-            </span>
+            {sentence(segment.text, index)}
           </span>
         ));
         if (b === 0 && group[0].segment.heading)
@@ -47,6 +50,24 @@ export default function ChapterText({ segments, current, active, onSelect }: Pro
               {sentences}
             </h1>
           );
+        if (group[0].segment.kind === 'list') {
+          const items: (typeof group)[] = [];
+          group.forEach((g) => (items[g.segment.item] ??= []).push(g));
+          return (
+            <ul key={b} className="mb-5 list-disc space-y-2 pl-6 marker:text-accent">
+              {items.filter(Boolean).map((item) => (
+                <li key={item[0].index}>
+                  {item.map(({ segment, index }, k) => (
+                    <span key={index}>
+                      {k > 0 ? ' ' : null}
+                      {sentence(segment.text, index)}
+                    </span>
+                  ))}
+                </li>
+              ))}
+            </ul>
+          );
+        }
         return group[0].segment.heading ? (
           <h2 key={b} className="mt-8 mb-3 font-sans text-xl font-semibold text-accent md:text-2xl">
             {sentences}

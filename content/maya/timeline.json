@@ -28,7 +28,7 @@
       "id": "kolonitid",
       "label": "Kolonitid og i dag",
       "from": 1524,
-      "to": 2026
+      "to": 2027
     }
   ],
   "events": [
@@ -185,6 +185,29 @@
       "place": "mayapan"
     },
     {
+      "year": 1502,
+      "label": "Columbus møder en maya-handelskano",
+      "chapter": "12-spanierne-kommer",
+      "place": "guanaja"
+    },
+    {
+      "year": 1511,
+      "label": "Skibbrudne spaniere driver i land på Yucatán",
+      "chapter": "12-spanierne-kommer"
+    },
+    {
+      "year": 1524,
+      "label": "Alvarado erobrer K'iche'-riget",
+      "chapter": "12-spanierne-kommer",
+      "place": "qumarkaj"
+    },
+    {
+      "year": 1542,
+      "label": "Mérida grundlægges oven på T'ho",
+      "chapter": "12-spanierne-kommer",
+      "place": "merida"
+    },
+    {
       "year": 1562,
       "label": "Biskop Landa brænder mayabøger i Maní",
       "chapter": "08-viden"
@@ -192,12 +215,38 @@
     {
       "year": 1697,
       "label": "Nojpetén, det sidste selvstændige mayarige, falder",
-      "chapter": "01-moed-mayaerne"
+      "chapter": "12-spanierne-kommer",
+      "place": "nojpeten"
+    },
+    {
+      "year": 1847,
+      "label": "Kastekrigen begynder på Yucatán",
+      "chapter": "13-mayaerne-i-dag"
+    },
+    {
+      "year": 1960,
+      "label": "Borgerkrigen i Guatemala begynder (til 1996)",
+      "chapter": "13-mayaerne-i-dag"
+    },
+    {
+      "year": 1992,
+      "label": "Rigoberta Menchú får Nobels fredspris",
+      "chapter": "13-mayaerne-i-dag"
     },
     {
       "year": 2012,
       "label": "Den 13. bak'tun slutter – ikke verdens undergang",
       "chapter": "08-viden"
+    },
+    {
+      "year": 2018,
+      "label": "Lidar afslører over 60.000 bygninger under skoven",
+      "chapter": "13-mayaerne-i-dag"
+    },
+    {
+      "year": 2026,
+      "label": "Udstillingen åbner på Moesgård",
+      "chapter": "14-klar-til-moesgaard"
     }
   ]
 }

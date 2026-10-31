@@ -59,7 +59,15 @@ public class ContentStore
             var path = Path.Combine(TopicDir, "chapters", id + ".md");
             if (!File.Exists(path)) continue;   // listed but not written yet
             var (meta, body) = Split(File.ReadAllText(path));
-            var front = string.IsNullOrWhiteSpace(meta) ? new ChapterMeta() : Yaml.Deserialize<ChapterMeta>(meta) ?? new ChapterMeta();
+            ChapterMeta front;
+            try
+            {
+                front = string.IsNullOrWhiteSpace(meta) ? new ChapterMeta() : Yaml.Deserialize<ChapterMeta>(meta) ?? new ChapterMeta();
+            }
+            catch (YamlDotNet.Core.YamlException ex)
+            {
+                throw new InvalidDataException($"Front-matter in chapters/{id}.md is not valid YAML (line {ex.Start.Line}): {ex.Message}", ex);
+            }
             chapters.Add(new Chapter(id, number, front.Title ?? id, front.Summary, front.Period,
                 front.Places ?? [], front.Images ?? [], front.Sources ?? [], front.Quiz ?? [], body.Trim()));
         }

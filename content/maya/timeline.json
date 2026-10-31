@@ -131,9 +131,58 @@
       "place": "copan"
     },
     {
+      "year": 755,
+      "label": "Hieroglyftrappen i Copán indvies",
+      "chapter": "09-kunst-og-arkitektur",
+      "place": "copan"
+    },
+    {
+      "year": 760,
+      "label": "Dos Pilas forlades efter årtiers krig",
+      "chapter": "10-kollapset",
+      "place": "dos-pilas"
+    },
+    {
+      "year": 790,
+      "label": "Vægmalerierne i Bonampak males",
+      "chapter": "09-kunst-og-arkitektur",
+      "place": "bonampak"
+    },
+    {
+      "year": 822,
+      "label": "Copáns sidste monument bliver aldrig færdigt",
+      "chapter": "10-kollapset",
+      "place": "copan"
+    },
+    {
+      "year": 869,
+      "label": "Den sidste stela rejses i Tikal",
+      "chapter": "10-kollapset",
+      "place": "tikal"
+    },
+    {
       "year": 909,
-      "label": "Sidste kendte dato i den lange kalender",
-      "chapter": "05-klassisk-tid"
+      "label": "Sidste kendte dato i den lange kalender, i Toniná",
+      "chapter": "10-kollapset",
+      "place": "tonina"
+    },
+    {
+      "year": 950,
+      "label": "Chichén Itzá er den mægtigste by i nord",
+      "chapter": "11-postklassisk-tid",
+      "place": "chichen-itza"
+    },
+    {
+      "year": 1200,
+      "label": "Mayapán bliver den vigtigste by i nord",
+      "chapter": "11-postklassisk-tid",
+      "place": "mayapan"
+    },
+    {
+      "year": 1450,
+      "label": "Mayapán forlades, Yucatán deles i små stater",
+      "chapter": "11-postklassisk-tid",
+      "place": "mayapan"
     },
     {
       "year": 1562,

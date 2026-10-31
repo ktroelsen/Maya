@@ -33,7 +33,7 @@ export function errorMessage(err: unknown, fallback = 'Noget gik galt. Prøv ige
   return fallback;
 }
 
-export type Health = { status: string; version: string; googleVoice: boolean };
+export type Health = { status: string; version: string; googleVoice: boolean; vision: boolean };
 
 /** Years: negative = f.Kr. */
 export type Period = { from: number; to: number; label?: string | null };
@@ -106,6 +106,12 @@ export function cached<T>(path: string): Promise<T> {
 }
 
 export const fetchTopic = () => cached<Topic>('/api/topic');
+
+/** Whether photo recognition (Gemini) is set up on the server. */
+export const fetchVisionAvailable = () =>
+  cached<Health>('/api/health').then((h) => h.vision ?? false).catch(() => false);
+
+export type VisionAnswer = { title: string; answer: string; chapters: ChapterLink[] };
 
 /** Whether the Google voice (Chirp 3 HD) is set up on the server. */
 export const fetchGoogleVoiceAvailable = () =>

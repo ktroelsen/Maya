@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Threading.RateLimiting;
 using Maya.Api.Content;
 using Maya.Api.Tts;
+using Maya.Api.Vision;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 
@@ -27,17 +28,27 @@ builder.Services.AddSingleton<TtsUsage>();
 builder.Services.AddTransient<TtsClips>();
 builder.Services.AddSingleton<TtsStreams>();
 
+// Gemini: "guide in the pocket" – recognise a photo of an object or a sign. Without
+// Gemini:ApiKey the feature is hidden.
+builder.Services.Configure<GeminiOptions>(builder.Configuration.GetSection("Gemini"));
+builder.Services.AddHttpClient<GeminiVision>(c => c.Timeout = TimeSpan.FromSeconds(60));
+builder.Services.AddSingleton<VisionUsage>();
+
 builder.Services.ConfigureHttpJsonOptions(o =>
     o.SerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter()));
 
 // No login: the paid calls (Google voice) are limited per IP instead.
 var ttsPerMinute = builder.Configuration.GetValue("Tts:RequestsPerMinute", 30);
+var visionPerMinute = builder.Configuration.GetValue("Gemini:RequestsPerMinute", 6);
 builder.Services.AddRateLimiter(o =>
 {
     o.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
     o.AddPolicy(TtsEndpoints.RateLimit, ctx => RateLimitPartition.GetFixedWindowLimiter(
         ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown",
         _ => new FixedWindowRateLimiterOptions { PermitLimit = ttsPerMinute, Window = TimeSpan.FromMinutes(1) }));
+    o.AddPolicy(VisionEndpoints.RateLimit, ctx => RateLimitPartition.GetFixedWindowLimiter(
+        ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = visionPerMinute, Window = TimeSpan.FromMinutes(1) }));
 });
 
 var app = builder.Build();
@@ -75,16 +86,18 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseRateLimiter();
 
-app.MapGet("/api/health", (IOptions<TtsOptions> tts) => Results.Ok(new
+app.MapGet("/api/health", (IOptions<TtsOptions> tts, IOptions<GeminiOptions> gemini) => Results.Ok(new
 {
     status = "ok",
     version = typeof(Program).Assembly
         .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "dev",
     googleVoice = tts.Value.Configured,
+    vision = gemini.Value.Configured,
 }));
 
 app.MapContentEndpoints();
 app.MapTtsEndpoints();
+app.MapVisionEndpoints();
 
 // Unknown /api routes are real 404s; everything else without a file extension is a client-side
 // route → index.html (missing files, e.g. under /media, are plain 404s).

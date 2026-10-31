@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router';
 import Layout from './components/Layout';
 import ChapterPage from './pages/ChapterPage';
 import Glossary from './pages/Glossary';
+import GuidePage from './pages/GuidePage';
 import Home from './pages/Home';
 import MapPage from './pages/MapPage';
 import TimelinePage from './pages/TimelinePage';
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="tidslinje" element={<TimelinePage />} />
         <Route path="kort" element={<MapPage />} />
         <Route path="ordliste" element={<Glossary />} />
+        <Route path="guide" element={<GuidePage />} />
       </Route>
       {/* A chapter is full screen: its own top bar and the player at the bottom. */}
       <Route path="kapitel/:id" element={<ChapterPage />} />

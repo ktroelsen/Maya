@@ -2,7 +2,7 @@
 
 En illustreret app der fortæller historien om mayaerne – hvem de var, hvor de boede, hvornår og hvordan det hele startede – med kort, billeder, tidslinje, oplæsning og podcasts. Den skal bygges så kodedelen kan genbruges til fremtidige emner (andre udstillinger, rejser, historiske emner).
 
-**Udstillingen:** *Maya – Kongeriget under junglen* på Moesgård Museum, Aarhus (9. oktober 2026 – 8. august 2027). Ifølge omtalen dækker den klassisk tid (ca. 250–900 e.Kr.), har ca. 200 genstande udlånt fra Mexico og har en jademaske fra en herskers grav som et af hovedværkerne. Vi bekræfter detaljerne (hvilket kongerige, hvilke værker) i fase 5.
+**Udstillingen:** *Maya – Kongeriget under junglen* på Moesgård Museum, Aarhus (9. oktober 2026 – 8. august 2027). Ifølge omtalen dækker den klassisk tid (ca. 250–900 e.Kr.), har ca. 200 genstande udlånt fra Mexico og har en jademaske fra en herskers grav som et af hovedværkerne. Vi bekræfter detaljerne (hvilket kongerige, hvilke værker) i fase 5. **Besøg: 7. november 2026.**
 
 **Kører på:** https://maya.kaspert.dk
 
@@ -148,7 +148,24 @@ Fase 1–3 kan køre parallelt med 4–5 (indhold og billeder kan laves mens kod
 - [x] Gemini-nøglen er testet og virker (31. okt.), inkl. billedmodellerne `gemini-3-pro-image` og `gemini-3.1-flash-image`
 - [x] Stilark i codex-stil godkendt til videre brug: Tempel I i Tikal (`docs/billedstil.md`)
 
-### Stadig åbne
-- [ ] Login: skal appen være åben for alle, eller have et kodeord som read? (Google-stemmen og Gemini koster penge pr. kald)
-- [ ] Gemini-nøgle: må den ligge på serveren (secret), eller skal man indtaste sin egen som i mission-bear-hug?
-- [ ] Hvornår skal I på Moesgård? (deadline)
+- [x] Login: intet login i første omgang – det er kun os, der bruger den
+- [x] Nøgler: vores egne Google-/Gemini-nøgler ligger som secrets på serveren (`GOOGLE_TTS_API_KEY`, `GEMINI_API_KEY`). Ingen indtastning i appen. Som værn mod misbrug, når appen er åben: rate limit pr. IP på TTS- og vision-endpoints og et dagligt loft, og Chirp-lyden caches
+- [x] Deadline: besøg på Moesgård **7. november 2026** (om 7 dage)
+
+## 7. Plan for de 7 dage
+
+Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten (fase 6–8) kommer efter besøget.
+
+| Dag | Dato | Mål |
+|---|---|---|
+| 1 | 1. nov | Skelet fra read (.NET 10 + React), CI/deploy, maya.kaspert.dk online. Indholdsmodel + API |
+| 2 | 2. nov | Kapitelvisning, navigation (næste/forrige, bundmenu), tema i codex-stil. Kapitel 1, 2 og 5 skrevet |
+| 3 | 3. nov | Oplæsning (fra read) + tidslinje. Kapitel 3–4 og 6–8. Kildetekster til NotebookLM-intro |
+| 4 | 4. nov | Kort (Leaflet + steder). Kapitel 9–11. Illustrationer til klassisk tid |
+| 5 | 5. nov | Kapitel 12–14 inkl. "Klar til Moesgård". Podcasts lægges ind. Ordliste |
+| 6 | 6. nov | Offline-download (PWA), mobiltest, rettelser. Billedgenkendelse, hvis der er tid |
+| 7 | 7. nov | Besøg på Moesgård 🎉 |
+
+**Skal med:** alle 14 kapitler (fokus på 5–10 og 14), oplæsning, tidslinje, kort, illustrationer, offline.
+**Hvis der er tid:** podcast-afsnit ud over introen, ordliste, quiz, billedgenkendelse.
+**Efter besøget:** quiz, glyf-/kalenderleg, polering, skabelon-dokumentation (fase 8).

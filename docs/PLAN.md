@@ -160,7 +160,7 @@ Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten 
 |---|---|---|
 | 1 | 1. nov | ✅ Skelet fra read (.NET 10 + React), CI/deploy, indholdsmodel + API, kapitelvisning med oplæsning, 2 prøvekapitler. ⏳ maya.kaspert.dk online (kræver merge til `main`) |
 | 2 | 2. nov | ✅ Kapitelvisning, navigation (næste/forrige, bundmenu), tema i codex-stil, læseposition + »Fortsæt«. Kapitel 1, 2, 3 og 5 skrevet, med illustrationer til 2 og 3 |
-| 3 | 3. nov | Oplæsning (fra read) + tidslinje. Kapitel 3–4 og 6–8. Kildetekster til NotebookLM-intro |
+| 3 | 3. nov | ✅ Oplæsning (fra read) + tidslinje i codex-stil (fremhæver kapitlets begivenheder). Kapitel 3–4 og 6–8 med illustrationer. Kildetekst og prompts til NotebookLM i `docs/podcasts/` |
 | 4 | 4. nov | Kort (Leaflet + steder). Kapitel 9–11. Illustrationer til klassisk tid |
 | 5 | 5. nov | Kapitel 12–14 inkl. "Klar til Moesgård". Podcasts lægges ind. Ordliste |
 | 6 | 6. nov | Offline-download (PWA), mobiltest, rettelser. Billedgenkendelse, hvis der er tid |

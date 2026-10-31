@@ -11,6 +11,7 @@
     "term": "stela",
     "definition": "Høj stensøjle med relieffer og indskrifter, rejst af kongerne på byens pladser. Flertal: stelaer.",
     "chapters": [
+      "04-praeklassisk-tid",
       "05-klassisk-tid"
     ]
   },
@@ -67,7 +68,8 @@
     "term": "Popol Vuh",
     "definition": "K'iche'-mayaernes hellige bog med skabelsesberetningen og heltetvillingernes historie. Nedskrevet i 1500-tallet.",
     "chapters": [
-      "03-begyndelsen"
+      "03-begyndelsen",
+      "07-tro-og-ritualer"
     ]
   },
   {
@@ -75,6 +77,118 @@
     "definition": "Laserscanning fra fly, der kan »se« gennem skoven og afsløre skjulte bygninger.",
     "chapters": [
       "03-begyndelsen"
+    ]
+  },
+  {
+    "term": "sacbe",
+    "definition": "»Hvid vej«. Hævet vej af sten og kalk mellem bygninger eller byer. Flertal: sacbeob.",
+    "chapters": [
+      "04-praeklassisk-tid"
+    ]
+  },
+  {
+    "term": "triadisk gruppe",
+    "definition": "Tre templer i en trekant på toppen af en platform. Typisk for præklassisk tid.",
+    "chapters": [
+      "04-praeklassisk-tid"
+    ]
+  },
+  {
+    "term": "olmekerne",
+    "definition": "Folk ved den mexicanske Golfkyst ca. 1200–400 f.Kr., kendt for store stenhoveder. Naboer til de tidlige mayaer.",
+    "chapters": [
+      "04-praeklassisk-tid"
+    ]
+  },
+  {
+    "term": "ul",
+    "definition": "Tyk, varm drik af majs (atole).",
+    "chapters": [
+      "06-hverdagsliv"
+    ]
+  },
+  {
+    "term": "kakao",
+    "definition": "Bønnerne fra kakaotræet. Drukket som en bitter, skummende drik af de rige og senere brugt som penge.",
+    "chapters": [
+      "06-hverdagsliv"
+    ]
+  },
+  {
+    "term": "huipil",
+    "definition": "Vævet bluse, som mayakvinder har båret i over tusind år og stadig bærer.",
+    "chapters": [
+      "06-hverdagsliv"
+    ]
+  },
+  {
+    "term": "Xibalba",
+    "definition": "»Frygtens sted«. Underverdenen med 9 lag og dødens herrer.",
+    "chapters": [
+      "07-tro-og-ritualer"
+    ]
+  },
+  {
+    "term": "Chaak",
+    "definition": "Regnguden med en økse af lyn.",
+    "chapters": [
+      "07-tro-og-ritualer"
+    ]
+  },
+  {
+    "term": "K'awiil",
+    "definition": "Lynets og kongemagtens gud, med et ben formet som en slange.",
+    "chapters": [
+      "07-tro-og-ritualer"
+    ]
+  },
+  {
+    "term": "kopal",
+    "definition": "Duftende harpiks fra træer, brændt som røgelse ved ceremonier.",
+    "chapters": [
+      "07-tro-og-ritualer"
+    ]
+  },
+  {
+    "term": "heltetvillingerne",
+    "definition": "Hunahpu og Xbalanque, der i Popol Vuh besejrer underverdenens herrer og bliver til sol og måne.",
+    "chapters": [
+      "07-tro-og-ritualer"
+    ]
+  },
+  {
+    "term": "kodeks",
+    "definition": "Mayabog af barkpapir, foldet som en harmonika. Kun fire er bevaret. Flertal: kodekser.",
+    "chapters": [
+      "08-viden"
+    ]
+  },
+  {
+    "term": "tzolk'in",
+    "definition": "Den hellige kalender på 260 dage (13 tal × 20 dagnavne).",
+    "chapters": [
+      "08-viden"
+    ]
+  },
+  {
+    "term": "haab'",
+    "definition": "Solårskalenderen på 365 dage: 18 måneder af 20 dage plus 5 uheldige dage.",
+    "chapters": [
+      "08-viden"
+    ]
+  },
+  {
+    "term": "lange kalender",
+    "definition": "Long Count. Tæller dage fra skabelsen i 3114 f.Kr. i enhederne k'in, winal, tun, k'atun og bak'tun.",
+    "chapters": [
+      "08-viden"
+    ]
+  },
+  {
+    "term": "bak'tun",
+    "definition": "144.000 dage, omkring 394 år, i den lange kalender.",
+    "chapters": [
+      "08-viden"
     ]
   }
 ]

@@ -28,7 +28,8 @@
         "chapters": [
           "01-moed-mayaerne",
           "02-landet",
-          "05-klassisk-tid"
+          "05-klassisk-tid",
+          "06-hverdagsliv"
         ]
       },
       "geometry": {
@@ -64,7 +65,8 @@
         "chapters": [
           "01-moed-mayaerne",
           "02-landet",
-          "05-klassisk-tid"
+          "05-klassisk-tid",
+          "08-viden"
         ]
       },
       "geometry": {
@@ -83,7 +85,8 @@
         "chapters": [
           "01-moed-mayaerne",
           "02-landet",
-          "05-klassisk-tid"
+          "05-klassisk-tid",
+          "07-tro-og-ritualer"
         ]
       },
       "geometry": {
@@ -118,7 +121,9 @@
         "name": "Chichén Itzá",
         "chapters": [
           "01-moed-mayaerne",
-          "02-landet"
+          "02-landet",
+          "07-tro-og-ritualer",
+          "08-viden"
         ]
       },
       "geometry": {
@@ -135,7 +140,8 @@
         "id": "kaminaljuyu",
         "name": "Kaminaljuyu",
         "chapters": [
-          "02-landet"
+          "02-landet",
+          "04-praeklassisk-tid"
         ]
       },
       "geometry": {
@@ -186,7 +192,8 @@
         "id": "ceibal",
         "name": "Ceibal",
         "chapters": [
-          "03-begyndelsen"
+          "03-begyndelsen",
+          "04-praeklassisk-tid"
         ]
       },
       "geometry": {
@@ -211,6 +218,142 @@
         "coordinates": [
           -88.682,
           18.06
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "nakbe",
+        "name": "Nakbe",
+        "chapters": [
+          "04-praeklassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.837,
+          17.678
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "el-mirador",
+        "name": "El Mirador",
+        "chapters": [
+          "04-praeklassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.9203,
+          17.7547
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "san-bartolo",
+        "name": "San Bartolo",
+        "chapters": [
+          "04-praeklassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.38,
+          17.46
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "la-venta",
+        "name": "La Venta (olmekisk)",
+        "chapters": [
+          "04-praeklassisk-tid"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -94.04,
+          18.105
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "joya-de-ceren",
+        "name": "Joya de Cerén",
+        "chapters": [
+          "06-hverdagsliv"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.357,
+          13.8275
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "yaxchilan",
+        "name": "Yaxchilán",
+        "chapters": [
+          "07-tro-og-ritualer"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.9653,
+          16.8994
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "piedras-negras",
+        "name": "Piedras Negras",
+        "chapters": [
+          "08-viden"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.26,
+          17.17
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "uaxactun",
+        "name": "Uaxactún",
+        "chapters": [
+          "08-viden"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.6336,
+          17.3933
         ]
       }
     }

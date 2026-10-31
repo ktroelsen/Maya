@@ -81,6 +81,9 @@ function MapView({ places, topic }: { places: Places; topic: Topic }) {
               <Marker
                 key={p.id}
                 position={[p.lat, p.lon]}
+                title={p.name}
+                alt={p.name}
+                keyboard
                 icon={icon(on || selected === p.id, !!focus && !on)}
                 zIndexOffset={on ? 1000 : 0}
                 eventHandlers={{ click: () => setSelected(p.id) }}

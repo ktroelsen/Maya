@@ -74,8 +74,19 @@ public class ContentTests(MayaFactory factory) : IClassFixture<MayaFactory>
     public async Task Every_chapter_image_exists()
     {
         var store = (ContentStore)factory.Services.GetService(typeof(ContentStore))!;
-        foreach (var image in store.Topic.Chapters.SelectMany(c => c.Images))
+        foreach (var image in store.Topic.Chapters.SelectMany(c => c.Images.Concat(c.Figures)))
             Assert.True(File.Exists(Path.Combine(store.MediaDir, image.Src)), $"Missing media: {image.Src}");
+    }
+
+    [Fact]
+    public void Pictures_in_the_text_become_figures()
+    {
+        var figures = ContentStore.Figures("## Overskrift\n\n![En maske](afsnit/a.webp \"Masken fra graven\")\n\nTekst med ![inline](x.webp) midt i.\n![Uden tekst](b.webp)\n");
+        Assert.Equal(["afsnit/a.webp", "b.webp"], figures.Select(f => f.Src));
+        Assert.Equal("Masken fra graven", figures[0].Caption);
+        Assert.Equal("En maske", figures[0].Alt);
+        Assert.Null(figures[1].Caption);
+        Assert.All(figures, f => Assert.True(f.Illustration));
     }
 
     [Fact]

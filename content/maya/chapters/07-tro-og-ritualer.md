@@ -29,15 +29,21 @@ For mayaerne var verden fuld af guder, forfædre og kræfter, som man skulle hol
 
 ## Verden i lag
 
+![Verdenstræet mellem himlen og underverdenen](afsnit/07-tro-og-ritualer-1.webp "Verdenstræet forbinder himlen, menneskenes verden og underverdenen Xibalba. Verdenshjørnerne har hver sin farve.")
+
 Mayaerne forestillede sig verden i tre lag. Øverst himlen med 13 lag, i midten menneskenes verden, og under den underverdenen, Xibalba – »frygtens sted« – med 9 lag. Gennem det hele stod verdenstræet, en kæmpe ceiba, med rødderne i Xibalba og kronen i himlen.
 
 Verden havde også fire retninger, hver med sin farve: øst var rød, nord hvid, vest sort og syd gul. Midten var grøn som jade og majs.
 
 ## Guderne
 
+![En malet Maya-kodeksside der viser guderne Itzamnaaj, Chaak og majsguden.](afsnit/07-tro-og-ritualer-2.webp "Maya-guderne Itzamnaaj, regnguden Chaak og den unge majsgud afbildet i klassisk Maya-kodeksstil.")
+
 Der var mange guder, og de kunne skifte skikkelse. Itzamnaaj var en gammel, vis skabergud. Chaak var regnguden med en økse af lyn. Solguden K'inich Ajaw rejste hver nat gennem underverdenen som en jaguar. Majsguden døde og genopstod som majsen, der sås og høstes. K'awiil, med et ben formet som en slange, var kongernes gud og holdt magten i sin hånd.
 
 ## Popol Vuh og heltetvillingerne
+
+![Maya-kodekstegning af heltetvillingerne, der spiller boldspil mod dødsherrerne.](afsnit/07-tro-og-ritualer-3.webp "Heltetvillingerne Hunahpu og Xbalanque spiller det hellige boldspil mod underverdenens dødsherrer i Xibalba.")
 
 Den vigtigste fortælling, vi kender, er Popol Vuh, K'iche'-mayaernes hellige bog. Den blev skrevet ned med latinske bogstaver i 1500-tallet, men historierne er meget ældre – de findes allerede på keramik fra klassisk tid.
 
@@ -47,6 +53,8 @@ Tvillingerne voksede op og blev også kaldt til Xibalba. De klarede alle prøver
 
 ## Blod til guderne
 
+![Maya-dronning og konge ved et ritual med røg formet som en slange.](afsnit/07-tro-og-ritualer-4.webp "Dronning K'abal Xook og kong Itzamnaaj Bahlam udfører et blodofferritual for at fremkalde en visionsslange.")
+
 Mayaerne mente, at guderne havde givet menneskene livet, og at de skulle have noget igen. Det fineste offer var blod. Konger og dronninger stak sig selv i tungen, ørerne eller kønsorganerne med torne eller rokkepigge og lod blodet dryppe ned på papir, som blev brændt.
 
 På en udhugget stenbjælke fra Yaxchilán, i dag på British Museum, ses dronning K'abal Xook trække et reb med torne gennem sin tunge, mens kong Itzamnaaj Bahlam holder en fakkel over hende. Det skete i år 709. I røgen kunne man få syner af en visionsslange, og gennem den talte forfædrene.
@@ -55,10 +63,14 @@ Der blev også ofret mennesker, især fanger fra krig. Det var en del af krigen 
 
 ## Boldspillet
 
+![Mayaspillere i polstret udrustning på en boldbane.](afsnit/07-tro-og-ritualer-5.webp "Mayaspillere rammer den tunge gummibold med hofterne på en traditionel boldbane.")
+
 Næsten alle mayabyer havde en boldbane: en smal gade mellem to bygninger med skrå mure. Bolden var af massivt gummi og kunne veje flere kilo. Den måtte især rammes med hoften, og spillerne bar tykke skjold om livet.
 
 Boldspillet var sport og underholdning, men også et ritual, der genfortalte heltetvillingernes kamp mod Xibalba. Nogle gange sluttede et spil med, at fanger blev ofret. I den store boldbane i Chichén Itzá sidder stenringe højt oppe på væggene. Den hører til en senere tid, og ringene var ikke almindelige i klassisk tid.
 
 ## Røgelse og forfædre
+
+![Tegning i maya-codexstil af en præst, der brænder kopal-røgelse ved et alter.](afsnit/07-tro-og-ritualer-6.webp "En mayapræst tilbyder vellugtende kopal-harpiks i et røgelserikar, hvor den blå røg stiger op mod guderne.")
 
 Ved ceremonierne brændte man kopal, en duftende harpiks fra træer. Den blå røg bar bønnerne op til guderne. Kopal brændes stadig ved ceremonier i mayaområdet i dag – og ofte sammen med kristne bønner.

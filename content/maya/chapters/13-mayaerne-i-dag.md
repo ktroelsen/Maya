@@ -31,9 +31,13 @@ Mayaerne er ikke et folk fra fortiden. I dag lever omkring seks millioner mennes
 
 ## Omkring 30 sprog
 
+![En maya-kvinde underviser børn i et maya-sprog i traditionel codex-stil.](afsnit/13-mayaerne-i-dag-1.webp "En maya-underviser lærer børn et af de mange maya-sprog, mens tale-skriftsruller forbinder generationerne.")
+
 Mayasprogene er lige så forskellige som de germanske sprog – som dansk, tysk og engelsk. De største er k'iche', q'eqchi', kaqchikel og mam i Guatemala og yukatekisk maya og tzotzil og tzeltal i Mexico. Nogle har over en million talere, andre kun nogle få tusind. I mange familier taler børnene i dag mest spansk, og flere sprog er truet. Men der undervises også i mayasprog på skoler og universiteter, og der er radio, rap og sociale medier på maya.
 
 ## Traditioner, der lever
+
+![Kodeksbillede af en vævende maya-kvinde og en dagtæller ved et kopalalter.](afsnit/13-mayaerne-i-dag-2.webp "En Maya-kvinde væver på båndvæv, mens en dagtæller brænder kopal og læser kalendertegn.")
 
 Mange traditioner er flere tusind år gamle. Majsmarken, milpa, dyrkes stadig. Kvinderne væver på båndvæv, og mønstrene på huipilen kan vise, hvilken by de kommer fra. I Guatemalas højland er der dagtællere, ajq'ij, der stadig bruger den hellige kalender på 260 dage til at vælge gode dage, give råd og lede ceremonier.
 
@@ -41,9 +45,13 @@ Den gamle tro og kristendommen er flettet sammen. Ved kirkerne i Chichicastenang
 
 ## Kastekrigen
 
+![Mayaoprørere der knæler foran et dekoreret trækors på et alter.](afsnit/13-mayaerne-i-dag-3.webp "Mayaoprørere samlet omkring det talende kors i deres helligdom under Kastekrigen på Yucatán.")
+
 I 1847 gjorde mayaerne på Yucatán oprør mod de mexicanske godsejere, som havde taget deres jord. Krigen kaldes Kastekrigen. Oprørerne var tæt på at drive godsejerne helt ud af halvøen. I Quintana Roo levede oprørere i over 50 år i deres egen stat, styret med hjælp fra et »talende kors«. Først omkring 1901 sluttede krigen.
 
 ## Borgerkrigen i Guatemala
+
+![Mayakvinder tænder lys ved et mindested i højlandet](afsnit/13-mayaerne-i-dag-4.webp "Mayaer i højlandet mindes ofrene for borgerkrigen med lys, blomster og kopal.")
 
 Den mørkeste periode i nyere tid var borgerkrigen i Guatemala fra 1960 til 1996. Hæren kæmpede mod guerillaer, men det var især mayalandsbyer i højlandet, der blev ramt. Omkring 200.000 mennesker blev dræbt eller forsvandt. En sandhedskommission under FN konkluderede i 1999, at der var begået folkedrab mod mayaerne, og at langt de fleste ofre var maya.
 
@@ -53,10 +61,14 @@ I Chiapas i Mexico gjorde zapatisterne, som mange er mayaer, oprør i 1994 for j
 
 ## Fortiden under skoven
 
+![En maya-by med pyramider træder frem under en tæt regnskov.](afsnit/13-mayaerne-i-dag-5.webp "Med ny teknologi afsløres en skjult maya-by med pyramider og veje under regnskovens tætte trækroner.")
+
 Arkæologien er i gang med en revolution. Med lidar – laserscanning fra fly – kan man se gennem regnskoven. I 2018 viste en scanning af 2100 kvadratkilometer i det nordlige Guatemala over 60.000 ukendte bygninger, marker, veje og forsvarsværker. Der må have boet mange flere mennesker i lavlandet, end man troede.
 
 I 2024 fandt forskere ved at gennemgå gamle lidar-data en hel by i Campeche i Mexico, som de kaldte Valeriana – skjult i skoven tæt ved en vej, hvor folk kører forbi hver dag.
 
 ## Hvem ejer fortiden?
+
+![Mayaleder overdrages hellige genstande foran et tempel i klassisk codex-stil.](afsnit/13-mayaerne-i-dag-6.webp "En mayaleder modtager en hellig jademaske og et udskåret kar som symbol på kulturel ejendomsret.")
 
 Mange mayagenstande blev i 1900-tallet plyndret og solgt til samlere og museer i Europa og USA. I dag kræver Mexico og Guatemala genstande leveret tilbage, og der er strenge regler for udførsel. Når en udstilling som den på Moesgård kan vise genstande fra Mexico, er det lånt – og det er Mexico, der bestemmer, hvordan historien fortælles.

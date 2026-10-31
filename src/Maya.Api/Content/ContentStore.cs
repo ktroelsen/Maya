@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
 using YamlDotNet.Serialization;
@@ -72,10 +73,23 @@ public class ContentStore
                 throw new InvalidDataException($"Front-matter in chapters/{id}.md is not valid YAML (line {ex.Start.Line}): {ex.Message}", ex);
             }
             chapters.Add(new Chapter(id, number, front.Title ?? id, front.Summary, front.Period,
-                front.Places ?? [], front.Images ?? [], front.Sources ?? [], front.Quiz ?? [], body.Trim()));
+                front.Places ?? [], front.Images ?? [], Figures(body), front.Sources ?? [], front.Quiz ?? [], body.Trim()));
         }
         return new Topic(info.Id, info.Title, info.Subtitle, info.Cover, info.Intro, chapters, info.Podcasts ?? []);
     }
+
+    // Pictures in the text: a line of its own, ![alt](src "caption"). They belong to the section
+    // they stand in (the reader's slideshow) and are always illustrations.
+    static readonly Regex FigureLine = new(@"^!\[(?<alt>[^\]]*)\]\((?<src>[^\s)]+)(?:\s+""(?<caption>[^""]*)"")?\)\s*$", RegexOptions.Multiline);
+
+    public static List<Image> Figures(string markdown) =>
+        [.. FigureLine.Matches(markdown.Replace("\r\n", "\n")).Select(m => new Image
+        {
+            Src = m.Groups["src"].Value,
+            Alt = m.Groups["alt"].Value,
+            Caption = m.Groups["caption"].Success ? m.Groups["caption"].Value : null,
+            Illustration = true,
+        })];
 
     // "---\n<yaml>\n---\n<markdown>"; without front-matter the whole file is Markdown.
     public static (string Meta, string Body) Split(string text)
@@ -100,7 +114,7 @@ public record Podcast(string Id, string Title, string Src, string? Description, 
 
 public record Chapter(
     string Id, int Number, string Title, string? Summary, Period? Period, List<string> Places,
-    List<Image> Images, List<Source> Sources, List<QuizQuestion> Quiz, [property: JsonIgnore] string Markdown);
+    List<Image> Images, List<Image> Figures, List<Source> Sources, List<QuizQuestion> Quiz, [property: JsonIgnore] string Markdown);
 
 // Years as numbers: negative = BCE (f.Kr.).
 public class Period

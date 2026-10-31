@@ -97,3 +97,18 @@ body {
   border-radius: 0.75rem;
   border: 2px solid var(--color-accent);
 }
+
+/* Slideshow: each new picture fades in. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.fade-in {
+  animation: fade-in 0.7s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
+}

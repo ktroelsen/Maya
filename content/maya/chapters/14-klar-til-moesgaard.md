@@ -39,6 +39,8 @@ Udstillingen »Maya – riget under junglen« på Moesgård Museum ved Aarhus ka
 
 ## Slangeriget i korte træk
 
+![Majakonge på trone foran stensøjler med slangehieroglyffen i klassisk codex-stil.](afsnit/14-klar-til-moesgaard-1.webp "En majakonge på sin trone omgivet af udskårne stensøjler med Slangerigets karakteristiske slangehieroglyf.")
+
 Slangedynastiet blev grundlagt i byen Dzibanche i begyndelsen af 400-tallet af Yuknom Ch'en den Første. Kongen, der kaldes Himmelvidne, vandt en afgørende krig over Tikal i 562. Senere flyttede rigets hovedsæde til Calakmul, hvor Yuknom Ch'en den Anden gjorde Slangeriget til den stærkeste magt i mayaområdet.
 
 Den røde tråd i udstillingen er slangehieroglyffen – rigets navn, skrevet med et slangehoved. Den står på de store teksttavler og fører dig gennem det, museet kalder »Den store fortælling«. Hold øje med den. Læs mere i kapitel 5.
@@ -61,6 +63,8 @@ Fortællingen begynder i nutidens Mexico, går gennem majsmarkerne til Calakmul 
 - Verdenshistorien under junglen.
 
 ## De syv jademasker
+
+![En maya-hersker i sin grav iført en grøn jademaske omgivet af majsplanter.](afsnit/14-klar-til-moesgaard-3.webp "En maya-hersker i sin grav, iført en grøn jademaske og klar til genfødsel som majsgud.")
 
 Udstillingens hovedværker er syv dødsmasker af jade fra herskergrave i Dzibanche. De tilhører Centro INAH Quintana Roo i Mexico, og alle på nær én bliver vist for første gang nogensinde.
 

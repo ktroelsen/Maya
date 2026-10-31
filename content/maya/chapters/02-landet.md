@@ -29,11 +29,15 @@ Mayaernes land er ikke ét landskab, men flere. På en rejse fra nord til syd vi
 
 ## Et land på størrelse med Italien
 
+![Kodeks-maleri af tre landskabstyper: fladt lavland med cenote, regnskov og bjergrigt højland.](afsnit/02-landet-1.webp "Mayaområdets tre geografiske zoner vist i kodeks-stil: det nordlige lavland, det sydlige lavland og højlandet.")
+
 Mayaområdet dækker omkring 324.000 kvadratkilometer, cirka det samme som Italien. I dag hører det til fem lande: det sydøstlige Mexico med Yucatán-halvøen og dele af Chiapas og Tabasco, hele Guatemala og Belize, og den vestlige del af Honduras og El Salvador.
 
 Forskerne deler det i tre dele: det nordlige lavland, det sydlige lavland og højlandet.
 
 ## Det nordlige lavland: kalksten og cenoter
+
+![En maya-præst bringer ofringer til regnguden ved en dyb, rund cenote.](afsnit/02-landet-2.webp "En maya-præst giver ofringer af jade og keramik til regnguden Chaak ved en hellig cenote.")
 
 Yucatán-halvøen er flad som en pandekage. Jorden er tynd og ligger oven på kalksten, og regnvandet siver lige igennem. Der er næsten ingen floder eller søer. I stedet findes vandet i cenoter – runde huller, hvor kalkstenen er styrtet sammen, så man kan komme ned til grundvandet.
 
@@ -43,6 +47,8 @@ En del af cenoterne ligger i en stor bue omkring byen Mérida. Buen følger kant
 
 ## Det sydlige lavland: regnskoven
 
+![Et helligt ceiba-træ omgivet af regnskovens dyr og maya-pyramider i kodeksstil.](afsnit/02-landet-3.webp "Det hellige ceiba-træ hæver sig i den tætte regnskov sammen med en jaguar, quetzal-fugl og klassiske maya-pyramider.")
+
 Længere mod syd, i Petén i det nordlige Guatemala og i nabolandene, bliver skoven høj og tæt. Her ligger mange af den klassiske tids store byer: Tikal, Calakmul, Palenque og hundredvis af andre.
 
 Skoven er fuld af liv. Her lever jaguarer, aber, tapirer, papegøjer og den farvestrålende quetzal-fugl, hvis lange grønne halefjer var forbeholdt konger. Den mægtige ceiba-træ var helligt for mayaerne. De forestillede sig verden som et kæmpe ceiba-træ med rødderne i underverdenen og kronen i himlen.
@@ -51,10 +57,14 @@ Regnen falder mest fra juni til november. Resten af året kan være tørt, og de
 
 ## Højlandet: bjerge, vulkaner og jade
 
+![Mayaer der handler med grønne jadesten og obsidianknive i et bjergrigt vulkanlandskab.](afsnit/02-landet-4.webp "Mayahandlende i højlandet bytter værdifuld grøn jade og skarp sort obsidian nær en vulkansk floddal.")
+
 Mod syd rejser bjergene sig i Guatemala og Chiapas. Her er køligere, og jorden er frugtbar på grund af asken fra vulkanerne. Den store by Kaminaljuyu lå, hvor Guatemala City ligger i dag.
 
 Højlandet havde noget, som lavlandets byer ikke kunne undvære. Obsidian, et skarpt, sort vulkansk glas, blev brugt til knive og spydspidser. Og i dalen ved floden Motagua fandtes jade – den grønne sten, der var mere værd end guld for mayaerne. Næsten al mayaernes jade kom herfra.
 
 ## Landet bandt dem sammen
+
+![To Maya-handelsmænd bytter varer ved en flodbred i traditionel kodex-stil.](afsnit/02-landet-5.webp "Maya-handelsmænd udveksler kakao, salt, jade og obsidian ved en flodbred under deres rejse ad handelsruterne.")
 
 Fordi de forskellige egne havde forskellige ting, handlede de med hinanden. Salt kom fra kysten ved Yucatán, kakao fra varme lavlande, jade og obsidian fra højlandet, og fjer og jaguarskind fra skoven. Handelsruterne gik ad stier gennem skoven og i kanoer langs kysten og floderne. Det var også ad disse veje, at ideer, guder og moder spredte sig.

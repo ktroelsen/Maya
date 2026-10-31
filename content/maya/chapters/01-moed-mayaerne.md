@@ -28,17 +28,23 @@ Når man siger »mayaerne«, tænker de fleste på pyramider, der stikker op af 
 
 ## Et folk, ikke et rige
 
+![To maya-konger sidder over for hinanden i en klassisk maya-kodeksstil.](afsnit/01-moed-mayaerne-1.webp "To maya-konger, k'uhul ajaw, mødes omgivet af handelsvarer og våben, der symboliserer alliance og rivalisering mellem bystaterne.")
+
 Mayaerne var aldrig samlet i ét rige med én hersker. I deres storhedstid, den klassiske tid fra ca. 250 til 900 efter Kristus, var landet delt mellem snesevis af kongeriger. Hvert havde sin hovedstad med templer, paladser og pladser, og sin egen konge, der kaldte sig »k'uhul ajaw« – hellig herre.
 
 Kongerigerne handlede med hinanden, giftede deres prinser og prinsesser bort til hinanden og førte krig mod hinanden. De to største magter, Tikal og Slangeriget Kaanul med hovedstæderne Dzibanche og senere Calakmul, kæmpede i flere hundrede år om at være den stærkeste. Det er Slangeriget, udstillingen på Moesgård handler om.
 
 ## Hvor og hvornår
 
+![Maya-kodekstegning af tre landskaber med en hersker, pyramide, cenote og vulkanske bjerge.](afsnit/01-moed-mayaerne-2.webp "Mayaernes landskaber med bjerge i syd, tæt regnskov i petén og flade kalkstenssletter i nord.")
+
 Mayaernes land ligger i det sydøstlige Mexico og det nordlige Mellemamerika: fra den flade kalkstenshalvø Yucatán i nord, gennem den tætte regnskov i Petén i Guatemala, til bjergene i højlandet i syd.
 
 Historien strækker sig over mere end 4000 år. De første landsbyer med majsmarker opstod for omkring 4000 år siden. De første store byer blev bygget flere hundrede år før Kristi fødsel. Den klassiske tid, som udstillingen på Moesgård handler om, varede fra ca. 250 til 900. Derefter blev mange af de sydlige byer forladt, mens nye byer som Chichén Itzá og Mayapán voksede frem i nord. Da spanierne kom i 1500-tallet, tog det dem næsten 200 år at erobre det sidste selvstændige mayarige.
 
 ## Hvad gjorde dem særlige?
+
+![En maya-skriver sidder foran et højt tempel og maler i en foldebog.](afsnit/01-moed-mayaerne-3.webp "En maya-skriver med fjerhovedprydelse maler i en foldebog foran et højt trappetempel under nattehimlen.")
 
 Mayaerne udviklede det mest fuldstændige skriftsystem i Amerika før europæerne kom. De skrev på stenmonumenter, på keramik og i foldebøger af barkpapir. De regnede med tallet nul, fulgte Venus og månen på himlen og holdt styr på tiden med flere kalendere på én gang.
 

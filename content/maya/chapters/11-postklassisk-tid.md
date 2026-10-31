@@ -31,9 +31,13 @@ Mens byerne i syd blev forladt, voksede byerne i nord. Mayaernes historie flytte
 
 ## Uxmal og Puuc-bjergene
 
+![Maya-bygning i Uxmal med udskårne Chaak-regngudsmasker og mosaikfrise.](afsnit/11-postklassisk-tid-1.webp "En Puuc-bygning i Uxmal prydet med mosaikmønstre og stenhuggede masker af regnguden Chaak.")
+
 I de lave bakker i det nordvestlige Yucatán, Puuc, blomstrede en række byer i 800- og 900-tallet. Den største var Uxmal. Puuc-stilen er let at kende: nederst glatte mure, øverst en frise af tusindvis af tilhuggede sten sat sammen som en mosaik – geometriske mønstre, små huse og masker af regnguden Chaak med lange, krumme snuder. I et land uden floder var regnguden den vigtigste af alle.
 
 ## Chichén Itzá
+
+![El Castillo-pyramiden i Chichén Itzá med krigere og slangesymboler i maya-kodeksstil.](afsnit/11-postklassisk-tid-2.webp "Pyramiden El Castillo i Chichén Itzá med fjerklædte slanger, krigere og udskårne relieffer af jaguarer og ørne.")
 
 Chichén Itzá blev den største by i nord og den mægtigste i mayaområdet i 900- og 1000-tallet. Den var anderledes end de klassiske kongeriger. Der er ikke mange stelaer med kongers navne. I stedet viser kunsten krigere i lange rækker, jaguarer, ørne og den fjerklædte slange, Kukulkan – den samme gud, som aztekerne kaldte Quetzalcoatl.
 
@@ -45,16 +49,22 @@ Kunsten i Chichén Itzá ligner kunsten i byen Tula i det centrale Mexico. Forsk
 
 ## Mayapán
 
+![Maya-adelsmænd siddende i råd foran en trappepyramide og en bymur i Mayapán.](afsnit/11-postklassisk-tid-3.webp "Et råd af adelsmænd samlet foran Mayapáns centralpyramide, omgivet af byens mure.")
+
 Efter at Chichén Itzá mistede magten, blev Mayapán den vigtigste by i nord fra omkring 1200. Den var omgivet af en bymur på omkring 9 kilometer, og inden for muren boede måske 15.000–17.000 mennesker tæt sammen. Byen blev ikke styret af én hellig konge, men af et råd af adelsslægter. Mayapáns pyramide er en mindre kopi af El Castillo i Chichén Itzá.
 
 Omkring midten af 1400-tallet gjorde en af slægterne oprør, og byen blev forladt. Da spanierne kom, var Yucatán delt i omkring 16 små stater, der ofte lå i strid med hinanden.
 
 ## Handel langs kysten
 
+![En maya-kano fyldt med handelsvarer sejler på havet foran Tulums klippeby.](afsnit/11-postklassisk-tid-4.webp "Maya-handlende sejler i kano med varer som jade, bomuld og guldklokker forbi Tulums kystby.")
+
 I den postklassiske tid gik meget handel med kano langs kysten rundt om Yucatán. Ved den caribiske kyst lå handelsbyer som Tulum, bygget på en klippe over havet og omgivet af en mur. På øen Cozumel lå et helligt sted for gudinden Ixchel, som kvinder valfartede til.
 
 Kanoerne fragtede salt, bomuldsstof, kakao, honning, obsidian, jade og fjer. Der kom også metal til mayaområdet nu: kobber og guld fra Mexico og Mellemamerika, brugt til klokker og smykker.
 
 ## Højlandets kongeriger
+
+![En majakonge på trone sammen med en skriver i Guatemalas bjergrige højland.](afsnit/11-postklassisk-tid-5.webp "En K'iche'-konge og hans skriver i højlandets hovedstad Q'umarkaj, hvor historierne til Popol Vuh blev bevaret.")
 
 Mod syd, i Guatemalas højland, var der også stærke riger. K'iche'-folket havde hovedstaden Q'umarkaj, og kaqchikel-folket Iximché. Det var de folk, spanierne mødte først, da de kom til Guatemala i 1524 – og det var k'iche'-mayaer, der få årtier senere skrev Popol Vuh ned.

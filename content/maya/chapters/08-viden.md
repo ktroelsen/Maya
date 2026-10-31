@@ -31,25 +31,35 @@ Mayaerne var ikke de eneste i Mellemamerika, der kunne skrive og regne. Men de u
 
 ## Hieroglyfferne
 
+![En mayaskriver maler røde og sorte hieroglyffer på et foldet ark barkpapir.](afsnit/08-viden-1.webp "En maya-skriver sidder i sit værksted og maler sirlige hieroglyffer på et folde-ud manuskript af barkpapir.")
+
 Mayaskriften ser ud som små billeder, men den er et rigtigt skriftsprog, der kan skrive alt, hvad man kan sige. Nogle tegn står for hele ord, andre for stavelser. Det samme ord kan skrives på flere måder: med ét billedtegn, med stavelser eller en blanding – lidt som en rebus. I alt kendes omkring 800 tegn.
 
 Mayaerne skrev på stenmonumenter, på vægge, på keramik, på jade og knogler – og i bøger. Bøgerne, kodekserne, var lange strimler af barkpapir, foldet som en harmonika og dækket med en tynd hvid kalkhinde. Skriverne malede med pensler af hår eller fjer.
 
 ## Bøgerne, der blev brændt
 
+![En munk står ved et bål af brændende mayabøger, mens en maya gemmer en bog.](afsnit/08-viden-2.webp "Biskop Diego de Landa lader mayabøger brænde i Maní, mens en maya-skriver forsøger at redde et manuskript.")
+
 Der fandtes engang tusinder af bøger. Men da spanierne kom, så præsterne dem som djævelens værk. I 1562 lod biskop Diego de Landa et stort antal bøger brænde i byen Maní på Yucatán. Kun fire mayabøger fra før erobringen findes i dag. Den bedst bevarede er Dresden-kodeksen, som ligger i Dresden i Tyskland. Den har givet navn til billedstilen i denne app.
 
 ## Hvordan skriften blev knækket
 
+![En maya-hersker og en skriver ved en udskåret stenstela i kodexstil.](afsnit/08-viden-3.webp "En maya-konge står ved en stela, der viser begivenheder i hans liv, mens en skriver nedfælder historien.")
+
 I lang tid kunne ingen læse mayaskriften. I 1950'erne viste den russiske forsker Jurij Knorozov, at mange tegn var stavelser. I 1960 viste Tatiana Proskouriakoff, at monumenterne i Piedras Negras fortalte om virkelige kongers liv – fødsel, kroning og død – og ikke kun om guder og stjerner. Siden er det gået stærkt, og i dag kan forskerne læse det meste af det, der står.
 
 ## Tal og nul
+
+![Maya-skriver maler talsymbolerne for prik, streg og nul-skal på barkpapir.](afsnit/08-viden-4.webp "En maya-skriver sidder på en sivmåtte og nedskriver talsymbolerne for én, fem og nul.")
 
 Mayaerne talte i tyvere, ikke i tiere som os – måske fordi man har både fingre og tæer. De skrev tal med kun tre tegn: en prik er 1, en streg er 5, og en skal er 0. Tallet 19 skrives med tre streger og fire prikker. Større tal stables oven på hinanden i etager, hvor hver etage er 20 gange mere værd end den under.
 
 Mayaerne brugte nul flere hundrede år før man begyndte at bruge det i Europa.
 
 ## Tre kalendere på én gang
+
+![En maya-præst sidder foran to indbyrdes forbundne kalenderhjul i kodeksstil.](afsnit/08-viden-5.webp "En maya-astronom studerer sammenkoblingen af den hellige 260-dages kalender og solåret.")
 
 Mayaerne holdt styr på tiden med flere kalendere samtidig.
 
@@ -61,11 +71,15 @@ De to kalendere passer sammen igen hvert 52. år. Det kaldes en kalenderrunde.
 
 ## Den lange kalender
 
+![Maya-skriver maler kalenderglyffer på barkpapir foran en monumental stensøjle.](afsnit/08-viden-6.webp "En maya-skriver nedfælder den lange kalenders tidsenheder på barkpapir foran en udskåret stenstøtte i et tempel.")
+
 Til historiske datoer brugte mayaerne den lange kalender, Long Count. Den tæller dage fra en skabelsesdato i år 3114 før Kristus. Dagene samles i stadig større enheder: 20 dage er en winal, 360 dage en tun, omkring 20 år en k'atun, og omkring 394 år en bak'tun.
 
 Den 21. december 2012 sluttede den 13. bak'tun. Mange mente, at mayaerne havde forudsagt jordens undergang. Det havde de ikke. Det var som et kilometertal, der ruller over. En indskrift i Palenque nævner endda en dato i år 4772.
 
 ## Øjne på himlen
+
+![Astronom på et tempel sigter mod solopgangen og Venus](afsnit/08-viden-7.webp "En maya-astronom sigter med to krydsede pinde mod solopgangen og Venus, mens en skriver noterer i en foldebog.")
 
 Mayaerne fulgte solen, månen og planeterne nøje. Dresden-kodeksen har tabeller over Venus' bevægelser, som er beregnet så præcist, at de kun er få timer forkerte over flere hundrede år, og tabeller, der kan forudsige formørkelser.
 

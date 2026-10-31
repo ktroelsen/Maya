@@ -30,6 +30,8 @@ Mayaernes kunst blev lavet til guderne, til kongerne og til de døde. Meget af d
 
 ## Byggeri uden buer og hjul
 
+![Maya-bygningsarbejdere hugger sten ud og opfører en falsk hvælving i et tempel.](afsnit/09-kunst-og-arkitektur-1.webp "Maya-håndværkere opfører et tempel med falsk hvælving og bærer tunge kalksten på ryggen.")
+
 Mayaernes byer blev bygget uden metalværktøj, uden trækdyr og uden hjul. Stenene blev brudt af kalkstenen med redskaber af hårdere sten og båret på ryggen. Murene blev bygget af en kerne af løse sten og ler, beklædt med tilhuggede sten og til sidst dækket med hvid kalkpuds, som tit blev malet rød.
 
 Mayaerne brugte ikke den rigtige bue. I stedet byggede de en falsk hvælving: stenene i hver side rykkes lidt ind, lag for lag, til de næsten mødes, og så lægges en flad sten over. Det gør rummene smalle og høje, med tykke mure.
@@ -38,13 +40,19 @@ På toppen af pyramiderne stod et lille tempel med et højt tagkam – en dekore
 
 ## Byens plan
 
+![Mayaby i codex-stil med pyramide, plads og hævede veje.](afsnit/09-kunst-og-arkitektur-2.webp "Et mayacenter med et pyramidetempel som et helligt bjerg, en central plads og hævede veje til omverdenen.")
+
 En mayaby havde ikke gader i et net som en moderne by. Midt i byen lå store pladser omgivet af templer, paladser og boldbaner. Udenom lå boligkvartererne spredt mellem marker og haver, nogle gange forbundet af hævede veje. Byen var bygget som et billede af verden: pyramiderne var hellige bjerge, og indgangene til templerne var huler ind til gudernes verden.
 
 ## Stelaer og trapper med tekst
 
+![En mayakonge ved en udskåret stensøjle foran en stejl trappe med glyffer.](afsnit/09-kunst-og-arkitektur-3.webp "En maya-konge står ved sin udskårne stela foran den monumentale Hieroglyftrappe i Copán.")
+
 Kongerne fik deres historie hugget i sten. I Copán er stelaerne udhugget så dybt, at kongen næsten træder ud af stenen som en statue. Copán har også Hieroglyftrappen, hvor omkring 2000 glyffer på trinene fortæller byens kongehistorie – den længste mayatekst, vi kender. Den blev indviet i 755.
 
 ## Bonampak – et hof i farver
+
+![Mayakongelige og musikere fremstillet i farverig kodexstil i et paladskammer.](afsnit/09-kunst-og-arkitektur-4.webp "Et Maya-hof med fyrstelige herskere og musikere med trompeter og trommer, malet i klassisk Maya-blå.")
 
 I 1946 viste lakandon-mayaer en amerikansk fotograf vej til et lille tempel i Chiapas, Bonampak. Indenfor var tre rum fuldstændig dækket af vægmalerier fra omkring år 790.
 
@@ -52,15 +60,21 @@ Malerierne viser hoffet: i det første rum bliver en lille arving vist frem for 
 
 ## Mayablå
 
+![En maya-håndværker blander indigo og ler over ild i klassisk codex-stil.](afsnit/09-kunst-og-arkitektur-5.webp "En maya-håndværker fremstiller den holdbare pigment mayablå ved at varme indigo og ler sammen over ild.")
+
 Mayablå er en af de mest holdbare farver, man kender. Den blev lavet af indigo fra en plante, varmet op sammen med en særlig lerart, palygorskit. Farvestoffet bindes ind i leret og bliver næsten umuligt at nedbryde. Den blå farve var forbundet med regn, offer og det hellige, og den blev også smurt på ofre, der blev kastet i cenoten i Chichén Itzá.
 
 ## Jade – mere værd end guld
+
+![En maya-håndværker der former jade overfor en færdig kongelig jademaske.](afsnit/09-kunst-og-arkitektur-6.webp "En maya-håndværker sliber den værdifulde jade, ved siden af en kongelig dødsmaske sammensat af jademosaik.")
 
 Den grønne jade fra Motagua-dalen var det mest værdifulde materiale, mayaerne kendte. Den var grøn som de unge majsplanter og som vand, og den stod for liv og evighed. Konger blev begravet med halskæder, ørepropper og armbånd af jade – og nogle med en dødsmaske lavet af hundredvis af små stykker jade, med øjne af muslingeskal og obsidian. Pakal i Palenque fik en, og flere er fundet i Calakmul. I herskergravene i Dzibanche, Slangerigets første hovedstad, er der fundet syv jademasker – dem kan man se på Moesgård.
 
 Jade er så hårdt, at det ikke kan skæres med en kniv. Det blev savet med snore og sand og slebet i uger og måneder.
 
 ## Malede bægre og små figurer
+
+![En mayakunstner maler et lerbæger, mens små figurer står ved siden af.](afsnit/09-kunst-og-arkitektur-7.webp "En maya-kunstner maler et cylinderbæger i kodeks-stil ved siden af støbte lerfigurer af krigere og vævere.")
 
 Mayaernes keramikere lavede høje cylinderbægre til kakao, malet med scener fra hoffet og myterne. Nogle er malet med fine sorte og røde streger på creme bund – i den såkaldte kodeks-stil, som ligner siderne i en bog. Mange er signeret af maleren, og nogle har en tekst om, hvem bægeret tilhørte, og hvad det skulle bruges til.
 

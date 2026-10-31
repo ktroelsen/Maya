@@ -38,6 +38,7 @@ public static class ContentEndpoints
                 c.Period,
                 c.Places,
                 c.Images,
+                c.Figures,
                 c.Sources,
                 c.Quiz,
                 c.Markdown,

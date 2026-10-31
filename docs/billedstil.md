@@ -44,3 +44,13 @@ Paletten bruges også som design tokens i `web/src/theme/`.
    Hvis kompositionen er forkert, så lav en version med ret komposition og send den med som billede 2 (som ved v3).
 3. Tjek fakta i billedet (arkitektur, dragter, genstande) mod kilderne for kapitlet.
 4. Gem som WebP i `content/maya/media/` og skriv i kapitlets front-matter, at billedet er en **rekonstruktion/illustration**, ikke en rigtig genstand.
+
+## Afsnitsbilleder (billedshowet)
+
+Hvert afsnit (`## overskrift`) kan have sit eget billede, som vises i teksten og i læserens billedshow. `tools/billeder/afsnit.py` laver dem:
+
+1. Gemini Flash læser afsnittet og foreslår motiv, dansk billedtekst og alt-tekst – eller springer over (praktiske afsnit).
+2. Billedet tegnes med stilarket som reference og gemmes i `media/afsnit/<kapitel>-<n>.webp`.
+3. En billedlinje sættes ind under overskriften. Motiverne logges i `docs/billeder-afsnit.json`.
+
+**Gennemgå billederne bagefter.** Første kørsel (31. oktober, 76 billeder) gav tre fejl, som blev tegnet om med håndskrevne motiver: en astronom med noget, der lignede et gevær; et fredsmærke og en tegning af en virkelig, nulevende person; latinske bogstaver for verdenshjørnerne. Tegn ikke virkelige nulevende personer.

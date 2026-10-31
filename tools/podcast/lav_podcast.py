@@ -90,6 +90,7 @@ def chapter_texts(ids):
         text = open(path, encoding='utf-8').read()
         body = text.split('\n---\n', 1)[1] if text.startswith('---') else text
         title = re.search(r'^title:\s*"?(.+?)"?\s*$', text, re.M).group(1)
+        body = re.sub(r'^!\[.*\]\(.*\)\s*$', '', body, flags=re.M)  # pictures are not part of the story
         out.append(f'## Kapitel {n}: {title}\n\n{body.strip()}')
     return out
 

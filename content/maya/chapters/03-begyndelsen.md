@@ -29,9 +29,13 @@ Mayaernes historie begynder ikke med pyramider, men med en lille, uanselig græs
 
 ## De første mennesker
 
+![Tidlige mennesker jager og samler mad ved en flod i maya-kodeksstil.](afsnit/03-begyndelsen-1.webp "Tidlige jægere og samlere i det mellemamerikanske landskab samler frugt, fisker og jager dyr.")
+
 De første mennesker kom til Amerika fra Asien for mere end 15.000 år siden. Efterhånden spredte de sig ned gennem hele kontinentet. I det område, der senere blev mayaernes, levede de i tusinder af år som jægere og samlere. De fulgte dyrene og årstiderne, samlede frugter, nødder og rødder og fiskede ved kysterne og floderne.
 
 ## Majsen
+
+![Mayaernes majsgud fremstillet med et majskolbeformet hoved i et klassisk kodeks-billede.](afsnit/03-begyndelsen-2.webp "Den unge majsgud stiger frem fra en majsplante, som beskrevet i mayaernes skabelsesberetning.")
 
 I det sydvestlige Mexico voksede et vildt græs, der hedder teosinte. Det har kun få, hårde kerner. For omkring 9000 år siden begyndte mennesker at plante de bedste frø igen og igen. Langsomt, over tusinder af år, blev teosinte til majs med store kolber og mange bløde kerner.
 
@@ -41,15 +45,21 @@ For mayaerne blev majsen mere end mad. I deres skabelsesberetning, Popol Vuh, fo
 
 ## Milpa – de tre søstre
 
+![Mayakvinde maler majs på en sten, og en landmand arbejder i sin milpa.](afsnit/03-begyndelsen-3.webp "En mayakvinde maler majs på en metate, mens en landmand passer sin milpa med majs, bønner og squash.")
+
 Mayaernes marker hedder milpa. Her dyrkes majs, bønner og squash sammen. Bønnerne klatrer op ad majsstænglerne, squashens store blade skygger for ukrudtet, og bønnerne gør jorden mere frugtbar. Sammen giver de en sund kost. Majs og bønner tilsammen indeholder de proteiner, man har brug for. Milpa dyrkes stadig på samme måde i dag.
 
 Majsen blev blødgjort i vand med kalk, før den blev malet på en flad sten, en metate. Det gør majsen mere nærende. Af dejen lavede man tamales og en tyk drik. Tortillaer blev først almindelige i mayaområdet meget senere.
 
 ## De første landsbyer
 
+![Tidlig mayalandsby med lerklinet hus, palmetag og keramikfremstilling i et tropisk landskab.](afsnit/03-begyndelsen-4.webp "Et tidligt mayahus af lerklinet fletværk med palmetag, hvor beboerne fremstiller keramik og dyrker jorden.")
+
 Da folk begyndte at dyrke jorden, kunne de blive boende samme sted. Ved Stillehavskysten i Chiapas og Guatemala lavede man keramik allerede for omkring 3900 år siden. I lavlandet opstod de første faste landsbyer for omkring 3000–3200 år siden, blandt andet ved Cuello i Belize og Ceibal i Guatemala. Husene havde vægge af flettede grene klinet med ler og tag af palmeblade – ligesom mange huse i mayaområdet i dag.
 
 ## En overraskelse fra luften
+
+![Tidlige mayaer bygger og samles på en stor jordplatform i et kodex-maleri.](afsnit/03-begyndelsen-5.webp "Mennesker samles og bygger den enorme jordplatform ved Aguada Fénix til fælles ceremonier i mayaernes tidlige historie.")
 
 I 2020 fortalte forskere om et fund, der overraskede alle. Med lidar – laserscanning fra et fly – havde de fundet en kæmpe platform ved Aguada Fénix i Tabasco i Mexico. Den er omkring 1,4 kilometer lang og blev bygget for omkring 3000 år siden. Det er det ældste og største bygningsværk, man kender fra mayaområdet.
 

@@ -1,11 +1,13 @@
-import { BookOpen, BookText, History, Map, type LucideIcon } from 'lucide-react';
+import { BookOpen, BookText, Camera, History, Map, type LucideIcon } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router';
+import OfflineBanner from './OfflineBanner';
 
 const nav: { to: string; label: string; icon: LucideIcon }[] = [
   { to: '/', label: 'Kapitler', icon: BookOpen },
   { to: '/tidslinje', label: 'Tidslinje', icon: History },
   { to: '/kort', label: 'Kort', icon: Map },
   { to: '/ordliste', label: 'Ordliste', icon: BookText },
+  { to: '/guide', label: 'Guide', icon: Camera },
 ];
 
 // Mobile: top bar + bottom tab bar. Desktop: the same links in the top bar.
@@ -37,6 +39,7 @@ export default function Layout() {
           </nav>
         </div>
       </header>
+      <OfflineBanner />
 
       <main className="flex-1 overflow-y-auto pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-10">
         <div className="mx-auto max-w-3xl px-4 py-6 md:py-10">
@@ -44,7 +47,7 @@ export default function Layout() {
         </div>
       </main>
 
-      <nav className="fixed inset-x-0 bottom-0 grid grid-cols-4 border-t-2 border-accent/60 bg-surface pb-[env(safe-area-inset-bottom)] md:hidden">
+      <nav className="fixed inset-x-0 bottom-0 grid grid-cols-5 border-t-2 border-accent/60 bg-surface pb-[env(safe-area-inset-bottom)] md:hidden">
         {nav.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}

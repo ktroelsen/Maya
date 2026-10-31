@@ -11,8 +11,8 @@ images:
 sources:
   - title: Encyclopaedia Britannica – Maya
     url: https://www.britannica.com/topic/Maya-people
-  - title: Moesgård Museum – Maya. Kongeriget under junglen
-    url: https://www.moesgaardmuseum.dk/
+  - title: Moesgård Museum – Maya. Riget under junglen
+    url: https://moesgaardmuseum.dk/udstillinger/aktuelle-udstillinger/maya-riget-under-junglen
 quiz:
   - question: Hvor mange mennesker taler et mayasprog i dag – omtrent?
     options: ["Ingen – sprogene er uddøde", "Omkring 60.000", "Omkring 6 millioner"]
@@ -30,7 +30,7 @@ Når man siger »mayaerne«, tænker de fleste på pyramider, der stikker op af 
 
 Mayaerne var aldrig samlet i ét rige med én hersker. I deres storhedstid, den klassiske tid fra ca. 250 til 900 efter Kristus, var landet delt mellem snesevis af kongeriger. Hvert havde sin hovedstad med templer, paladser og pladser, og sin egen konge, der kaldte sig »k'uhul ajaw« – hellig herre.
 
-Kongerigerne handlede med hinanden, giftede deres prinser og prinsesser bort til hinanden og førte krig mod hinanden. De to største magter, Tikal og Calakmul, kæmpede i flere hundrede år om at være den stærkeste.
+Kongerigerne handlede med hinanden, giftede deres prinser og prinsesser bort til hinanden og førte krig mod hinanden. De to største magter, Tikal og Slangeriget Kaanul med hovedstæderne Dzibanche og senere Calakmul, kæmpede i flere hundrede år om at være den stærkeste. Det er Slangeriget, udstillingen på Moesgård handler om.
 
 ## Hvor og hvornår
 

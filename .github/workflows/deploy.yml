@@ -57,7 +57,7 @@ jobs:
 
       # Hemmeligheder lægges i appsettings.Production.json fra GitHub Secrets, så de
       # aldrig står i repoet. Uden GOOGLE_TTS_API_KEY tilbydes kun enhedens egen stemme;
-      # GEMINI_API_KEY bruges af billedgenkendelsen (kommer senere).
+      # GEMINI_API_KEY bruges af billedgenkendelsen (»Spørg guiden«).
       - name: Configure production secrets
         shell: pwsh
         env:

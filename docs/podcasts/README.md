@@ -2,7 +2,23 @@
 
 Podcasts laves i NotebookLM (»Lydoversigt«/Audio Overview) og lægges i appen som MP3. Appen afhænger ikke af NotebookLM.
 
-## Sådan laves en podcast
+## Med Gemini (sådan blev intro-podcasten lavet)
+
+`tools/podcast/lav_podcast.py` laver en podcast med to værter (Lise og Jonas) ud fra kapitlerne:
+
+```bash
+GEMINI_API_KEY=... python3 tools/podcast/lav_podcast.py manus intro   # manuskript → docs/podcasts/intro-manus.json
+GEMINI_API_KEY=... python3 tools/podcast/lav_podcast.py lyd intro     # lyd → content/maya/media/podcasts/intro.mp3
+```
+
+1. **Manus**: `gemini-3.1-pro-preview` skriver et sammendrag som samtale (ikke en oplæsning) ud fra alle kapitler og `intro-kilde.md`. Kaldet streames, da det tager et par minutter.
+2. **Læs manuskriptet igennem og ret fakta i JSON-filen.** Ved intro-podcasten blev syv fejl rettet i hånden (fx Tikals nederlag i 562, majsens alder, datoen i 2012).
+3. **Lyd**: `gemini-3.8-flash-tts` læser op med stemmerne Kore (Lise) og Puck (Jonas), i bidder på ca. 320 ord, som ffmpeg sætter sammen til MP3 (48 kbit/s mono). Kræver `ffmpeg`.
+4. Tilføj podcasten i `topic.json` under `podcasts` (se nedenfor). Nye afsnit tilføjes i `EPISODES` i scriptet.
+
+Intro-podcasten: 15 minutter, 5,4 MB, koblet til kapitel 1 og 14.
+
+## Med NotebookLM
 
 1. Opret en ny notesbog i NotebookLM.
 2. Upload kilderne til afsnittet (se tabellen). Kapitlerne ligger i `content/maya/chapters/`. Front-matter øverst i filerne kan blive stående.
@@ -26,8 +42,8 @@ Podcasts laves i NotebookLM (»Lydoversigt«/Audio Overview) og lægges i appen 
 
 ## Prompt: `intro`
 
-> Lav en levende, dansk samtale for voksne, der skal se udstillingen »Maya – Kongeriget under junglen« på Moesgård Museum. Følg fortællingen i kronologisk rækkefølge: hvem mayaerne var og er, landet, majsen og de første landsbyer, de første byer i præklassisk tid, kongerigerne i klassisk tid med Tikal og Calakmul, hverdagsliv, tro og boldspil, skrift og kalender, kollapset, Chichén Itzá og Mayapán, spaniernes erobring og mayaerne i dag. Brug konkrete personer og historier (Jasaw Chan K'awiil, Pakal, heltetvillingerne, dronning K'abal Xook). Ryd op i myter: mayaerne forsvandt ikke, og de forudsagde ikke verdens undergang i 2012. Hold dig til kilderne, og sig det, når forskerne er uenige. Slut med, hvad man skal kigge efter på udstillingen. Udtal mayanavne roligt og tydeligt.
+> Lav en levende, dansk samtale for voksne, der skal se udstillingen »Maya – riget under junglen« på Moesgård Museum. Følg fortællingen i kronologisk rækkefølge: hvem mayaerne var og er, landet, majsen og de første landsbyer, de første byer i præklassisk tid, kongerigerne i klassisk tid med Tikal og Calakmul, hverdagsliv, tro og boldspil, skrift og kalender, kollapset, Chichén Itzá og Mayapán, spaniernes erobring og mayaerne i dag. Brug konkrete personer og historier (Jasaw Chan K'awiil, Pakal, heltetvillingerne, dronning K'abal Xook). Ryd op i myter: mayaerne forsvandt ikke, og de forudsagde ikke verdens undergang i 2012. Hold dig til kilderne, og sig det, når forskerne er uenige. Slut med, hvad man skal kigge efter på udstillingen. Udtal mayanavne roligt og tydeligt.
 
 ## Prompt: øvrige afsnit
 
-> Lav en dansk samtale for voksne, der skal se udstillingen »Maya – Kongeriget under junglen« på Moesgård. Gå i dybden med emnet i kilderne, med konkrete eksempler og personer. Ryd op i misforståelser. Hold dig til kilderne, og sig det, når forskerne er uenige.
+> Lav en dansk samtale for voksne, der skal se udstillingen »Maya – riget under junglen« på Moesgård. Gå i dybden med emnet i kilderne, med konkrete eksempler og personer. Ryd op i misforståelser. Hold dig til kilderne, og sig det, når forskerne er uenige.

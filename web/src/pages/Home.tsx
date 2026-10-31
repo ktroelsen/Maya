@@ -1,6 +1,8 @@
 import { Check, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router';
 import { fetchTopic, formatPeriod, mediaUrl } from '../api';
+import OfflineCard from '../components/OfflineCard';
+import PodcastPlayer from '../components/PodcastPlayer';
 import Status from '../components/Status';
 import { lastUnfinished, useProgress } from '../progress';
 import { useLoad } from '../useLoad';
@@ -38,6 +40,17 @@ export default function Home() {
         </Link>
       )}
 
+      {topic.podcasts.length > 0 && (
+        <section className="mt-10">
+          <h2 className="mb-3 text-sm font-semibold tracking-widest text-muted uppercase">Lyt</h2>
+          <div className="space-y-3">
+            {topic.podcasts.map((p) => (
+              <PodcastPlayer key={p.id} podcast={p} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <div className="mt-10 mb-3 flex items-baseline justify-between">
         <h2 className="text-sm font-semibold tracking-widest text-muted uppercase">Kapitler</h2>
         {readCount > 0 && (
@@ -69,6 +82,7 @@ export default function Home() {
           </li>
         ))}
       </ol>
+      <OfflineCard />
     </div>
   );
 }

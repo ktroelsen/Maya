@@ -1,13 +1,16 @@
-import { ArrowLeft, ChevronLeft, ChevronRight, History } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, History, MapPin } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { cached, formatPeriod, type Chapter } from '../api';
 import ChapterText from '../components/ChapterText';
 import Figure from '../components/Figure';
+import OfflineBanner from '../components/OfflineBanner';
 import Player from '../components/Player';
+import PodcastPlayer from '../components/PodcastPlayer';
 import Quiz from '../components/Quiz';
 import Status from '../components/Status';
 import VoiceSheet from '../components/VoiceSheet';
+import { useOnline } from '../offline';
 import { getProgress, saveProgress } from '../progress';
 import { chapterSegments } from '../speech/chapterText';
 import { useVoiceSettings } from '../speech/settings';
@@ -40,6 +43,7 @@ function TopBar({ title, number }: { title: string; number?: number }) {
           <h1 className="truncate font-semibold">{title}</h1>
         </div>
       </div>
+      <OfflineBanner />
     </header>
   );
 }
@@ -56,6 +60,7 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
   const player = usePlayer(segments, voice, start, chapter.title);
   const [finished, setFinished] = useState(false);
   const [showVoices, setShowVoices] = useState(false);
+  const online = useOnline();
   const [hero, ...moreImages] = chapter.images;
   const reading = player.state === 'playing' || player.index > 0;
 
@@ -72,11 +77,18 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
       <main className="min-h-0 flex-1 overflow-y-auto">
         <article className="mx-auto max-w-3xl px-5 py-6">
           {hero && <Figure image={hero} className="mb-6" />}
-          {chapter.period && (
-            <Link to={`/tidslinje?kapitel=${chapter.id}`} className="mb-1 inline-flex items-center gap-1 text-sm font-medium text-blue hover:underline">
-              <History className="h-4 w-4" /> {formatPeriod(chapter.period)}
-            </Link>
-          )}
+          <div className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
+            {chapter.period && (
+              <Link to={`/tidslinje?kapitel=${chapter.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-blue hover:underline">
+                <History className="h-4 w-4" /> {formatPeriod(chapter.period)}
+              </Link>
+            )}
+            {chapter.places.length > 0 && (
+              <Link to={`/kort?kapitel=${chapter.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-blue hover:underline">
+                <MapPin className="h-4 w-4" /> Se på kortet
+              </Link>
+            )}
+          </div>
           {!player.supported && (
             <p className="mb-4 rounded-xl bg-surface p-3 text-sm text-danger">Denne browser kan ikke læse op.</p>
           )}
@@ -85,6 +97,15 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
           {moreImages.map((img) => (
             <Figure key={img.src} image={img} className="my-6" />
           ))}
+
+          {chapter.podcasts.length > 0 && (
+            <section className="mt-10 space-y-3">
+              <h2 className="text-xl font-semibold text-accent">Lyt til podcasten</h2>
+              {chapter.podcasts.map((p) => (
+                <PodcastPlayer key={p.id} podcast={p} />
+              ))}
+            </section>
+          )}
 
           {chapter.quiz.length > 0 && <Quiz questions={chapter.quiz} />}
 
@@ -126,6 +147,14 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
             </Link>
           </div>
         </div>
+      )}
+      {!online && voice.provider === 'google' && (
+        <p className="border-t border-line bg-surface-2 px-4 py-2 text-center text-sm">
+          Google-stemmen kræver net.{' '}
+          <button onClick={() => setVoice({ provider: 'browser' })} className="font-medium text-accent underline">
+            Brug enhedens stemme
+          </button>
+        </p>
       )}
       <Player
         index={player.index}

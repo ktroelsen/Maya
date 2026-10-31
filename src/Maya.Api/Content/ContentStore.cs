@@ -41,6 +41,9 @@ public class ContentStore
     public string MediaDir => Path.Combine(TopicDir, "media");
     public Topic Topic => _topic.Value;
 
+    /// <summary>Optional guide.md: extra background for the photo guide (e.g. the exhibition's highlights), or null.</summary>
+    public string? GuideNotes => DataFile("guide.md")?.Trim();
+
     /// <summary>One of the optional data files (timeline.json, places.geojson, glossary.json) as raw JSON, or null.</summary>
     public string? DataFile(string name)
     {
@@ -59,7 +62,15 @@ public class ContentStore
             var path = Path.Combine(TopicDir, "chapters", id + ".md");
             if (!File.Exists(path)) continue;   // listed but not written yet
             var (meta, body) = Split(File.ReadAllText(path));
-            var front = string.IsNullOrWhiteSpace(meta) ? new ChapterMeta() : Yaml.Deserialize<ChapterMeta>(meta) ?? new ChapterMeta();
+            ChapterMeta front;
+            try
+            {
+                front = string.IsNullOrWhiteSpace(meta) ? new ChapterMeta() : Yaml.Deserialize<ChapterMeta>(meta) ?? new ChapterMeta();
+            }
+            catch (YamlDotNet.Core.YamlException ex)
+            {
+                throw new InvalidDataException($"Front-matter in chapters/{id}.md is not valid YAML (line {ex.Start.Line}): {ex.Message}", ex);
+            }
             chapters.Add(new Chapter(id, number, front.Title ?? id, front.Summary, front.Period,
                 front.Places ?? [], front.Images ?? [], front.Sources ?? [], front.Quiz ?? [], body.Trim()));
         }

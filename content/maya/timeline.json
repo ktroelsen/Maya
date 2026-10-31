@@ -28,7 +28,7 @@
       "id": "kolonitid",
       "label": "Kolonitid og i dag",
       "from": 1524,
-      "to": 2026
+      "to": 2027
     }
   ],
   "events": [
@@ -89,8 +89,20 @@
       "place": "tikal"
     },
     {
+      "year": 402,
+      "label": "Ca. 402: Yuknom Ch'en I grundlægger Slangedynastiet i Dzibanche",
+      "chapter": "05-klassisk-tid",
+      "place": "dzibanche"
+    },
+    {
+      "year": 455,
+      "label": "Yuknom Ch'en I begraves med jademaske i Jaguartemplet",
+      "chapter": "14-klar-til-moesgaard",
+      "place": "dzibanche"
+    },
+    {
       "year": 562,
-      "label": "Caracol besejrer Tikal",
+      "label": "Slangeriget (kong Himmelvidne) og Caracol besejrer Tikal",
       "chapter": "05-klassisk-tid",
       "place": "caracol"
     },
@@ -107,8 +119,14 @@
       "place": "palenque"
     },
     {
+      "year": 636,
+      "label": "Yuknom Ch'en II bliver konge – Slangeriget styres fra Calakmul",
+      "chapter": "05-klassisk-tid",
+      "place": "calakmul"
+    },
+    {
       "year": 695,
-      "label": "Tikal besejrer Calakmul",
+      "label": "Tikal besejrer Slangeriget og Calakmul",
       "chapter": "05-klassisk-tid",
       "place": "tikal"
     },
@@ -131,9 +149,81 @@
       "place": "copan"
     },
     {
+      "year": 755,
+      "label": "Hieroglyftrappen i Copán indvies",
+      "chapter": "09-kunst-og-arkitektur",
+      "place": "copan"
+    },
+    {
+      "year": 760,
+      "label": "Dos Pilas forlades efter årtiers krig",
+      "chapter": "10-kollapset",
+      "place": "dos-pilas"
+    },
+    {
+      "year": 790,
+      "label": "Vægmalerierne i Bonampak males",
+      "chapter": "09-kunst-og-arkitektur",
+      "place": "bonampak"
+    },
+    {
+      "year": 822,
+      "label": "Copáns sidste monument bliver aldrig færdigt",
+      "chapter": "10-kollapset",
+      "place": "copan"
+    },
+    {
+      "year": 869,
+      "label": "Den sidste stela rejses i Tikal",
+      "chapter": "10-kollapset",
+      "place": "tikal"
+    },
+    {
       "year": 909,
-      "label": "Sidste kendte dato i den lange kalender",
-      "chapter": "05-klassisk-tid"
+      "label": "Sidste kendte dato i den lange kalender, i Toniná",
+      "chapter": "10-kollapset",
+      "place": "tonina"
+    },
+    {
+      "year": 950,
+      "label": "Chichén Itzá er den mægtigste by i nord",
+      "chapter": "11-postklassisk-tid",
+      "place": "chichen-itza"
+    },
+    {
+      "year": 1200,
+      "label": "Mayapán bliver den vigtigste by i nord",
+      "chapter": "11-postklassisk-tid",
+      "place": "mayapan"
+    },
+    {
+      "year": 1450,
+      "label": "Mayapán forlades, Yucatán deles i små stater",
+      "chapter": "11-postklassisk-tid",
+      "place": "mayapan"
+    },
+    {
+      "year": 1502,
+      "label": "Columbus møder en maya-handelskano",
+      "chapter": "12-spanierne-kommer",
+      "place": "guanaja"
+    },
+    {
+      "year": 1511,
+      "label": "Skibbrudne spaniere driver i land på Yucatán",
+      "chapter": "12-spanierne-kommer"
+    },
+    {
+      "year": 1524,
+      "label": "Alvarado erobrer K'iche'-riget",
+      "chapter": "12-spanierne-kommer",
+      "place": "qumarkaj"
+    },
+    {
+      "year": 1542,
+      "label": "Mérida grundlægges oven på T'ho",
+      "chapter": "12-spanierne-kommer",
+      "place": "merida"
     },
     {
       "year": 1562,
@@ -143,12 +233,43 @@
     {
       "year": 1697,
       "label": "Nojpetén, det sidste selvstændige mayarige, falder",
-      "chapter": "01-moed-mayaerne"
+      "chapter": "12-spanierne-kommer",
+      "place": "nojpeten"
+    },
+    {
+      "year": 1847,
+      "label": "Kastekrigen begynder på Yucatán",
+      "chapter": "13-mayaerne-i-dag"
+    },
+    {
+      "year": 1922,
+      "label": "Danskeren Frans Blom på ekspedition i mayaområdet",
+      "chapter": "14-klar-til-moesgaard"
+    },
+    {
+      "year": 1960,
+      "label": "Borgerkrigen i Guatemala begynder (til 1996)",
+      "chapter": "13-mayaerne-i-dag"
+    },
+    {
+      "year": 1992,
+      "label": "Rigoberta Menchú får Nobels fredspris",
+      "chapter": "13-mayaerne-i-dag"
     },
     {
       "year": 2012,
       "label": "Den 13. bak'tun slutter – ikke verdens undergang",
       "chapter": "08-viden"
+    },
+    {
+      "year": 2018,
+      "label": "Lidar afslører over 60.000 bygninger under skoven",
+      "chapter": "13-mayaerne-i-dag"
+    },
+    {
+      "year": 2026,
+      "label": "Udstillingen åbner på Moesgård",
+      "chapter": "14-klar-til-moesgaard"
     }
   ]
 }

@@ -31,6 +31,10 @@ self.addEventListener('fetch', (event) => {
   if (isContent(url)) return event.respondWith(networkFirst(req, CONTENT));
   if (url.pathname.startsWith('/api/')) return;
 
+  // Audio asks for byte ranges (iPhones insist on them): answer from the saved file if we have
+  // it, otherwise let the request go to the network untouched.
+  if (url.pathname.startsWith('/media/') && req.headers.has('range')) return event.respondWith(rangeFromCache(req));
+
   // Media: the saved copy at once (images rarely change), refreshed in the background.
   if (url.pathname.startsWith('/media/')) return event.respondWith(staleWhileRevalidate(req, CONTENT));
 
@@ -82,5 +86,27 @@ function staleWhileRevalidate(req, cacheName) {
   return caches.match(req, { cacheName }).then((hit) => {
     const fresh = fetchAndSave(req, cacheName).catch(() => hit);
     return hit ?? fresh;
+  });
+}
+
+async function rangeFromCache(req) {
+  const hit = await caches.match(req.url, { cacheName: CONTENT });
+  if (!hit) return fetch(req);
+  const blob = await hit.blob();
+  const m = /bytes=(\d*)-(\d*)/.exec(req.headers.get('range') || '');
+  const size = blob.size;
+  let start = m && m[1] ? Number(m[1]) : 0;
+  let end = m && m[2] ? Number(m[2]) : size - 1;
+  if (m && !m[1] && m[2]) [start, end] = [size - Number(m[2]), size - 1]; // "bytes=-500": the last 500
+  if (start >= size || end < start) return new Response(null, { status: 416, headers: { 'Content-Range': `bytes */${size}` } });
+  end = Math.min(end, size - 1);
+  return new Response(blob.slice(start, end + 1), {
+    status: 206,
+    headers: {
+      'Content-Type': hit.headers.get('Content-Type') || 'application/octet-stream',
+      'Content-Range': `bytes ${start}-${end}/${size}`,
+      'Content-Length': String(end - start + 1),
+      'Accept-Ranges': 'bytes',
+    },
   });
 }

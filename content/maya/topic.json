@@ -20,5 +20,16 @@
     "13-mayaerne-i-dag",
     "14-klar-til-moesgaard"
   ],
-  "podcasts": []
+  "podcasts": [
+    {
+      "id": "intro",
+      "title": "Mayaerne på et kvarter",
+      "src": "podcasts/intro.mp3",
+      "description": "Lise og Jonas fortæller hele historien – fra majsen til Moesgård. Lavet med AI (Gemini) ud fra appens kapitler.",
+      "chapters": [
+        "01-moed-mayaerne",
+        "14-klar-til-moesgaard"
+      ]
+    }
+  ]
 }

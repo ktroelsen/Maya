@@ -2,7 +2,23 @@
 
 Podcasts laves i NotebookLM (»Lydoversigt«/Audio Overview) og lægges i appen som MP3. Appen afhænger ikke af NotebookLM.
 
-## Sådan laves en podcast
+## Med Gemini (sådan blev intro-podcasten lavet)
+
+`tools/podcast/lav_podcast.py` laver en podcast med to værter (Lise og Jonas) ud fra kapitlerne:
+
+```bash
+GEMINI_API_KEY=... python3 tools/podcast/lav_podcast.py manus intro   # manuskript → docs/podcasts/intro-manus.json
+GEMINI_API_KEY=... python3 tools/podcast/lav_podcast.py lyd intro     # lyd → content/maya/media/podcasts/intro.mp3
+```
+
+1. **Manus**: `gemini-3.1-pro-preview` skriver et sammendrag som samtale (ikke en oplæsning) ud fra alle kapitler og `intro-kilde.md`. Kaldet streames, da det tager et par minutter.
+2. **Læs manuskriptet igennem og ret fakta i JSON-filen.** Ved intro-podcasten blev syv fejl rettet i hånden (fx Tikals nederlag i 562, majsens alder, datoen i 2012).
+3. **Lyd**: `gemini-3.8-flash-tts` læser op med stemmerne Kore (Lise) og Puck (Jonas), i bidder på ca. 320 ord, som ffmpeg sætter sammen til MP3 (48 kbit/s mono). Kræver `ffmpeg`.
+4. Tilføj podcasten i `topic.json` under `podcasts` (se nedenfor). Nye afsnit tilføjes i `EPISODES` i scriptet.
+
+Intro-podcasten: 15 minutter, 5,4 MB, koblet til kapitel 1 og 14.
+
+## Med NotebookLM
 
 1. Opret en ny notesbog i NotebookLM.
 2. Upload kilderne til afsnittet (se tabellen). Kapitlerne ligger i `content/maya/chapters/`. Front-matter øverst i filerne kan blive stående.

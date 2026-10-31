@@ -34,8 +34,8 @@ export default function OfflineCard() {
           <h2 className="font-semibold">{info ? 'Klar til brug uden net' : 'Brug appen uden net'}</h2>
           <p className="mt-1 text-sm text-muted">
             {info
-              ? `Hentet ${date(info.savedAt)} (${mb(info.bytes)}). Tekster, billeder, tidslinje og ordliste virker offline. Oplæsning offline kræver enhedens egen stemme, og kortets baggrund kræver net.`
-              : 'Hent alle kapitler og billeder til telefonen, så du kan bruge appen på museet, selv uden forbindelse.'}
+              ? `Hentet ${date(info.savedAt)} (${mb(info.bytes)}). Tekster, billeder, podcast, tidslinje og ordliste virker offline. Oplæsning offline kræver enhedens egen stemme, og kortets baggrund kræver net.`
+              : 'Hent alle kapitler, billeder og podcasten til telefonen, så du kan bruge appen på museet, selv uden forbindelse.'}
           </p>
           {progress ? (
             <div className="mt-3">

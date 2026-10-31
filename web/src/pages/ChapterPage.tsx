@@ -6,6 +6,7 @@ import ChapterText from '../components/ChapterText';
 import Figure from '../components/Figure';
 import OfflineBanner from '../components/OfflineBanner';
 import Player from '../components/Player';
+import PodcastPlayer from '../components/PodcastPlayer';
 import Quiz from '../components/Quiz';
 import Status from '../components/Status';
 import VoiceSheet from '../components/VoiceSheet';
@@ -96,6 +97,15 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
           {moreImages.map((img) => (
             <Figure key={img.src} image={img} className="my-6" />
           ))}
+
+          {chapter.podcasts.length > 0 && (
+            <section className="mt-10 space-y-3">
+              <h2 className="text-xl font-semibold text-accent">Lyt til podcasten</h2>
+              {chapter.podcasts.map((p) => (
+                <PodcastPlayer key={p.id} podcast={p} />
+              ))}
+            </section>
+          )}
 
           {chapter.quiz.length > 0 && <Quiz questions={chapter.quiz} />}
 

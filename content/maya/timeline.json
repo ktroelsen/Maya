@@ -38,6 +38,11 @@
       "chapter": "03-begyndelsen"
     },
     {
+      "year": -3114,
+      "label": "Skabelsesdatoen, som den lange kalender tæller fra",
+      "chapter": "08-viden"
+    },
+    {
       "year": -2500,
       "label": "Majsdyrkning i mayaernes lavland",
       "chapter": "03-begyndelsen"
@@ -54,6 +59,30 @@
       "place": "aguada-fenix"
     },
     {
+      "year": -700,
+      "label": "De første store pyramider i Nakbe",
+      "chapter": "04-praeklassisk-tid",
+      "place": "nakbe"
+    },
+    {
+      "year": -300,
+      "label": "El Mirador blomstrer – og den tidligste kendte mayaskrift i San Bartolo",
+      "chapter": "04-praeklassisk-tid",
+      "place": "el-mirador"
+    },
+    {
+      "year": -100,
+      "label": "Vægmalerierne i San Bartolo",
+      "chapter": "04-praeklassisk-tid",
+      "place": "san-bartolo"
+    },
+    {
+      "year": 150,
+      "label": "El Mirador forlades",
+      "chapter": "04-praeklassisk-tid",
+      "place": "el-mirador"
+    },
+    {
       "year": 378,
       "label": "Sihyaj K'ahk' ankommer til Tikal",
       "chapter": "05-klassisk-tid",
@@ -66,6 +95,12 @@
       "place": "caracol"
     },
     {
+      "year": 600,
+      "label": "Vulkanudbrud begraver Joya de Cerén",
+      "chapter": "06-hverdagsliv",
+      "place": "joya-de-ceren"
+    },
+    {
       "year": 615,
       "label": "Pakal bliver konge i Palenque",
       "chapter": "05-klassisk-tid",
@@ -76,6 +111,12 @@
       "label": "Tikal besejrer Calakmul",
       "chapter": "05-klassisk-tid",
       "place": "tikal"
+    },
+    {
+      "year": 709,
+      "label": "Dronning K'abal Xook ofrer blod i Yaxchilán",
+      "chapter": "07-tro-og-ritualer",
+      "place": "yaxchilan"
     },
     {
       "year": 734,
@@ -95,9 +136,19 @@
       "chapter": "05-klassisk-tid"
     },
     {
+      "year": 1562,
+      "label": "Biskop Landa brænder mayabøger i Maní",
+      "chapter": "08-viden"
+    },
+    {
       "year": 1697,
       "label": "Nojpetén, det sidste selvstændige mayarige, falder",
       "chapter": "01-moed-mayaerne"
+    },
+    {
+      "year": 2012,
+      "label": "Den 13. bak'tun slutter – ikke verdens undergang",
+      "chapter": "08-viden"
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, History } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { cached, formatPeriod, type Chapter } from '../api';
@@ -72,7 +72,11 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
       <main className="min-h-0 flex-1 overflow-y-auto">
         <article className="mx-auto max-w-3xl px-5 py-6">
           {hero && <Figure image={hero} className="mb-6" />}
-          {chapter.period && <p className="mb-1 text-sm font-medium text-blue">{formatPeriod(chapter.period)}</p>}
+          {chapter.period && (
+            <Link to={`/tidslinje?kapitel=${chapter.id}`} className="mb-1 inline-flex items-center gap-1 text-sm font-medium text-blue hover:underline">
+              <History className="h-4 w-4" /> {formatPeriod(chapter.period)}
+            </Link>
+          )}
           {!player.supported && (
             <p className="mb-4 rounded-xl bg-surface p-3 text-sm text-danger">Denne browser kan ikke læse op.</p>
           )}

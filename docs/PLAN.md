@@ -164,7 +164,7 @@ Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten 
 | 4 | 4. nov | ✅ Kort (Leaflet + OpenStreetMap i sepia, codex-markører, kapitlets steder fremhævet). Kapitel 9–11 med illustrationer |
 | 5 | 5. nov | ✅ Kapitel 12–14 inkl. "Klar til Moesgård" (punktlister i kapitler). Ordliste (40 ord). ⏳ Podcasts: venter på MP3 fra NotebookLM. ⏳ Kapitel 14 tilpasses udstillingens værker, når listen kendes |
 | 6 | 6. nov | ✅ »Hent til offline« (alle tekster, billeder, data og selve appen), offline-banner, hint om enhedens stemme offline. Testet offline i Chromium og i mørk tilstand. ✅ Billedgenkendelse (»Spørg guiden«), bygget fra bunden med Gemini |
-| 7 | 7. nov | Besøg på Moesgård 🎉 |
+| 7 | 7. nov | Besøg på Moesgård 🎉 Forberedt 31. okt.: kortet og guiden hentes først ved behov (startpakke 458 → 315 kB), tilgængelighed tjekket med axe (WCAG A/AA, lys og mørk, 0 fejl), tjekliste i `docs/besoeg-tjekliste.md` |
 
 **Skal med:** alle 14 kapitler (fokus på 5–10 og 14), oplæsning, tidslinje, kort, illustrationer, offline.
 **Hvis der er tid:** podcast-afsnit ud over introen, ordliste, quiz, billedgenkendelse.
@@ -173,6 +173,15 @@ Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten 
 ## 7b. Billedshow (31. oktober)
 
 Under oplæsning kan man vælge »Følg teksten« (siden ruller med) eller »Billedshow« (afsnittets billede bliver stående øverst med sætningen som undertekst). 76 afsnitsbilleder i codex-stil; praktiske afsnit i kapitel 14 har ingen. Offline-pakken er nu ca. 13 MB.
+
+## 7c. Udgifter til Gemini (31. oktober)
+
+Google-projektet »maya« har et udgiftsloft på 100 kr. om måneden for Gemini API. Det blev nået 31. oktober kl. 17:04 – næsten udelukkende af billedgenereringen (ca. 100 billeder med Gemini Pro Image, især de 76 afsnitsbilleder) og to kørsler af podcasten. Konsekvens: »Spørg guiden« virkede ikke resten af dagen (loftet nulstilles den 1. i måneden). Resten af appen var upåvirket; Google-stemmen er en anden tjeneste.
+
+Aftalt fremover:
+- **Separat nøgle/projekt til værktøjerne** (billeder, podcasts) med eget loft, så indholdsproduktion aldrig lukker guiden på sitet.
+- **Overslag før store kørsler**: Claude siger på forhånd, hvad en større Gemini-kørsel ca. koster (billede med Pro Image ≈ 1 kr., podcast ≈ 2–5 kr., et guide-spørgsmål ≈ et par øre).
+- Loftet på 100 kr. kan blive stående for sitet alene.
 
 ## 8. Senere: flere emner i samme app (fase 8)
 

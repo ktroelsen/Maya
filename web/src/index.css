@@ -12,7 +12,7 @@
   --color-accent: #b5432a;       /* red ochre */
   --color-accent-strong: #933421;
   --color-on-accent: #fffaf0;
-  --color-blue: #2e6fa7;         /* Maya blue */
+  --color-blue: #22578a;         /* Maya blue, darkened for text contrast (images use #2e6fa7) */
   --color-ochre: #d9a441;        /* yellow ochre */
   --color-jade: #3f7a5a;
   --color-mark: rgb(217 164 65 / 0.35);

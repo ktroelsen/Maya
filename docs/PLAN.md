@@ -107,8 +107,8 @@ Billederne skal "ligne noget rigtigt" men være vores egne. Tre kandidater (lave
 
 **Valgt: A – Codex-stil** til alt.
 **Værktøj: Gemini.** Geminis billedgenerering kan bruge et referencebillede, hvilket er det vigtigste for en ensartet stil. Arbejdsgang:
-1. Vi laver ét "stilark": et godkendt billede i codex-stil + farvepalet (mayablå, rød okker, sort kontur, cremet barkpapir).
-2. En fast prompt-skabelon i `docs/billedstil.md`: `[motiv] i stil som det vedhæftede billede: maya-kodeks, flade farver, ...`.
+1. ✅ Stilark lavet: Tempel I i Tikal i codex-stil (`content/maya/media/stil/tempel1-codex-stilark.webp`) + palet. Se `docs/billedstil.md`.
+2. ✅ Fast prompt-skabelon (`tools/billeder/skabelon.txt`, script `tools/billeder/gemini_billede.py`): `[motiv] i stil som det vedhæftede billede: maya-kodeks, flade farver, ...`.
 3. Hvert nyt billede laves med stilarket vedhæftet + skabelonen, så de ligner hinanden.
 4. Billeder gemmes som WebP i `content/maya/media/` med en kort note om, hvad der er rekonstruktion og ikke en rigtig genstand. Jeg kan lave SVG-grafik (glyffer, kort, tidslinje, ornamenter) direkte i koden; fotorealistiske/malede scener kræver et billedværktøj eller jeres egne tegninger. Evt. suppleres med licensfri fotos af rigtige genstande (Wikimedia Commons, museers open access).
 
@@ -145,6 +145,8 @@ Fase 1–3 kan køre parallelt med 4–5 (indhold og billeder kan laves mens kod
 - [x] Domæne: maya.kaspert.dk
 - [x] Indhold redigeres kun i filerne
 - [x] Billedgenkendelse fra mission-bear-hug genbruges
+- [x] Gemini-nøglen er testet og virker (31. okt.), inkl. billedmodellerne `gemini-3-pro-image` og `gemini-3.1-flash-image`
+- [x] Stilark i codex-stil godkendt til videre brug: Tempel I i Tikal (`docs/billedstil.md`)
 
 ### Stadig åbne
 - [ ] Login: skal appen være åben for alle, eller have et kodeord som read? (Google-stemmen og Gemini koster penge pr. kald)

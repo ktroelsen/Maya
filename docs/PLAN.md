@@ -174,6 +174,10 @@ Med en uge til besøget prioriteres det, der giver mest på selve dagen. Resten 
 
 Under oplæsning kan man vælge »Følg teksten« (siden ruller med) eller »Billedshow« (afsnittets billede bliver stående øverst med sætningen som undertekst). 76 afsnitsbilleder i codex-stil; praktiske afsnit i kapitel 14 har ingen. Offline-pakken er nu ca. 13 MB.
 
+## 7b2. Tidsrejse på kortet (31. oktober)
+
+Knappen »Afspil tidslinjen på kortet« spiller historien igennem på ca. 75 sekunder (eller med skyderen): byerne dukker op i deres storhedstid og bliver grå, når de forlades; landskaber vises stiplede; tidslinjens begivenheder blinker på deres sted med tekst og link til kapitlet. Årstallene for byerne er afrundede skøn over storhedstiden.
+
 ## 7c. Udgifter til Gemini (31. oktober)
 
 Google-projektet »maya« har et udgiftsloft på 100 kr. om måneden for Gemini API. Det blev nået 31. oktober kl. 17:04 – næsten udelukkende af billedgenereringen (ca. 100 billeder med Gemini Pro Image, især de 76 afsnitsbilleder) og to kørsler af podcasten. Konsekvens: »Spørg guiden« virkede ikke resten af dagen (loftet nulstilles den 1. i måneden). Resten af appen var upåvirket; Google-stemmen er en anden tjeneste.

@@ -14,7 +14,9 @@
           "10-kollapset",
           "13-mayaerne-i-dag",
           "14-klar-til-moesgaard"
-        ]
+        ],
+        "from": -400,
+        "to": 900
       },
       "geometry": {
         "type": "Point",
@@ -36,7 +38,9 @@
           "06-hverdagsliv",
           "09-kunst-og-arkitektur",
           "14-klar-til-moesgaard"
-        ]
+        ],
+        "from": -400,
+        "to": 900
       },
       "geometry": {
         "type": "Point",
@@ -53,7 +57,9 @@
         "name": "Caracol",
         "chapters": [
           "05-klassisk-tid"
-        ]
+        ],
+        "from": 250,
+        "to": 900
       },
       "geometry": {
         "type": "Point",
@@ -74,7 +80,9 @@
           "05-klassisk-tid",
           "08-viden",
           "09-kunst-og-arkitektur"
-        ]
+        ],
+        "from": 400,
+        "to": 800
       },
       "geometry": {
         "type": "Point",
@@ -96,7 +104,9 @@
           "07-tro-og-ritualer",
           "09-kunst-og-arkitektur",
           "10-kollapset"
-        ]
+        ],
+        "from": 427,
+        "to": 830
       },
       "geometry": {
         "type": "Point",
@@ -113,7 +123,9 @@
         "name": "Quiriguá",
         "chapters": [
           "05-klassisk-tid"
-        ]
+        ],
+        "from": 426,
+        "to": 810
       },
       "geometry": {
         "type": "Point",
@@ -134,7 +146,9 @@
           "07-tro-og-ritualer",
           "08-viden",
           "11-postklassisk-tid"
-        ]
+        ],
+        "from": 800,
+        "to": 1100
       },
       "geometry": {
         "type": "Point",
@@ -152,7 +166,9 @@
         "chapters": [
           "02-landet",
           "04-praeklassisk-tid"
-        ]
+        ],
+        "from": -800,
+        "to": 600
       },
       "geometry": {
         "type": "Point",
@@ -169,7 +185,8 @@
         "name": "Motagua-dalen (jade)",
         "chapters": [
           "02-landet"
-        ]
+        ],
+        "kind": "landscape"
       },
       "geometry": {
         "type": "Point",
@@ -186,7 +203,9 @@
         "name": "Aguada Fénix",
         "chapters": [
           "03-begyndelsen"
-        ]
+        ],
+        "from": -1050,
+        "to": -750
       },
       "geometry": {
         "type": "Point",
@@ -204,7 +223,9 @@
         "chapters": [
           "03-begyndelsen",
           "04-praeklassisk-tid"
-        ]
+        ],
+        "from": -1000,
+        "to": 950
       },
       "geometry": {
         "type": "Point",
@@ -221,7 +242,9 @@
         "name": "Cuello",
         "chapters": [
           "03-begyndelsen"
-        ]
+        ],
+        "from": -1200,
+        "to": 250
       },
       "geometry": {
         "type": "Point",
@@ -238,7 +261,9 @@
         "name": "Nakbe",
         "chapters": [
           "04-praeklassisk-tid"
-        ]
+        ],
+        "from": -1000,
+        "to": -300
       },
       "geometry": {
         "type": "Point",
@@ -255,7 +280,9 @@
         "name": "El Mirador",
         "chapters": [
           "04-praeklassisk-tid"
-        ]
+        ],
+        "from": -600,
+        "to": 150
       },
       "geometry": {
         "type": "Point",
@@ -272,7 +299,9 @@
         "name": "San Bartolo",
         "chapters": [
           "04-praeklassisk-tid"
-        ]
+        ],
+        "from": -600,
+        "to": 200
       },
       "geometry": {
         "type": "Point",
@@ -289,7 +318,9 @@
         "name": "La Venta (olmekisk)",
         "chapters": [
           "04-praeklassisk-tid"
-        ]
+        ],
+        "from": -1200,
+        "to": -400
       },
       "geometry": {
         "type": "Point",
@@ -306,7 +337,9 @@
         "name": "Joya de Cerén",
         "chapters": [
           "06-hverdagsliv"
-        ]
+        ],
+        "from": 450,
+        "to": 600
       },
       "geometry": {
         "type": "Point",
@@ -323,7 +356,9 @@
         "name": "Yaxchilán",
         "chapters": [
           "07-tro-og-ritualer"
-        ]
+        ],
+        "from": 350,
+        "to": 810
       },
       "geometry": {
         "type": "Point",
@@ -340,7 +375,9 @@
         "name": "Piedras Negras",
         "chapters": [
           "08-viden"
-        ]
+        ],
+        "from": 400,
+        "to": 810
       },
       "geometry": {
         "type": "Point",
@@ -357,7 +394,9 @@
         "name": "Uaxactún",
         "chapters": [
           "08-viden"
-        ]
+        ],
+        "from": -600,
+        "to": 900
       },
       "geometry": {
         "type": "Point",
@@ -374,7 +413,9 @@
         "name": "Bonampak",
         "chapters": [
           "09-kunst-og-arkitektur"
-        ]
+        ],
+        "from": 580,
+        "to": 800
       },
       "geometry": {
         "type": "Point",
@@ -391,7 +432,9 @@
         "name": "Jaina",
         "chapters": [
           "09-kunst-og-arkitektur"
-        ]
+        ],
+        "from": 600,
+        "to": 1000
       },
       "geometry": {
         "type": "Point",
@@ -408,7 +451,9 @@
         "name": "Dos Pilas",
         "chapters": [
           "10-kollapset"
-        ]
+        ],
+        "from": 629,
+        "to": 761
       },
       "geometry": {
         "type": "Point",
@@ -425,7 +470,9 @@
         "name": "Cancuén",
         "chapters": [
           "10-kollapset"
-        ]
+        ],
+        "from": 650,
+        "to": 800
       },
       "geometry": {
         "type": "Point",
@@ -442,7 +489,9 @@
         "name": "Toniná",
         "chapters": [
           "10-kollapset"
-        ]
+        ],
+        "from": 500,
+        "to": 910
       },
       "geometry": {
         "type": "Point",
@@ -459,7 +508,8 @@
         "name": "Laguna Chichancanab",
         "chapters": [
           "10-kollapset"
-        ]
+        ],
+        "kind": "landscape"
       },
       "geometry": {
         "type": "Point",
@@ -476,7 +526,9 @@
         "name": "Uxmal",
         "chapters": [
           "11-postklassisk-tid"
-        ]
+        ],
+        "from": 700,
+        "to": 1000
       },
       "geometry": {
         "type": "Point",
@@ -493,7 +545,9 @@
         "name": "Mayapán",
         "chapters": [
           "11-postklassisk-tid"
-        ]
+        ],
+        "from": 1200,
+        "to": 1450
       },
       "geometry": {
         "type": "Point",
@@ -510,7 +564,9 @@
         "name": "Tulum",
         "chapters": [
           "11-postklassisk-tid"
-        ]
+        ],
+        "from": 1200,
+        "to": 1550
       },
       "geometry": {
         "type": "Point",
@@ -527,7 +583,8 @@
         "name": "Cozumel",
         "chapters": [
           "11-postklassisk-tid"
-        ]
+        ],
+        "kind": "landscape"
       },
       "geometry": {
         "type": "Point",
@@ -545,7 +602,9 @@
         "chapters": [
           "11-postklassisk-tid",
           "12-spanierne-kommer"
-        ]
+        ],
+        "from": 1400,
+        "to": 1524
       },
       "geometry": {
         "type": "Point",
@@ -563,7 +622,9 @@
         "chapters": [
           "11-postklassisk-tid",
           "12-spanierne-kommer"
-        ]
+        ],
+        "from": 1470,
+        "to": 1527
       },
       "geometry": {
         "type": "Point",
@@ -580,7 +641,9 @@
         "name": "Guanaja (mødet i 1502)",
         "chapters": [
           "12-spanierne-kommer"
-        ]
+        ],
+        "kind": "event",
+        "year": 1502
       },
       "geometry": {
         "type": "Point",
@@ -597,7 +660,9 @@
         "name": "Champotón",
         "chapters": [
           "12-spanierne-kommer"
-        ]
+        ],
+        "kind": "event",
+        "year": 1517
       },
       "geometry": {
         "type": "Point",
@@ -614,7 +679,9 @@
         "name": "Mérida (T'ho)",
         "chapters": [
           "12-spanierne-kommer"
-        ]
+        ],
+        "from": 1542,
+        "kind": "today"
       },
       "geometry": {
         "type": "Point",
@@ -631,7 +698,9 @@
         "name": "Maní",
         "chapters": [
           "12-spanierne-kommer"
-        ]
+        ],
+        "kind": "event",
+        "year": 1562
       },
       "geometry": {
         "type": "Point",
@@ -649,7 +718,9 @@
         "chapters": [
           "12-spanierne-kommer",
           "01-moed-mayaerne"
-        ]
+        ],
+        "from": 1450,
+        "to": 1697
       },
       "geometry": {
         "type": "Point",
@@ -666,7 +737,9 @@
         "name": "Chichicastenango",
         "chapters": [
           "13-mayaerne-i-dag"
-        ]
+        ],
+        "from": 1540,
+        "kind": "today"
       },
       "geometry": {
         "type": "Point",
@@ -683,7 +756,9 @@
         "name": "Santiago Atitlán",
         "chapters": [
           "13-mayaerne-i-dag"
-        ]
+        ],
+        "from": 1547,
+        "kind": "today"
       },
       "geometry": {
         "type": "Point",
@@ -700,7 +775,9 @@
         "name": "San Cristóbal de las Casas (Chiapas)",
         "chapters": [
           "13-mayaerne-i-dag"
-        ]
+        ],
+        "from": 1528,
+        "kind": "today"
       },
       "geometry": {
         "type": "Point",
@@ -717,7 +794,9 @@
         "name": "Valeriana (fundet 2024)",
         "chapters": [
           "13-mayaerne-i-dag"
-        ]
+        ],
+        "from": 250,
+        "to": 900
       },
       "geometry": {
         "type": "Point",
@@ -736,7 +815,9 @@
           "05-klassisk-tid",
           "09-kunst-og-arkitektur",
           "14-klar-til-moesgaard"
-        ]
+        ],
+        "from": 300,
+        "to": 700
       },
       "geometry": {
         "type": "Point",

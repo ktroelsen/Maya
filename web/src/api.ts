@@ -82,9 +82,24 @@ export type Timeline = {
 
 export type GlossaryEntry = { term: string; definition: string; chapters: string[] };
 
+/**
+ * A place on the map. Time, for the map's time travel (years, negative = f.Kr., approximate):
+ * a city (default) flourishes from–to; »today« from a year on; an »event« happens in one year;
+ * a »landscape« is always there.
+ */
+export type PlaceProps = {
+  id: string;
+  name: string;
+  chapters: string[];
+  kind?: 'city' | 'today' | 'event' | 'landscape';
+  from?: number;
+  to?: number;
+  year?: number;
+};
+
 export type Places = {
   type: 'FeatureCollection';
-  features: { properties: { id: string; name: string; chapters: string[] }; geometry: { coordinates: [number, number] } }[];
+  features: { properties: PlaceProps; geometry: { coordinates: [number, number] } }[];
 };
 
 /** Media files of the topic live under /media. */

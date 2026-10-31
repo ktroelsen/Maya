@@ -79,6 +79,35 @@ public class ContentTests(MayaFactory factory) : IClassFixture<MayaFactory>
     }
 
     [Fact]
+    public void Every_place_has_a_time_for_the_map_animation()
+    {
+        var store = (ContentStore)factory.Services.GetService(typeof(ContentStore))!;
+        var places = JsonNode.Parse(store.DataFile("places.geojson")!)!["features"]!.AsArray();
+        foreach (var f in places)
+        {
+            var p = f!["properties"]!;
+            var kind = p["kind"]?.GetValue<string>() ?? "city";
+            switch (kind)
+            {
+                case "city":
+                    Assert.True(p["from"]!.GetValue<int>() < p["to"]!.GetValue<int>(), $"{p["id"]}: from must be before to");
+                    break;
+                case "today":
+                    Assert.NotNull(p["from"]);
+                    break;
+                case "event":
+                    Assert.NotNull(p["year"]);
+                    break;
+                case "landscape":
+                    break;
+                default:
+                    Assert.Fail($"{p["id"]}: unknown kind {kind}");
+                    break;
+            }
+        }
+    }
+
+    [Fact]
     public void Pictures_in_the_text_become_figures()
     {
         var figures = ContentStore.Figures("## Overskrift\n\n![En maske](afsnit/a.webp \"Masken fra graven\")\n\nTekst med ![inline](x.webp) midt i.\n![Uden tekst](b.webp)\n");

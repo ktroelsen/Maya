@@ -33,7 +33,7 @@ export default function ChapterText({ segments, current, active, onSelect }: Pro
                 refs.current[index] = el;
               }}
               onClick={() => onSelect(index)}
-              className={`cursor-pointer rounded px-0.5 transition-colors ${
+              className={`-mx-0.5 cursor-pointer rounded px-0.5 transition-colors ${
                 active && index === current ? 'bg-mark' : 'hover:bg-surface-2'
               }`}
             >

@@ -1,9 +1,11 @@
-import { ArrowLeft, ChevronLeft, ChevronRight, History, Images, MapPin, ScrollText } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { ArrowLeft, ChevronLeft, ChevronRight, History, Images, MapPin, Maximize, ScrollText } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { cached, formatPeriod, mediaUrl, type Chapter } from '../api';
 import ChapterText from '../components/ChapterText';
 import Figure from '../components/Figure';
+import FullscreenSlideshow from '../components/FullscreenSlideshow';
+import KeepAwakeButton from '../components/KeepAwakeButton';
 import OfflineBanner from '../components/OfflineBanner';
 import Player from '../components/Player';
 import PodcastPlayer from '../components/PodcastPlayer';
@@ -66,6 +68,8 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
   const [hero, ...moreImages] = chapter.images;
   const reading = player.state === 'playing' || player.index > 0;
   const slideshow = view === 'pictures';
+  const [fullscreen, setFullscreen] = useState(false);
+  const closeFullscreen = useCallback(() => setFullscreen(false), []);
 
   // The slideshow shows the picture of the section being read (before the first one: the hero).
   const paragraph = segments[player.index]?.paragraph ?? 0;
@@ -188,7 +192,7 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
           </button>
         </p>
       )}
-      <div className="flex justify-center border-t border-line bg-surface pt-2" role="group" aria-label="Visning under oplæsning">
+      <div className="flex items-center justify-center gap-1 border-t border-line bg-surface pt-2" role="group" aria-label="Visning under oplæsning">
         {(
           [
             ['follow', ScrollText, 'Følg teksten'],
@@ -206,6 +210,20 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
             <Icon className="h-4 w-4" /> {label}
           </button>
         ))}
+        {slide && (
+          <button
+            onClick={() => {
+              setView('pictures');
+              setFullscreen(true);
+            }}
+            aria-label="Billedshow i fuld skærm"
+            title="Billedshow i fuld skærm"
+            className="ml-1 rounded-lg p-2 text-muted hover:text-fg"
+          >
+            <Maximize className="h-5 w-5" />
+          </button>
+        )}
+        <KeepAwakeButton />
       </div>
       <Player
         index={player.index}
@@ -218,6 +236,20 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
         onSeek={player.seek}
         onSettings={() => setShowVoices(true)}
       />
+      {fullscreen && slide && (
+        <FullscreenSlideshow
+          slide={slide}
+          text={reading ? (segments[player.index]?.text ?? '') : (slide.caption ?? chapter.title)}
+          playing={player.state === 'playing'}
+          canPrev={player.index > 0}
+          canNext={player.index < segments.length - 1}
+          onPlay={player.play}
+          onPause={player.pause}
+          onPrev={() => player.seek(player.index - 1)}
+          onNext={() => player.seek(player.index + 1)}
+          onClose={closeFullscreen}
+        />
+      )}
       {showVoices && <VoiceSheet settings={voice} onChange={setVoice} onClose={() => setShowVoices(false)} />}
     </div>
   );

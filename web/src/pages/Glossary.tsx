@@ -2,8 +2,10 @@ import { Link } from 'react-router';
 import { cached, fetchTopic, type GlossaryEntry, type Topic } from '../api';
 import Status from '../components/Status';
 import { useLoad } from '../useLoad';
+import { usePageTitle } from '../topicTitle';
 
 export default function Glossary() {
+  usePageTitle('Ordliste');
   const [data, error] = useLoad(() => Promise.all([cached<GlossaryEntry[]>('/api/topic/glossary'), fetchTopic()]), 'glossary');
   if (!data) return <Status error={error} />;
   const [entries, topic] = data as [GlossaryEntry[], Topic];

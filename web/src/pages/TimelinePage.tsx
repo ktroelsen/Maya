@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router';
 import { cached, fetchTopic, formatYear, type Timeline, type Topic } from '../api';
 import Status from '../components/Status';
 import { useLoad } from '../useLoad';
+import { usePageTitle } from '../topicTitle';
 
 // Codex colours for the period bands, in order.
 const bandColors = ['var(--color-ochre)', 'var(--color-jade)', 'var(--color-accent)', 'var(--color-blue)', 'var(--color-muted)'];
@@ -50,6 +51,7 @@ function layout(timeline: Timeline, heights: number[]) {
 }
 
 export default function TimelinePage() {
+  usePageTitle('Tidslinje');
   const [data, error] = useLoad(() => Promise.all([cached<Timeline>('/api/topic/timeline'), fetchTopic()]), 'timeline');
   if (!data) return <Status error={error} />;
   return <TimelineView timeline={data[0]} topic={data[1]} />;

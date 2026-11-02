@@ -7,9 +7,11 @@ import PodcastPlayer from '../components/PodcastPlayer';
 import Status from '../components/Status';
 import { lastUnfinished, useProgress } from '../progress';
 import { useLoad } from '../useLoad';
+import { usePageTitle } from '../topicTitle';
 
 // The cover and the story line: all chapters in order.
 export default function Home() {
+  usePageTitle();
   const [topic, error] = useLoad(fetchTopic, 'topic');
   const progress = useProgress();
   if (!topic) return <Status error={error} />;

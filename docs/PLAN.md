@@ -206,4 +206,5 @@ Besluttet 31. oktober: én app med flere emner (mayaerne, vikingerne …), samme
 **Husk allerede nu, når der bygges noget nyt** (så fase 8 bliver let):
 - Intet emne-specifikt i koden – alt emne-specifikt i `content/<emne>/` (også tekster til guiden og podcasts).
 - Nøgler i telefonens lager (`localStorage`, cache-navne) og id'er skal kunne få emnet foran.
-- Rester at rydde op i fase 8: »Mayaerne« står fast i topbjælken, `index.html`, manifestet og som kunstner på låseskærmen; lagernøgler hedder `maya.*`; projektet hedder `Maya.Api`.
+- Ryddet op 2. november: topbjælken, fanetitlen og låseskærmen henter navnet fra emnet (`topicTitle.ts`).
+- Rester til fase 8: `index.html` og manifestet (navn, ikon) er statiske; lagernøgler hedder `maya.*`; projektet hedder `Maya.Api`.

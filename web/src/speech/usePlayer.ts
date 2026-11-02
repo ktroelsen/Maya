@@ -11,7 +11,7 @@ export type PlayerState = 'idle' | 'playing' | 'error';
 // where pausing cancels the current sentence and resuming starts it again (the only behaviour
 // that works the same in every browser). Each run gets a token, so a run that was superseded
 // (pause, seek, new settings) quietly stops.
-export function usePlayer(segments: Segment[], settings: VoiceSettings, initialIndex = 0, title = '') {
+export function usePlayer(segments: Segment[], settings: VoiceSettings, initialIndex = 0, title = '', onEnd?: () => void) {
   const [index, setIndex] = useState(() => clamp(initialIndex, segments.length));
   const [state, setState] = useState<PlayerState>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +19,8 @@ export function usePlayer(segments: Segment[], settings: VoiceSettings, initialI
   const run = useRef(0);
   const track = useRef<Track | null>(null); // also kept while the track is paused
   const noStream = useRef(false); // streaming failed here once: read sentence by sentence
+  const onEndRef = useRef(onEnd);
+  onEndRef.current = onEnd;
   const settingsRef = useRef(settings);
   settingsRef.current = settings;
   // The browser voice dies with the screen, and so may the Google voice sentence by sentence
@@ -42,7 +44,10 @@ export function usePlayer(segments: Segment[], settings: VoiceSettings, initialI
           return setState('error');
         }
         setState('idle');
-        if (result === 'end') setIndex(0);
+        if (result === 'end') {
+          setIndex(0);
+          onEndRef.current?.(); // read to the end (not paused or stopped)
+        }
       };
 
       if (engine.canStream(s) && !noStream.current) {

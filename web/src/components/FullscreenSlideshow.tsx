@@ -18,16 +18,25 @@ type Props = {
   onClose: () => void;
 };
 
+// Going on to the next chapter keeps the browser's full screen: the old slideshow hands over
+// instead of leaving it, and the new one finds the page already in full screen.
+let handingOver = false;
+export function handOverFullscreen() {
+  handingOver = true;
+}
+
 // The slideshow on the whole screen: the section's picture with the sentence being read under it.
-// Uses the browser's full screen where it can (not on iPhone, which only allows it for video);
-// otherwise – and as the installed app – it simply covers the whole window. Keeps the screen on.
+// Uses the browser's full screen for the whole page where it can (not on iPhone, which only allows
+// it for video); otherwise – and as the installed app – it simply covers the whole window.
+// Keeps the screen on.
 export default function FullscreenSlideshow({ slide, text, playing, canPrev, canNext, onPlay, onPause, onPrev, onNext, onClose }: Props) {
   const root = useRef<HTMLDivElement>(null);
   useWakeLock(true);
 
   useEffect(() => {
-    const el = root.current;
-    if (el?.requestFullscreen && !document.fullscreenElement) el.requestFullscreen().catch(() => {});
+    handingOver = false;
+    const page = document.documentElement;
+    if (root.current && page.requestFullscreen && !document.fullscreenElement) page.requestFullscreen().catch(() => {});
     // Leaving the browser's full screen (Esc, back gesture) closes the slideshow too.
     const onChange = () => !document.fullscreenElement && onClose();
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -36,7 +45,7 @@ export default function FullscreenSlideshow({ slide, text, playing, canPrev, can
     return () => {
       document.removeEventListener('fullscreenchange', onChange);
       window.removeEventListener('keydown', onKey);
-      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      if (document.fullscreenElement && !handingOver) document.exitFullscreen().catch(() => {});
     };
   }, [onClose]);
 

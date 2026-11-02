@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Segment } from './segments';
 import { engine, type VoiceSettings } from './settings';
 import type { SpeakResult, Track } from './SpeechEngine';
+import { topicName } from '../topicTitle';
 import { useWakeLock } from '../wakeLock';
 
 export type PlayerState = 'idle' | 'playing' | 'error';
@@ -131,7 +132,7 @@ export function usePlayer(segments: Segment[], settings: VoiceSettings, initialI
   useEffect(() => {
     if (!('mediaSession' in navigator)) return;
     const session = navigator.mediaSession;
-    session.metadata = new MediaMetadata({ title, artist: 'Mayaerne' });
+    session.metadata = new MediaMetadata({ title, artist: topicName() });
     session.playbackState = playing ? 'playing' : 'paused';
     const handlers: [MediaSessionAction, () => void][] = [
       ['play', play],

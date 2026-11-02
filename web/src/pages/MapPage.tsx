@@ -8,6 +8,7 @@ import { cached, fetchTopic, formatYear, type PlaceProps, type Places, type Time
 import Status from '../components/Status';
 import { makeTimeScale, placeState, type TimeScale } from '../timeScale';
 import { useLoad } from '../useLoad';
+import { usePageTitle } from '../topicTitle';
 
 type Place = PlaceProps & { lat: number; lon: number };
 
@@ -34,6 +35,7 @@ const icon = (look: Look) => {
 };
 
 export default function MapPage() {
+  usePageTitle('Kort');
   const [data, error] = useLoad(
     () => Promise.all([cached<Places>('/api/topic/places'), fetchTopic(), cached<Timeline>('/api/topic/timeline')]),
     'places',

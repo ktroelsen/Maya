@@ -2,6 +2,7 @@ import { BookOpen, BookText, Camera, History, Map, type LucideIcon } from 'lucid
 import { NavLink, Outlet } from 'react-router';
 import KeepAwakeButton from './KeepAwakeButton';
 import OfflineBanner from './OfflineBanner';
+import { useTopicName } from '../topicTitle';
 
 const nav: { to: string; label: string; icon: LucideIcon }[] = [
   { to: '/', label: 'Kapitler', icon: BookOpen },
@@ -19,7 +20,7 @@ export default function Layout() {
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
           <NavLink to="/" className="flex items-center gap-2">
             <img src="/icons/icon-192.png" alt="" className="h-8 w-8 rounded-lg" />
-            <span className="font-serif text-xl font-semibold tracking-wide">Mayaerne</span>
+            <span className="font-serif text-xl font-semibold tracking-wide">{useTopicName()}</span>
           </NavLink>
           <nav className="hidden items-center gap-1 md:flex">
             {nav.map(({ to, label, icon: Icon }) => (

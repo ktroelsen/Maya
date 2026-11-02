@@ -7,6 +7,7 @@ import { useOnline } from '../offline';
 import { shrinkPhoto } from '../photo';
 import { segmentText } from '../speech/segments';
 import { engine, useVoiceSettings } from '../speech/settings';
+import { usePageTitle } from '../topicTitle';
 
 type Mode = 'object' | 'sign';
 type Asked = { id: number; photo: string; mode: Mode; question: string; answer: VisionAnswer };
@@ -14,6 +15,7 @@ type Asked = { id: number; photo: string; mode: Mode; question: string; answer: 
 // "Guide in the pocket": photograph an object or a sign at the exhibition and get it explained,
 // with the chapters that tell more. Needs a network (Gemini on the server).
 export default function GuidePage() {
+  usePageTitle('Spørg guiden');
   const [available, setAvailable] = useState<boolean | null>(null);
   const online = useOnline();
   const [draft, setDraft] = useState<{ file: Blob; url: string; mode: Mode } | null>(null);

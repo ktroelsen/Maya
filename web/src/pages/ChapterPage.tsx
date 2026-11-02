@@ -17,6 +17,7 @@ import { useOnline } from '../offline';
 import { getProgress, saveProgress } from '../progress';
 import { chapterContent } from '../speech/chapterText';
 import { useReaderView } from '../readerView';
+import { usePageTitle } from '../topicTitle';
 import { useVoiceSettings } from '../speech/settings';
 import { usePlayer } from '../speech/usePlayer';
 import { useLoad } from '../useLoad';
@@ -53,6 +54,7 @@ function TopBar({ title, number }: { title: string; number?: number }) {
 }
 
 function ChapterView({ chapter }: { chapter: Chapter }) {
+  usePageTitle(chapter.title);
   // The title is read aloud too: it is the first heading of the text.
   const { segments, figures } = useMemo(() => chapterContent(`# ${chapter.title}\n\n${chapter.markdown}`), [chapter]);
   const [view, setView] = useReaderView();

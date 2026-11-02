@@ -8,6 +8,8 @@ export type BlockKind = 'heading' | 'paragraph' | 'list';
 export type ChapterSegment = Segment & {
   kind: BlockKind;
   heading: boolean;
+  /** For headings: 1 = title, 2 = section, 3+ = a small line above the title (e.g. "Kapitel 5"). */
+  level: number;
   /** In a list: which item the sentence belongs to. */
   item: number;
 };
@@ -35,16 +37,17 @@ export function chapterContent(markdown: string): { segments: ChapterSegment[]; 
       for (const m of pictures) figures.push({ paragraph, src: m![2], alt: m![1], caption: m![3] ?? null });
       return;
     }
-    if (/^#{1,6}\s/.test(block)) {
+    const heading = /^(#{1,6})\s/.exec(block);
+    if (heading) {
       for (const s of segmentText(plain(block.replace(/^#{1,6}\s+/, ''))))
-        out.push({ ...s, paragraph, kind: 'heading', heading: true, item: 0 });
+        out.push({ ...s, paragraph, kind: 'heading', heading: true, level: heading[1].length, item: 0 });
     } else if (lines.every((l) => bullet.test(l))) {
       lines.forEach((line, item) => {
         for (const s of segmentText(plain(line.replace(bullet, ''))))
-          out.push({ ...s, paragraph, newLine: false, kind: 'list', heading: false, item });
+          out.push({ ...s, paragraph, newLine: false, kind: 'list', heading: false, level: 0, item });
       });
     } else {
-      for (const s of segmentText(plain(block))) out.push({ ...s, paragraph, kind: 'paragraph', heading: false, item: 0 });
+      for (const s of segmentText(plain(block))) out.push({ ...s, paragraph, kind: 'paragraph', heading: false, level: 0, item: 0 });
     }
   });
   return { segments: out, figures };

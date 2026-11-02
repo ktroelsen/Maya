@@ -62,7 +62,13 @@ export default function ChapterText({ segments, figures, current, active, follow
             {sentence(segment.text, index)}
           </span>
         ));
-        if (b === 0 && group[0].segment.heading)
+        if (group[0].segment.heading && group[0].segment.level >= 3)
+          return (
+            <p key={b} className="mb-1 font-sans text-sm font-semibold tracking-widest text-accent uppercase">
+              {sentences}
+            </p>
+          );
+        if (group[0].segment.heading && group[0].segment.level === 1)
           return (
             <h1 key={b} className="mb-5 font-serif text-3xl leading-tight font-semibold md:text-4xl">
               {sentences}

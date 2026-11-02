@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { cached, formatPeriod, mediaUrl, type Chapter } from '../api';
 import ChapterText from '../components/ChapterText';
+import ExtraLinks from '../components/ExtraLinks';
 import Figure from '../components/Figure';
 import FullscreenSlideshow from '../components/FullscreenSlideshow';
 import KeepAwakeButton from '../components/KeepAwakeButton';
@@ -144,6 +145,8 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
           )}
 
           {chapter.quiz.length > 0 && <Quiz questions={chapter.quiz} />}
+
+          <ExtraLinks extras={chapter.extras ?? []} />
 
           {chapter.sources.length > 0 && (
             <section className="mt-10 text-sm">

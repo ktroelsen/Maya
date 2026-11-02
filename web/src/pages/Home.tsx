@@ -1,6 +1,7 @@
 import { Check, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router';
 import { fetchTopic, formatPeriod, mediaUrl } from '../api';
+import ExtraLinks from '../components/ExtraLinks';
 import OfflineCard from '../components/OfflineCard';
 import PodcastPlayer from '../components/PodcastPlayer';
 import Status from '../components/Status';
@@ -82,6 +83,7 @@ export default function Home() {
           </li>
         ))}
       </ol>
+      <ExtraLinks extras={topic.extras} />
       <OfflineCard />
     </div>
   );

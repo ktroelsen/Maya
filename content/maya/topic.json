@@ -31,5 +31,19 @@
         "14-klar-til-moesgaard"
       ]
     }
+  ],
+  "extras": [
+    {
+      "id": "maya-kalender",
+      "title": "Din dag i mayakalenderen",
+      "description": "Vælg en dato – fx din fødselsdag – og se den i den lange kalender, den hellige kalender og solåret, skrevet med prikker og streger.",
+      "chapter": "08-viden"
+    },
+    {
+      "id": "maya-tal",
+      "title": "Tal med prikker og streger",
+      "description": "Skriv et tal, og se, hvordan mayaerne ville skrive det i etager af tyvere.",
+      "chapter": "08-viden"
+    }
   ]
 }

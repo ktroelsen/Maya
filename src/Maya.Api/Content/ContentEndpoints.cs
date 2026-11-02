@@ -20,6 +20,7 @@ public static class ContentEndpoints
                 t.Intro,
                 Chapters = t.Chapters.Select(c => new { c.Id, c.Number, c.Title, c.Summary, c.Period, Image = c.Images.FirstOrDefault()?.Src }),
                 t.Podcasts,
+                t.Extras,
             });
         });
 
@@ -43,6 +44,7 @@ public static class ContentEndpoints
                 c.Quiz,
                 c.Markdown,
                 Podcasts = store.Topic.Podcasts.Where(p => p.Chapters?.Contains(c.Id) == true),
+                Extras = store.Topic.Extras.Where(e => e.Chapter == c.Id),
                 Prev = i > 0 ? Link(chapters[i - 1]) : null,
                 Next = i < chapters.Count - 1 ? Link(chapters[i + 1]) : null,
             });

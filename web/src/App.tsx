@@ -12,6 +12,7 @@ import TimelinePage from './pages/TimelinePage';
 // The map (Leaflet) and the guide are only fetched when opened, so the app starts faster.
 const MapPage = lazy(lazyPages.map);
 const GuidePage = lazy(lazyPages.guide);
+const ExtraPage = lazy(lazyPages.extra);
 
 export default function App() {
   // "Hold skærmen tændt": for the whole app, while it is open.
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="tidslinje" element={<TimelinePage />} />
         <Route path="kort" element={<Suspense fallback={<Status />}><MapPage /></Suspense>} />
         <Route path="ordliste" element={<Glossary />} />
+        <Route path="ekstra/:id" element={<Suspense fallback={<Status />}><ExtraPage /></Suspense>} />
         <Route path="guide" element={<Suspense fallback={<Status />}><GuidePage /></Suspense>} />
       </Route>
       {/* A chapter is full screen: its own top bar and the player at the bottom. */}

@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react';
 import { mediaUrl, type Chapter, type Topic } from './api';
-import { lazyPages } from './lazyPages';
+import { allLazy } from './lazyPages';
 
 // "Hent til offline": saves the whole topic (texts, timeline, map data, glossary, images,
 // podcasts) and the app itself in the service worker's content cache, so it works at the
@@ -51,7 +51,7 @@ export async function downloadForOffline(onProgress: (done: number, total: numbe
 
   // The pages loaded on demand: importing them fetches their code through the service worker,
   // which keeps hashed assets in the shell cache.
-  await Promise.all(Object.values(lazyPages).map((load) => load().catch(() => null)));
+  await Promise.all(allLazy.map((load) => load().catch(() => null)));
 
   const total = content.length + shell.length;
   let done = 0;

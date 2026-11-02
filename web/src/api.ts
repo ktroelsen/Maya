@@ -42,6 +42,8 @@ export type ChapterSummary = { id: string; number: number; title: string; summar
 
 export type Podcast = { id: string; title: string; src: string; description: string | null; chapters: string[] | null };
 
+export type Extra = { id: string; title: string; description: string | null; chapter: string | null };
+
 export type Topic = {
   id: string;
   title: string;
@@ -50,6 +52,7 @@ export type Topic = {
   intro: string | null;
   chapters: ChapterSummary[];
   podcasts: Podcast[];
+  extras: Extra[];
 };
 
 export type Image = { src: string; alt: string | null; caption: string | null; credit: string | null; illustration: boolean };
@@ -71,6 +74,7 @@ export type Chapter = {
   quiz: QuizQuestion[];
   markdown: string;
   podcasts: Podcast[];
+  extras: Extra[];
   prev: ChapterLink | null;
   next: ChapterLink | null;
 };

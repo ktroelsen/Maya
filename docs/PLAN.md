@@ -178,6 +178,10 @@ Under oplæsning kan man vælge »Følg teksten« (siden ruller med) eller »Bil
 
 Knappen »Afspil tidslinjen på kortet« spiller historien igennem på ca. 75 sekunder (eller med skyderen): byerne dukker op i deres storhedstid og bliver grå, når de forlades; landskaber vises stiplede; tidslinjens begivenheder blinker på deres sted med tekst og link til kapitlet. Årstallene for byerne er afrundede skøn over storhedstiden.
 
+## 7b3. Glyf- og kalenderleg (2. november)
+
+»Prøv selv« på forsiden og i kapitel 8: »Din dag i mayakalenderen« (en dato i den lange kalender, tzolk'in og haab', med prik-og-streg-tal; tjekket mod 21.12.2012 = 13.0.0.0.0 4 Ajaw 3 K'ank'in og Pakals fødsel 9.8.9.13.0 8 Ajaw 13 Pop = 24.3.603) og »Tal med prikker og streger«. Bygget som generiske »extras« i `topic.json`, så andre emner kan få deres egne.
+
 ## 7c. Udgifter til Gemini (31. oktober)
 
 Google-projektet »maya« har et udgiftsloft på 100 kr. om måneden for Gemini API. Det blev nået 31. oktober kl. 17:04 – næsten udelukkende af billedgenereringen (ca. 100 billeder med Gemini Pro Image, især de 76 afsnitsbilleder) og to kørsler af podcasten. Konsekvens: »Spørg guiden« virkede ikke resten af dagen (loftet nulstilles den 1. i måneden). Resten af appen var upåvirket; Google-stemmen er en anden tjeneste.

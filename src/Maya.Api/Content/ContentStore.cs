@@ -75,7 +75,7 @@ public class ContentStore
             chapters.Add(new Chapter(id, number, front.Title ?? id, front.Summary, front.Period,
                 front.Places ?? [], front.Images ?? [], Figures(body), front.Sources ?? [], front.Quiz ?? [], body.Trim()));
         }
-        return new Topic(info.Id, info.Title, info.Subtitle, info.Cover, info.Intro, chapters, info.Podcasts ?? []);
+        return new Topic(info.Id, info.Title, info.Subtitle, info.Cover, info.Intro, chapters, info.Podcasts ?? [], info.Extras ?? []);
     }
 
     // Pictures in the text: a line of its own, ![alt](src "caption"). They belong to the section
@@ -102,13 +102,17 @@ public class ContentStore
         return (text[4..end], bodyStart < 0 ? "" : text[(bodyStart + 1)..]);
     }
 
-    record TopicFile(string Id, string Title, string? Subtitle, string? Cover, string? Intro, List<string> Chapters, List<Podcast>? Podcasts);
+    record TopicFile(string Id, string Title, string? Subtitle, string? Cover, string? Intro, List<string> Chapters, List<Podcast>? Podcasts, List<Extra>? Extras);
 }
 
-public record Topic(string Id, string Title, string? Subtitle, string? Cover, string? Intro, List<Chapter> Chapters, List<Podcast> Podcasts)
+public record Topic(string Id, string Title, string? Subtitle, string? Cover, string? Intro, List<Chapter> Chapters, List<Podcast> Podcasts, List<Extra> Extras)
 {
     public Chapter? Find(string id) => Chapters.FirstOrDefault(c => c.Id == id);
 }
+
+/// <summary>An interactive extra (e.g. a calendar game). The id names a component in the web app's
+/// extras registry; Chapter links it from that chapter.</summary>
+public record Extra(string Id, string Title, string? Description, string? Chapter);
 
 public record Podcast(string Id, string Title, string Src, string? Description, List<string>? Chapters);
 

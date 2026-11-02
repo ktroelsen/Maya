@@ -42,6 +42,20 @@ public class ContentTests(MayaFactory factory) : IClassFixture<MayaFactory>
     }
 
     [Fact]
+    public async Task Extras_are_listed_and_linked_from_their_chapter()
+    {
+        var client = factory.CreateClient();
+        var topic = await client.GetFromJsonAsync<JsonObject>("/api/topic");
+        var extras = topic!["extras"]!.AsArray();
+        Assert.NotEmpty(extras);
+        var chapterId = extras[0]!["chapter"]!.GetValue<string>();
+        var chapter = await client.GetFromJsonAsync<JsonObject>($"/api/topic/chapters/{chapterId}");
+        Assert.Contains(chapter!["extras"]!.AsArray(), e => e!["id"]!.GetValue<string>() == extras[0]!["id"]!.GetValue<string>());
+        var other = await client.GetFromJsonAsync<JsonObject>("/api/topic/chapters/01-moed-mayaerne");
+        Assert.Empty(other!["extras"]!.AsArray());
+    }
+
+    [Fact]
     public async Task Unknown_chapter_is_404()
     {
         var res = await factory.CreateClient().GetAsync("/api/topic/chapters/findes-ikke");

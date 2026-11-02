@@ -1,10 +1,11 @@
 import { ArrowLeft, ChevronLeft, ChevronRight, History, Images, MapPin, Maximize, ScrollText } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { cached, formatPeriod, mediaUrl, type Chapter } from '../api';
 import ChapterText from '../components/ChapterText';
+import ExtraLinks from '../components/ExtraLinks';
 import Figure from '../components/Figure';
-import FullscreenSlideshow from '../components/FullscreenSlideshow';
+import FullscreenSlideshow, { handOverFullscreen } from '../components/FullscreenSlideshow';
 import KeepAwakeButton from '../components/KeepAwakeButton';
 import OfflineBanner from '../components/OfflineBanner';
 import Player from '../components/Player';
@@ -61,14 +62,38 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
     const p = getProgress(chapter.id);
     return p && !p.done && p.count === segments.length ? p.index : 0;
   });
-  const player = usePlayer(segments, voice, start, chapter.title);
+  // Arriving from the previous chapter's full-screen slideshow: stay in full screen and read on.
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [carryOn] = useState(() => (location.state as { slideshow?: boolean } | null)?.slideshow === true);
+  const [fullscreen, setFullscreen] = useState(carryOn);
+  const fullscreenRef = useRef(fullscreen);
+  fullscreenRef.current = fullscreen;
+
+  // Read to the end in full screen: go on to the next chapter, still in full screen.
+  const onEnd = useCallback(() => {
+    if (!fullscreenRef.current || !chapter.next) return;
+    handOverFullscreen();
+    navigate(`/kapitel/${chapter.next.id}`, { state: { slideshow: true } });
+  }, [chapter.next, navigate]);
+  const player = usePlayer(segments, voice, carryOn ? 0 : start, chapter.title, onEnd);
+
+  // Start reading at once (works where the browser allows sound without a new tap; otherwise
+  // the play button is right there).
+  const started = useRef(false);
+  useEffect(() => {
+    if (!carryOn || started.current) return;
+    started.current = true;
+    player.play();
+    // Don't do it again when coming back to this chapter through the history.
+    navigate(location.pathname, { replace: true, state: null });
+  }, [carryOn, player, navigate, location.pathname]);
   const [finished, setFinished] = useState(false);
   const [showVoices, setShowVoices] = useState(false);
   const online = useOnline();
   const [hero, ...moreImages] = chapter.images;
   const reading = player.state === 'playing' || player.index > 0;
   const slideshow = view === 'pictures';
-  const [fullscreen, setFullscreen] = useState(false);
   const closeFullscreen = useCallback(() => setFullscreen(false), []);
 
   // The slideshow shows the picture of the section being read (before the first one: the hero).
@@ -144,6 +169,8 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
           )}
 
           {chapter.quiz.length > 0 && <Quiz questions={chapter.quiz} />}
+
+          <ExtraLinks extras={chapter.extras ?? []} />
 
           {chapter.sources.length > 0 && (
             <section className="mt-10 text-sm">

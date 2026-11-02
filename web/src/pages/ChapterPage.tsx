@@ -55,8 +55,8 @@ function TopBar({ title, number }: { title: string; number?: number }) {
 
 function ChapterView({ chapter }: { chapter: Chapter }) {
   usePageTitle(chapter.title);
-  // The title is read aloud too: it is the first heading of the text.
-  const { segments, figures } = useMemo(() => chapterContent(`# ${chapter.title}\n\n${chapter.markdown}`), [chapter]);
+  // The chapter number and title are read aloud too, so a new chapter announces itself.
+  const { segments, figures } = useMemo(() => chapterContent(`### Kapitel ${chapter.number}\n\n# ${chapter.title}\n\n${chapter.markdown}`), [chapter]);
   const [view, setView] = useReaderView();
   const [voice, setVoice] = useVoiceSettings();
   // Start where this device left off (a finished chapter starts from the top again).

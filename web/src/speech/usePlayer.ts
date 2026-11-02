@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Segment } from './segments';
 import { engine, type VoiceSettings } from './settings';
 import type { SpeakResult, Track } from './SpeechEngine';
+import { useWakeLock } from '../wakeLock';
 
 export type PlayerState = 'idle' | 'playing' | 'error';
 
@@ -164,38 +165,3 @@ export function usePlayer(segments: Segment[], settings: VoiceSettings, initialI
 }
 
 const clamp = (i: number, length: number) => (length === 0 ? 0 : Math.min(Math.max(0, i), length - 1));
-
-// Keeps the screen on while reading: on phones the browser stops speaking when the screen
-// locks. Returns whether the lock is held (not supported everywhere, e.g. older iOS).
-function useWakeLock(active: boolean) {
-  const [held, setHeld] = useState(false);
-  useEffect(() => {
-    if (!active || !('wakeLock' in navigator)) return;
-    let lock: WakeLockSentinel | null = null;
-    let cancelled = false;
-    const acquire = () =>
-      navigator.wakeLock
-        .request('screen')
-        .then((l) => {
-          if (cancelled) return void l.release();
-          lock = l;
-          setHeld(true);
-          l.addEventListener('release', () => {
-            lock = null;
-            setHeld(false);
-          });
-        })
-        .catch(() => setHeld(false));
-    void acquire();
-    // The lock is dropped whenever the tab is hidden; take it again on return.
-    const onVisible = () => document.visibilityState === 'visible' && !lock && void acquire();
-    document.addEventListener('visibilitychange', onVisible);
-    return () => {
-      cancelled = true;
-      document.removeEventListener('visibilitychange', onVisible);
-      void lock?.release();
-      lock = null;
-    };
-  }, [active]);
-  return held;
-}

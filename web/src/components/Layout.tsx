@@ -1,5 +1,6 @@
 import { BookOpen, BookText, Camera, History, Map, type LucideIcon } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router';
+import KeepAwakeButton from './KeepAwakeButton';
 import OfflineBanner from './OfflineBanner';
 
 const nav: { to: string; label: string; icon: LucideIcon }[] = [
@@ -37,6 +38,7 @@ export default function Layout() {
               </NavLink>
             ))}
           </nav>
+          <KeepAwakeButton />
         </div>
       </header>
       <OfflineBanner />

@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router';
 import Layout from './components/Layout';
 import Status from './components/Status';
 import { lazyPages } from './lazyPages';
+import { useKeepAwake, useWakeLock } from './wakeLock';
 import ChapterPage from './pages/ChapterPage';
 import Glossary from './pages/Glossary';
 import Home from './pages/Home';
@@ -13,6 +14,9 @@ const MapPage = lazy(lazyPages.map);
 const GuidePage = lazy(lazyPages.guide);
 
 export default function App() {
+  // "Hold skærmen tændt": for the whole app, while it is open.
+  useWakeLock(useKeepAwake());
+
   return (
     <Routes>
       <Route element={<Layout />}>

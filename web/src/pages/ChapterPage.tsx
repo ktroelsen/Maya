@@ -64,19 +64,21 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
     const p = getProgress(chapter.id);
     return p && !p.done && p.count === segments.length ? p.index : 0;
   });
-  // Arriving from the previous chapter's full-screen slideshow: stay in full screen and read on.
+  // Arriving because the previous chapter was read to the end: read on from the top (and stay in
+  // full screen if that is where we were).
   const location = useLocation();
   const navigate = useNavigate();
-  const [carryOn] = useState(() => (location.state as { slideshow?: boolean } | null)?.slideshow === true);
-  const [fullscreen, setFullscreen] = useState(carryOn);
+  const [arrival] = useState(() => (location.state as { carryOn?: boolean; fullscreen?: boolean } | null) ?? {});
+  const carryOn = arrival.carryOn === true;
+  const [fullscreen, setFullscreen] = useState(arrival.fullscreen === true);
   const fullscreenRef = useRef(fullscreen);
   fullscreenRef.current = fullscreen;
 
-  // Read to the end in full screen: go on to the next chapter, still in full screen.
+  // Read to the end: go straight on to the next chapter and keep reading – no stop in between.
   const onEnd = useCallback(() => {
-    if (!fullscreenRef.current || !chapter.next) return;
-    handOverFullscreen();
-    navigate(`/kapitel/${chapter.next.id}`, { state: { slideshow: true } });
+    if (!chapter.next) return;
+    if (fullscreenRef.current) handOverFullscreen();
+    navigate(`/kapitel/${chapter.next.id}`, { state: { carryOn: true, fullscreen: fullscreenRef.current } });
   }, [chapter.next, navigate]);
   const player = usePlayer(segments, voice, carryOn ? 0 : start, chapter.title, onEnd);
 
@@ -90,7 +92,6 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
     // Don't do it again when coming back to this chapter through the history.
     navigate(location.pathname, { replace: true, state: null });
   }, [carryOn, player, navigate, location.pathname]);
-  const [finished, setFinished] = useState(false);
   const [showVoices, setShowVoices] = useState(false);
   const online = useOnline();
   const [hero, ...moreImages] = chapter.images;
@@ -107,11 +108,8 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
       ? { src: hero.src, alt: hero.alt ?? '', caption: hero.caption }
       : null;
 
-  // Remember the sentence; when the last one has been read, offer the next chapter.
+  // Remember the sentence (reaching the last one marks the chapter as read).
   useEffect(() => saveProgress(chapter.id, player.index, segments.length), [chapter.id, player.index, segments.length]);
-  useEffect(() => {
-    if (player.state === 'playing' && player.index === segments.length - 1) setFinished(true);
-  }, [player.state, player.index, segments.length]);
 
   return (
     <div className="flex h-full flex-col">
@@ -200,19 +198,6 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
         </article>
       </main>
 
-      {finished && player.state !== 'playing' && chapter.next && (
-        <div className="border-t border-line bg-surface-2 px-4 py-3">
-          <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
-            <p className="text-sm">Kapitlet er slut.</p>
-            <Link
-              to={`/kapitel/${chapter.next.id}`}
-              className="flex min-h-11 items-center gap-1 rounded-full bg-accent px-4 text-sm font-medium text-on-accent hover:bg-accent-strong"
-            >
-              Næste: {chapter.next.title} <ChevronRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      )}
       {!online && voice.provider === 'google' && (
         <p className="border-t border-line bg-surface-2 px-4 py-2 text-center text-sm">
           Google-stemmen kræver net.{' '}

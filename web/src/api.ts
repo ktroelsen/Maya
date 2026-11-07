@@ -134,6 +134,17 @@ export const fetchVisionAvailable = () =>
 
 export type VisionAnswer = { title: string; answer: string; chapters: ChapterLink[] };
 
+/** A photo the guide answered, shared with everyone who uses the app (kept on the server). */
+export type GuideEntry = {
+  id: string;
+  topic: string;
+  createdAt: string;
+  mode: 'Object' | 'Sign';
+  question: string;
+  answer: VisionAnswer;
+  photo: string; // URL
+};
+
 /** Whether the Google voice (Chirp 3 HD) is set up on the server. */
 export const fetchGoogleVoiceAvailable = () =>
   cached<Health>('/api/health').then((h) => h.googleVoice).catch(() => false);

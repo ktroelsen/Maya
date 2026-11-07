@@ -1,8 +1,8 @@
 import type { VisionAnswer } from './api';
 
-// The guide's answers, kept on this device (there is no login): the photo, the question and
-// the answer, so they can be looked at again later – also offline. Stored in IndexedDB, which
-// can hold the photos as blobs. Each entry carries its topic, so topics keep their own list.
+// Answers the guide gave before they were shared on the server: they were kept on the phone in
+// IndexedDB. The guide page hands them over to the server once (POST /api/guide) and then
+// deletes them here.
 export type GuideEntry = {
   id: string;
   topic: string;
@@ -49,14 +49,6 @@ export const guideHistorySupported = () => typeof indexedDB !== 'undefined';
 export async function listEntries(topic: string): Promise<GuideEntry[]> {
   const all = await run<GuideEntry[]>('readonly', (s) => s.index('topic').getAll(topic));
   return all.sort((a, b) => b.createdAt - a.createdAt);
-}
-
-export async function saveEntry(entry: Omit<GuideEntry, 'id' | 'createdAt'>): Promise<GuideEntry> {
-  const saved: GuideEntry = { ...entry, id: crypto.randomUUID?.() ?? String(Date.now()), createdAt: Date.now() };
-  await run('readwrite', (s) => s.put(saved));
-  // Ask the browser to keep our storage when space runs low (may be ignored).
-  void navigator.storage?.persist?.().catch(() => false);
-  return saved;
 }
 
 export const deleteEntry = (id: string) => run('readwrite', (s) => s.delete(id));

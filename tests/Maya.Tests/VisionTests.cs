@@ -80,11 +80,13 @@ public class VisionTests(VisionFactory factory) : IClassFixture<VisionFactory>
     {
         var res = await factory.CreateClient().PostAsync("/api/vision", VisionForm.Photo(question: "Hvem bar den?"));
         res.EnsureSuccessStatusCode();
-        var answer = await res.Content.ReadFromJsonAsync<JsonObject>();
-        Assert.Equal("Jademaske", answer!["title"]!.GetValue<string>());
+        var entry = await res.Content.ReadFromJsonAsync<JsonObject>();
+        var answer = entry!["answer"]!;
+        Assert.Equal("Jademaske", answer["title"]!.GetValue<string>());
         var chapters = answer["chapters"]!.AsArray().Select(c => c!["id"]!.GetValue<string>()).ToList();
         Assert.Equal(["09-kunst-og-arkitektur", "14-klar-til-moesgaard"], chapters);
         Assert.Equal(9, answer["chapters"]![0]!["number"]!.GetValue<int>());
+        Assert.Equal("Hvem bar den?", entry["question"]!.GetValue<string>());
     }
 
     [Fact]
@@ -174,5 +176,100 @@ public class VisionLimitTests
         Assert.Equal(HttpStatusCode.TooManyRequests, res.StatusCode);
         Assert.Contains("Dagens grænse", await res.Content.ReadAsStringAsync());
         Assert.Single(factory.Gemini.Requests);
+    }
+}
+
+public class SharedGuideTests
+{
+    [Fact]
+    public async Task Answers_are_shared_with_everyone_and_can_be_deleted()
+    {
+        using var factory = new VisionFactory();
+        var asker = factory.CreateClient();
+        var res = await asker.PostAsync("/api/vision", VisionForm.Photo(bytes: 1234, mode: "sign", question: "Hvad står der?"));
+        res.EnsureSuccessStatusCode();
+        var saved = await res.Content.ReadFromJsonAsync<JsonObject>();
+        var id = saved!["id"]!.GetValue<string>();
+
+        // Someone else, another phone: sees the same entry and its photo.
+        var other = factory.CreateClient();
+        var list = await other.GetFromJsonAsync<JsonArray>("/api/guide");
+        var entry = Assert.Single(list!)!;
+        Assert.Equal(id, entry["id"]!.GetValue<string>());
+        Assert.Equal("Sign", entry["mode"]!.GetValue<string>());
+        Assert.Equal("Hvad står der?", entry["question"]!.GetValue<string>());
+        var photo = await other.GetAsync(entry["photo"]!.GetValue<string>());
+        photo.EnsureSuccessStatusCode();
+        Assert.Equal(1234, (await photo.Content.ReadAsByteArrayAsync()).Length);
+        Assert.Equal("image/jpeg", photo.Content.Headers.ContentType!.MediaType);
+
+        Assert.Equal(HttpStatusCode.NoContent, (await other.DeleteAsync($"/api/guide/{id}")).StatusCode);
+        Assert.Empty((await asker.GetFromJsonAsync<JsonArray>("/api/guide"))!);
+        Assert.Equal(HttpStatusCode.NotFound, (await other.GetAsync($"/api/guide/photos/{id}")).StatusCode);
+    }
+
+    [Fact]
+    public async Task A_phone_can_hand_over_answers_it_kept_locally()
+    {
+        using var factory = new VisionFactory();
+        var client = factory.CreateClient();
+        var form = VisionForm.Photo();
+        var when = new DateTimeOffset(2026, 11, 1, 10, 30, 0, TimeSpan.Zero);
+        form.Add(new StringContent(JsonSerializer.Serialize(new
+        {
+            mode = "Object",
+            question = "Hvem bar den?",
+            createdAt = when,
+            answer = new { title = "Jademaske", answer = "En dødsmaske.", chapters = new[] { new { id = "09-kunst-og-arkitektur", number = 1, title = "x" }, new { id = "findes-ikke", number = 2, title = "y" } } },
+        })), "entry");
+        var res = await client.PostAsync("/api/guide", form);
+        res.EnsureSuccessStatusCode();
+
+        var entry = Assert.Single((await client.GetFromJsonAsync<JsonArray>("/api/guide"))!)!;
+        Assert.Equal(when, entry["createdAt"]!.GetValue<DateTimeOffset>());
+        var chapters = entry["answer"]!["chapters"]!.AsArray();
+        Assert.Equal("09-kunst-og-arkitektur", Assert.Single(chapters)!["id"]!.GetValue<string>());
+        Assert.Equal(9, chapters[0]!["number"]!.GetValue<int>());   // from the content, not the phone
+        Assert.Empty(factory.Gemini.Requests);                       // no new question to Gemini
+    }
+
+    [Theory]
+    [InlineData("application/pdf", "{\"mode\":\"Object\",\"answer\":{\"title\":\"x\",\"answer\":\"y\",\"chapters\":[]}}")]
+    [InlineData("image/jpeg", "{\"mode\":\"Object\"}")]
+    [InlineData("image/jpeg", "ikke json")]
+    public async Task Bad_imports_are_rejected(string type, string json)
+    {
+        using var factory = new VisionFactory();
+        var form = VisionForm.Photo(type);
+        form.Add(new StringContent(json), "entry");
+        Assert.Equal(HttpStatusCode.BadRequest, (await factory.CreateClient().PostAsync("/api/guide", form)).StatusCode);
+    }
+
+    [Fact]
+    public async Task Only_the_newest_entries_are_kept()
+    {
+        using var factory = new SmallGuideFactory();
+        var client = factory.CreateClient();
+        for (var i = 0; i < 3; i++) (await client.PostAsync("/api/vision", VisionForm.Photo(question: $"Nr. {i}"))).EnsureSuccessStatusCode();
+        var list = (await client.GetFromJsonAsync<JsonArray>("/api/guide"))!;
+        Assert.Equal(["Nr. 2", "Nr. 1"], list.Select(e => e!["question"]!.GetValue<string>()));
+    }
+
+    [Theory]
+    [InlineData("../../etc/passwd")]
+    [InlineData("abc")]
+    public async Task Unknown_photo_ids_are_404(string id)
+    {
+        using var factory = new VisionFactory();
+        Assert.Equal(HttpStatusCode.NotFound, (await factory.CreateClient().GetAsync($"/api/guide/photos/{Uri.EscapeDataString(id)}")).StatusCode);
+    }
+}
+
+public class SmallGuideFactory : VisionFactory
+{
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        base.ConfigureWebHost(builder);
+        builder.UseSetting("Guide:MaxSaved", "2");
     }
 }

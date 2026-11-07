@@ -20,7 +20,8 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-const isContent = (url) => url.pathname === '/api/health' || url.pathname === '/api/topic' || url.pathname.startsWith('/api/topic/');
+const isContent = (url) =>
+  url.pathname === '/api/health' || url.pathname === '/api/topic' || url.pathname.startsWith('/api/topic/') || url.pathname === '/api/guide';
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
@@ -29,6 +30,8 @@ self.addEventListener('fetch', (event) => {
 
   // Content: newest from the network, the saved copy when offline or the network is slow.
   if (isContent(url)) return event.respondWith(networkFirst(req, CONTENT));
+  // The guide's shared photos never change: kept once seen, so they show offline too.
+  if (url.pathname.startsWith('/api/guide/photos/')) return event.respondWith(staleWhileRevalidate(req, CONTENT));
   if (url.pathname.startsWith('/api/')) return;
 
   // Audio asks for byte ranges (iPhones insist on them): answer from the saved file if we have

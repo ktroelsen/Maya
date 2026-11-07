@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Threading.RateLimiting;
 using Maya.Api.Content;
+using Maya.Api.Guide;
 using Maya.Api.Tts;
 using Maya.Api.Vision;
 using Microsoft.Extensions.FileProviders;
@@ -33,6 +34,10 @@ builder.Services.AddSingleton<TtsStreams>();
 builder.Services.Configure<GeminiOptions>(builder.Configuration.GetSection("Gemini"));
 builder.Services.AddHttpClient<GeminiVision>(c => c.Timeout = TimeSpan.FromSeconds(60));
 builder.Services.AddSingleton<VisionUsage>();
+
+// The guide's photos and answers, shared with everyone, in App_Data/guide.
+builder.Services.Configure<GuideOptions>(builder.Configuration.GetSection("Guide"));
+builder.Services.AddSingleton(sp => ActivatorUtilities.CreateInstance<GuideStore>(sp, Path.Combine(dataDir, "guide")));
 
 builder.Services.ConfigureHttpJsonOptions(o =>
     o.SerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter()));
@@ -98,6 +103,7 @@ app.MapGet("/api/health", (IOptions<TtsOptions> tts, IOptions<GeminiOptions> gem
 app.MapContentEndpoints();
 app.MapTtsEndpoints();
 app.MapVisionEndpoints();
+app.MapGuideEndpoints();
 
 // Unknown /api routes are real 404s; everything else without a file extension is a client-side
 // route → index.html (missing files, e.g. under /media, are plain 404s).

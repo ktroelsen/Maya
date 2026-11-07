@@ -23,7 +23,8 @@ public class GeminiOptions
 /// <summary>What the visitor points the camera at: an object, or a sign/label to explain.</summary>
 public enum VisionMode { Object, Sign }
 
-public record VisionAnswer(string Title, string Answer, List<VisionChapter> Chapters);
+/// <summary>The guide's answer. SignText: for a sign, its text read off the photo (in Danish).</summary>
+public record VisionAnswer(string Title, string Answer, List<VisionChapter> Chapters, string? SignText = null);
 
 public record VisionChapter(string Id, int Number, string Title);
 
@@ -59,6 +60,7 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
                     properties = new
                     {
                         title = new { type = "STRING" },
+                        signText = new { type = "STRING" },
                         answer = new { type = "STRING" },
                         chapters = new { type = "ARRAY", items = new { type = "STRING" } },
                     },
@@ -88,7 +90,8 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
             .Take(3)
             .Select(c => new VisionChapter(c.Id, c.Number, c.Title))
             .ToList();
-        return new VisionAnswer(raw.Title?.Trim() ?? "", raw.Answer?.Trim() ?? "", chapters);
+        var signText = mode == VisionMode.Sign && !string.IsNullOrWhiteSpace(raw.SignText) ? raw.SignText.Trim() : null;
+        return new VisionAnswer(raw.Title?.Trim() ?? "", raw.Answer?.Trim() ?? "", chapters, signText);
     }
 
     /// <summary>A tiny text question, to see whether Gemini answers with this key and model.</summary>
@@ -162,12 +165,16 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
     static string UserPrompt(VisionMode mode, string? question)
     {
         var task = mode == VisionMode.Sign
-            ? "Billedet viser et skilt eller en tekst. Forklar, hvad der står, og fortæl lidt mere om emnet."
-            : "Billedet viser en genstand. Hvad er det, og hvad skal jeg lægge mærke til?";
+            ? "Billedet viser et skilt eller en tekst på en udstilling.\n"
+              + "signText: skriv HELE teksten på skiltet af, ordret og i den rækkefølge, den læses – overskrift først, afsnit adskilt af en tom linje. "
+              + "Står teksten på flere sprog, så brug den danske; findes der ingen dansk, så oversæt til dansk. Udelad intet, og tilføj intet. "
+              + "Kan noget ikke læses, så skriv […].\n"
+              + "answer: 2–4 korte sætninger, der forklarer eller sætter teksten i sammenhæng – ikke en gentagelse af den."
+            : "Billedet viser en genstand. Hvad er det, og hvad skal jeg lægge mærke til? signText: lad den være tom.";
         return string.IsNullOrWhiteSpace(question) ? task : $"{task}\nMit spørgsmål: {question.Trim()}";
     }
 
-    record RawAnswer(string? Title, string? Answer, List<string>? Chapters);
+    record RawAnswer(string? Title, string? Answer, List<string>? Chapters, string? SignText);
     record GenerateResponse(
         [property: JsonPropertyName("candidates")] List<Candidate>? Candidates,
         [property: JsonPropertyName("promptFeedback")] PromptFeedback? PromptFeedback)

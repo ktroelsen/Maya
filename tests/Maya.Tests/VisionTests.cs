@@ -131,6 +131,34 @@ public class VisionTests(VisionFactory factory) : IClassFixture<VisionFactory>
     }
 }
 
+public class SignTests
+{
+    [Fact]
+    public async Task A_sign_comes_back_with_its_text()
+    {
+        using var factory = new VisionFactory();
+        factory.Gemini.ReplyJson = """{"title":"Jademasken","signText":"Jademasken og det evige liv\n\nMasken blev lagt over herskerens ansigt.","answer":"Skiltet handler om maskerne.","chapters":[]}""";
+        var res = await factory.CreateClient().PostAsync("/api/vision", VisionForm.Photo(mode: "sign"));
+        res.EnsureSuccessStatusCode();
+        var entry = await res.Content.ReadFromJsonAsync<JsonObject>();
+        Assert.StartsWith("Jademasken og det evige liv", entry!["answer"]!["signText"]!.GetValue<string>());
+        var prompt = factory.Gemini.Requests.Last().Body["contents"]![0]!["parts"]![1]!["text"]!.GetValue<string>();
+        Assert.Contains("ordret", prompt);
+        // Kept with the shared entry too.
+        var list = await factory.CreateClient().GetFromJsonAsync<JsonArray>("/api/guide");
+        Assert.NotNull(list![0]!["answer"]!["signText"]);
+    }
+
+    [Fact]
+    public async Task An_object_has_no_sign_text()
+    {
+        using var factory = new VisionFactory();
+        factory.Gemini.ReplyJson = """{"title":"Maske","signText":"noget","answer":"En maske.","chapters":[]}""";
+        var entry = await (await factory.CreateClient().PostAsync("/api/vision", VisionForm.Photo())).Content.ReadFromJsonAsync<JsonObject>();
+        Assert.Null(entry!["answer"]!["signText"]);
+    }
+}
+
 public class VisionLimitTests
 {
     [Fact]

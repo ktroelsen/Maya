@@ -23,6 +23,7 @@ export default function GuidePage() {
   const [asking, setAsking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<GuideEntry[]>([]);
+  const [readNow, setReadNow] = useState<string | null>(null); // a sign just photographed: read it aloud
   const camera = useRef<HTMLInputElement>(null);
   const library = useRef<HTMLInputElement>(null);
   const nextMode = useRef<Mode>('object');
@@ -60,6 +61,8 @@ export default function GuidePage() {
 
   async function ask() {
     if (!draft) return;
+    // A sign's text is read aloud when the answer comes; unlock the voice inside this tap (iOS).
+    if (draft.mode === 'sign') engine.prime();
     setAsking(true);
     setError(null);
     const form = new FormData();
@@ -72,6 +75,7 @@ export default function GuidePage() {
       if (!res.ok) throw new ApiError(res.status, res.statusText, problemDetail(text));
       const saved = JSON.parse(text) as GuideEntry;
       setHistory((h) => [saved, ...h]);
+      if (saved.answer.signText) setReadNow(saved.id);
       URL.revokeObjectURL(draft.url);
       setDraft(null);
       setQuestion('');
@@ -155,6 +159,7 @@ export default function GuidePage() {
           <AnswerCard
             key={h.id}
             entry={h}
+            readAtOnce={readNow === h.id}
             onDelete={() => {
               if (!window.confirm('Slet billedet og svaret? Det forsvinder for alle.')) return;
               void api(`/api/guide/${h.id}`, { method: 'DELETE' })
@@ -181,7 +186,7 @@ function BigButton({ icon: Icon, title, onClick }: { icon: typeof Camera; title:
   );
 }
 
-function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => void }) {
+function AnswerCard({ entry, onDelete, readAtOnce = false }: { entry: GuideEntry; onDelete: () => void; readAtOnce?: boolean }) {
   const [voice] = useVoiceSettings();
   const [speaking, setSpeaking] = useState(false);
   const run = useRef(0); // a new token per reading, so a stopped one quietly ends
@@ -208,7 +213,9 @@ function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => vo
     const token = ++run.current;
     active.current = true;
     setSpeaking(true);
-    for (const s of segmentText(`${answer.title}.\n\n${answer.answer}`)) {
+    // A sign: its own text first, then the explanation.
+    const text = answer.signText ? `${answer.signText}\n\n${answer.answer}` : `${answer.title}.\n\n${answer.answer}`;
+    for (const s of segmentText(text)) {
       const result = await engine.speak(s.text, voice);
       if (token !== run.current || result !== 'end') break;
     }
@@ -217,6 +224,14 @@ function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => vo
       setSpeaking(false);
     }
   }
+
+  // Just photographed a sign: read its text aloud straight away.
+  const readOnce = useRef(false);
+  useEffect(() => {
+    if (!readAtOnce || readOnce.current) return;
+    readOnce.current = true;
+    void read();
+  }); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <li className="overflow-hidden rounded-xl border border-line bg-surface">
@@ -239,6 +254,18 @@ function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => vo
           {entry.mode === 'Sign' ? 'Skilt' : 'Genstand'} · {when}
         </p>
         {entry.question && <p className="mt-1 text-sm text-muted italic">»{entry.question}«</p>}
+        {answer.signText && (
+          <section className="mt-3 rounded-lg border-l-4 border-ochre bg-surface-2 px-4 py-3" aria-label="Teksten på skiltet">
+            <p className="mb-1 text-xs font-semibold tracking-widest text-muted uppercase">Teksten på skiltet</p>
+            <div className="space-y-2 font-serif text-lg leading-relaxed">
+              {answer.signText.split(/\n\s*\n/).map((p, i) => (
+                <p key={i} className="whitespace-pre-line">
+                  {p}
+                </p>
+              ))}
+            </div>
+          </section>
+        )}
         <div className="mt-2 space-y-3 font-serif text-lg leading-relaxed">
           {answer.answer.split(/\n\s*\n/).map((p, i) => (
             <p key={i}>{p}</p>

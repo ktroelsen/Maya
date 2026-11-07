@@ -44,16 +44,18 @@ builder.Services.ConfigureHttpJsonOptions(o =>
 
 // No login: the paid calls (Google voice) are limited per IP instead.
 var ttsPerMinute = builder.Configuration.GetValue("Tts:RequestsPerMinute", 30);
-var visionPerMinute = builder.Configuration.GetValue("Gemini:RequestsPerMinute", 6);
+var visionPerMinute = builder.Configuration.GetValue("Gemini:RequestsPerMinute", 0);   // 0: no limit
 builder.Services.AddRateLimiter(o =>
 {
     o.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
     o.AddPolicy(TtsEndpoints.RateLimit, ctx => RateLimitPartition.GetFixedWindowLimiter(
         ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown",
         _ => new FixedWindowRateLimiterOptions { PermitLimit = ttsPerMinute, Window = TimeSpan.FromMinutes(1) }));
-    o.AddPolicy(VisionEndpoints.RateLimit, ctx => RateLimitPartition.GetFixedWindowLimiter(
-        ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown",
-        _ => new FixedWindowRateLimiterOptions { PermitLimit = visionPerMinute, Window = TimeSpan.FromMinutes(1) }));
+    o.AddPolicy(VisionEndpoints.RateLimit, ctx => visionPerMinute <= 0
+        ? RateLimitPartition.GetNoLimiter("all")
+        : RateLimitPartition.GetFixedWindowLimiter(
+            ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions { PermitLimit = visionPerMinute, Window = TimeSpan.FromMinutes(1) }));
 });
 
 var app = builder.Build();

@@ -12,7 +12,13 @@ export type PlayerState = 'idle' | 'playing' | 'error';
 // where pausing cancels the current sentence and resuming starts it again (the only behaviour
 // that works the same in every browser). Each run gets a token, so a run that was superseded
 // (pause, seek, new settings) quietly stops.
-export function usePlayer(segments: Segment[], settings: VoiceSettings, initialIndex = 0, title = '', onEnd?: () => void) {
+export function usePlayer(
+  segments: Segment[],
+  settings: VoiceSettings,
+  initialIndex = 0,
+  title = '',
+  onEnd?: (count: number) => void, // read to the end of `count` segments
+) {
   const [index, setIndex] = useState(() => clamp(initialIndex, segments.length));
   const [state, setState] = useState<PlayerState>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +53,7 @@ export function usePlayer(segments: Segment[], settings: VoiceSettings, initialI
         setState('idle');
         if (result === 'end') {
           setIndex(0);
-          onEndRef.current?.(); // read to the end (not paused or stopped)
+          onEndRef.current?.(segments.length); // read to the end (not paused or stopped)
         }
       };
 

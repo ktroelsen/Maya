@@ -6,8 +6,9 @@ namespace Maya.Api.Guide;
 
 public class GuideOptions
 {
-    /// <summary>How many photos with answers are kept (all topics together); the oldest go first.</summary>
-    public int MaxSaved { get; set; } = 500;
+    /// <summary>How many photos with answers are kept (all topics together); the oldest go first.
+    /// 0 (the default): no limit.</summary>
+    public int MaxSaved { get; set; }
 }
 
 /// <summary>A photo the guide answered, shared with everyone who uses the app.</summary>
@@ -83,6 +84,7 @@ public class GuideStore(string dir, IOptions<GuideOptions> options, ILogger<Guid
 
     void Prune()
     {
+        if (options.Value.MaxSaved <= 0) return;
         foreach (var old in All().OrderByDescending(e => e.CreatedAt).Skip(options.Value.MaxSaved).ToList())
         {
             File.Delete(PhotoPath(old));

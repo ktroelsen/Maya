@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { GoogleSpeechEngine } from './GoogleSpeechEngine';
+import { speakable } from './speakable';
 import type { SpeakResult, SpeechEngine, Track } from './SpeechEngine';
 import { WebSpeechEngine } from './WebSpeechEngine';
 
@@ -25,14 +26,14 @@ export const engine = {
   supported: (s: VoiceSettings) => engineFor(s).supported,
   speak(text: string, s: VoiceSettings): Promise<SpeakResult> {
     (s.provider === 'google' ? browserEngine : googleEngine).cancel();
-    return engineFor(s).speak(text, optionsFor(s));
+    return engineFor(s).speak(speakable(text), optionsFor(s));
   },
-  prefetch: (texts: string[], s: VoiceSettings) => engineFor(s).prefetch?.(texts, optionsFor(s)),
+  prefetch: (texts: string[], s: VoiceSettings) => engineFor(s).prefetch?.(texts.map(speakable), optionsFor(s)),
   /** Whether this reader can play a whole text as one track (keeps going with the screen off). */
   canStream: (s: VoiceSettings) => engineFor(s).stream !== undefined,
   stream(texts: string[], s: VoiceSettings, onIndex: (index: number) => void): Track {
     (s.provider === 'google' ? browserEngine : googleEngine).cancel();
-    return engineFor(s).stream!(texts, optionsFor(s), onIndex);
+    return engineFor(s).stream!(texts.map(speakable), optionsFor(s), onIndex);
   },
   lastError: (s: VoiceSettings) => engineFor(s).lastError ?? null,
   cancel() {

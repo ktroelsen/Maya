@@ -35,6 +35,12 @@ export const engine = {
     (s.provider === 'google' ? browserEngine : googleEngine).cancel();
     return engineFor(s).stream!(texts.map(speakable), optionsFor(s), onIndex);
   },
+  /** The device's voice only: hand all the texts to the speech engine at once (screen off). */
+  canQueue: (s: VoiceSettings) => s.provider === 'browser' && browserEngine.supported,
+  queue(texts: string[], s: VoiceSettings, onIndex: (index: number) => void): Promise<SpeakResult> {
+    googleEngine.cancel();
+    return browserEngine.queue(texts.map(speakable), optionsFor(s), onIndex);
+  },
   lastError: (s: VoiceSettings) => engineFor(s).lastError ?? null,
   cancel() {
     browserEngine.cancel();

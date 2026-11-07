@@ -96,7 +96,8 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
   // off. So that it doesn't stop at the end of the chapter (the page can't start new sound while
   // the phone is locked), the following chapters are added to the same recording. When the
   // screen is on again, the page moves on to the chapter being read.
-  const streams = engine.canStream(voice);
+  // The device's voice does the same through its speech queue when the screen goes off.
+  const streams = engine.canStream(voice) || engine.canQueue(voice);
   const [following, setFollowing] = useState<{ id: string; count: number }[]>([]);
   const [followingSegments, setFollowingSegments] = useState<ChapterSegment[]>([]);
   const [followingReady, setFollowingReady] = useState(!streams);

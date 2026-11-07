@@ -84,6 +84,41 @@ export function usePlayer(
     [segments],
   );
 
+  // The device's voice, read sentence by sentence: when the screen goes off, the page is paused
+  // and can't start the next sentence, so hand the rest to the speech engine's own queue (the
+  // sentence being read starts over). Back on screen, the queue just goes on.
+  const playQueued = useCallback(
+    async (from: number) => {
+      const token = ++run.current;
+      const s = settingsRef.current;
+      setState('playing');
+      setError(null);
+      const result = await engine.queue(segments.slice(from).map((x) => x.text), s, (i) => token === run.current && setIndex(from + i));
+      if (token !== run.current) return;
+      if (result === 'error') {
+        setError(engine.lastError(s) ?? 'Stemmen kunne ikke læse op. Prøv en anden stemme.');
+        return setState('error');
+      }
+      setState('idle');
+      if (result === 'end') {
+        setIndex(0);
+        onEndRef.current?.(segments.length);
+      }
+    },
+    [segments],
+  );
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  useEffect(() => {
+    const onHidden = () => {
+      if (!document.hidden || stateRef.current !== 'playing' || track.current) return;
+      if (!engine.canQueue(settingsRef.current)) return;
+      void playQueued(indexRef.current);
+    };
+    document.addEventListener('visibilitychange', onHidden);
+    return () => document.removeEventListener('visibilitychange', onHidden);
+  }, [playQueued]);
+
   // Lets go of a paused track, so the next play starts afresh.
   const dropTrack = useCallback(() => {
     if (!track.current) return;

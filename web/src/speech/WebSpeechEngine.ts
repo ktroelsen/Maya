@@ -10,6 +10,9 @@ export class WebSpeechEngine implements SpeechEngine {
   readonly supported = typeof window !== 'undefined' && 'speechSynthesis' in window;
   private current: SpeechSynthesisUtterance | null = null;
   private settle: ((r: SpeakResult) => void) | null = null;
+  // A queue of sentences handed to the speech engine at once (see queue()); kept referenced.
+  private queued: SpeechSynthesisUtterance[] = [];
+  private settleQueue: ((r: SpeakResult) => void) | null = null;
 
   voices(): Voice[] {
     if (!this.supported) return [];
@@ -46,8 +49,44 @@ export class WebSpeechEngine implements SpeechEngine {
     });
   }
 
+  /**
+   * Hands all the texts to the device's speech engine at once. Used when the screen goes off:
+   * the page is then paused and can't start the next sentence itself, but the speech engine
+   * works through its own queue. onIndex reports the sentence being read (when the page runs).
+   */
+  queue(texts: string[], { voiceId, rate }: SpeakOptions, onIndex: (index: number) => void): Promise<SpeakResult> {
+    if (!this.supported || texts.length === 0) return Promise.resolve(texts.length ? 'error' : 'end');
+    this.cancel();
+    return new Promise((resolve) => {
+      const voice = speechSynthesis.getVoices().find((v) => v.voiceURI === voiceId) ?? defaultVoice();
+      const done = (r: SpeakResult) => {
+        if (this.settleQueue !== resolve) return;
+        this.settleQueue = null;
+        this.queued = [];
+        resolve(r);
+      };
+      this.settleQueue = resolve;
+      this.queued = texts.map((text, i) => {
+        const u = new SpeechSynthesisUtterance(text);
+        if (voice) u.voice = voice;
+        u.lang = voice?.lang ?? 'da-DK';
+        u.rate = rate;
+        u.onstart = () => this.settleQueue === resolve && onIndex(i);
+        if (i === texts.length - 1) u.onend = () => done('end');
+        u.onerror = (e) => done(e.error === 'interrupted' || e.error === 'canceled' ? 'cancel' : 'error');
+        return u;
+      });
+      for (const u of this.queued) speechSynthesis.speak(u);
+      if (speechSynthesis.paused) speechSynthesis.resume();
+    });
+  }
+
   cancel() {
     this.finish('cancel');
+    const settle = this.settleQueue;
+    this.settleQueue = null;
+    this.queued = [];
+    settle?.('cancel');
     if (this.supported) speechSynthesis.cancel();
   }
 

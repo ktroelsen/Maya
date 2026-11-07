@@ -246,6 +246,15 @@ public class SharedGuideTests
     }
 
     [Fact]
+    public async Task By_default_there_is_no_limit_on_photos()
+    {
+        using var factory = new UnlimitedVisionFactory();
+        var client = factory.CreateClient();
+        for (var i = 0; i < 12; i++) (await client.PostAsync("/api/vision", VisionForm.Photo(question: $"Nr. {i}"))).EnsureSuccessStatusCode();
+        Assert.Equal(12, (await client.GetFromJsonAsync<JsonArray>("/api/guide"))!.Count);
+    }
+
+    [Fact]
     public async Task Only_the_newest_entries_are_kept()
     {
         using var factory = new SmallGuideFactory();
@@ -271,5 +280,19 @@ public class SmallGuideFactory : VisionFactory
     {
         base.ConfigureWebHost(builder);
         builder.UseSetting("Guide:MaxSaved", "2");
+    }
+}
+
+// The app's own defaults: no per-minute, daily or storage limit.
+public class UnlimitedVisionFactory : MayaFactory
+{
+    public FakeGemini Gemini { get; } = new();
+
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        base.ConfigureWebHost(builder);
+        builder.UseSetting("Gemini:ApiKey", "gemini-test-key");
+        builder.UseSetting("Gemini:BaseUrl", "https://gemini.test/");
+        builder.ConfigureTestServices(s => s.AddHttpClient<GeminiVision>().ConfigurePrimaryHttpMessageHandler(() => Gemini));
     }
 }

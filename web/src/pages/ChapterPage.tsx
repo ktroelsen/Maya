@@ -1,7 +1,7 @@
 import { ArrowLeft, ChevronLeft, ChevronRight, History, Images, MapPin, Maximize, ScrollText } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
-import { cached, formatPeriod, mediaUrl, type Chapter } from '../api';
+import { cached, fetchGoogleVoiceAvailable, fetchTopic, formatPeriod, mediaUrl, type Chapter } from '../api';
 import ChapterText from '../components/ChapterText';
 import ExtraLinks from '../components/ExtraLinks';
 import Figure from '../components/Figure';
@@ -15,10 +15,10 @@ import Status from '../components/Status';
 import VoiceSheet from '../components/VoiceSheet';
 import { useOnline } from '../offline';
 import { getProgress, saveProgress } from '../progress';
-import { chapterContent } from '../speech/chapterText';
+import { chapterContent, type ChapterSegment } from '../speech/chapterText';
 import { useReaderView } from '../readerView';
 import { usePageTitle } from '../topicTitle';
-import { useVoiceSettings } from '../speech/settings';
+import { engine, useVoiceSettings } from '../speech/settings';
 import { usePlayer } from '../speech/usePlayer';
 import { useLoad } from '../useLoad';
 
@@ -53,10 +53,13 @@ function TopBar({ title, number }: { title: string; number?: number }) {
   );
 }
 
+// What the reader reads and shows: the chapter number and title are read aloud too, so a new
+// chapter announces itself.
+const readerContent = (c: Chapter) => chapterContent(`### Kapitel ${c.number}\n\n# ${c.title}\n\n${c.markdown}`);
+
 function ChapterView({ chapter }: { chapter: Chapter }) {
   usePageTitle(chapter.title);
-  // The chapter number and title are read aloud too, so a new chapter announces itself.
-  const { segments, figures } = useMemo(() => chapterContent(`### Kapitel ${chapter.number}\n\n# ${chapter.title}\n\n${chapter.markdown}`), [chapter]);
+  const { segments, figures } = useMemo(() => readerContent(chapter), [chapter]);
   const [view, setView] = useReaderView();
   const [voice, setVoice] = useVoiceSettings();
   // Start where this device left off (a finished chapter starts from the top again).
@@ -68,39 +71,115 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
   // full screen if that is where we were).
   const location = useLocation();
   const navigate = useNavigate();
-  const [arrival] = useState(() => (location.state as { carryOn?: boolean; fullscreen?: boolean } | null) ?? {});
+  const [arrival] = useState(() => (location.state as { carryOn?: boolean; fullscreen?: boolean; at?: number } | null) ?? {});
   const carryOn = arrival.carryOn === true;
   const [fullscreen, setFullscreen] = useState(arrival.fullscreen === true);
   const fullscreenRef = useRef(fullscreen);
   fullscreenRef.current = fullscreen;
 
   // Read to the end: go straight on to the next chapter and keep reading – no stop in between.
-  const onEnd = useCallback(() => {
-    if (!chapter.next) return;
-    if (fullscreenRef.current) handOverFullscreen();
-    navigate(`/kapitel/${chapter.next.id}`, { state: { carryOn: true, fullscreen: fullscreenRef.current } });
-  }, [chapter.next, navigate]);
-  const player = usePlayer(segments, voice, carryOn ? 0 : start, chapter.title, onEnd);
+  // If the recording already went through the following chapters, the story is over: show the
+  // last chapter, without starting again.
+  const lastIdRef = useRef<string | null>(null);
+  const onEnd = useCallback(
+    (count: number) => {
+      if (!chapter.next) return;
+      if (fullscreenRef.current) handOverFullscreen();
+      const throughTheRest = count > segmentsCountRef.current && lastIdRef.current;
+      navigate(`/kapitel/${throughTheRest ? lastIdRef.current : chapter.next.id}`, {
+        state: { carryOn: !throughTheRest, fullscreen: fullscreenRef.current },
+      });
+    },
+    [chapter.next, navigate],
+  );
+  // The Google voice plays one continuous recording, which a phone keeps playing with the screen
+  // off. So that it doesn't stop at the end of the chapter (the page can't start new sound while
+  // the phone is locked), the following chapters are added to the same recording. When the
+  // screen is on again, the page moves on to the chapter being read.
+  const streams = engine.canStream(voice);
+  const [following, setFollowing] = useState<{ id: string; count: number }[]>([]);
+  const [followingSegments, setFollowingSegments] = useState<ChapterSegment[]>([]);
+  const [followingReady, setFollowingReady] = useState(!streams);
+  const segmentsCountRef = useRef(segments.length);
+  segmentsCountRef.current = segments.length;
+  useEffect(() => {
+    if (!streams) return;
+    let live = true;
+    void fetchTopic()
+      .then((topic) => {
+        const ids = topic.chapters.slice(topic.chapters.findIndex((c) => c.id === chapter.id) + 1).map((c) => c.id);
+        return Promise.all(ids.map((id) => cached<Chapter>(`/api/topic/chapters/${encodeURIComponent(id)}`)));
+      })
+      .then((chapters) => {
+        if (!live) return;
+        const contents = chapters.map((c) => ({ id: c.id, segments: readerContent(c).segments }));
+        setFollowing(contents.map((c) => ({ id: c.id, count: c.segments.length })));
+        setFollowingSegments(contents.flatMap((c) => c.segments));
+        lastIdRef.current = contents.at(-1)?.id ?? null;
+      })
+      .catch(() => {}) // offline without them: the chapter still ends and moves on as before
+      .finally(() => live && setFollowingReady(true));
+    return () => {
+      live = false;
+    };
+  }, [chapter.id, streams]);
+  const playSegments = useMemo(
+    () => (streams ? [...segments, ...followingSegments] : segments),
+    [streams, segments, followingSegments],
+  );
+  const player = usePlayer(playSegments, voice, carryOn || arrival.at !== undefined ? (arrival.at ?? 0) : start, chapter.title, onEnd);
+  // Where we are in this chapter (the recording may already be in a later one).
+  const index = Math.min(player.index, segments.length - 1);
+
+  // The recording has reached a later chapter and someone is looking: show that chapter.
+  useEffect(() => {
+    if (player.index < segments.length || document.hidden) return;
+    let rest = player.index - segments.length;
+    for (const next of following) {
+      if (rest < next.count) {
+        if (fullscreenRef.current) handOverFullscreen();
+        navigate(`/kapitel/${next.id}`, {
+          state: { carryOn: player.state === 'playing', at: rest, fullscreen: fullscreenRef.current },
+        });
+        return;
+      }
+      rest -= next.count;
+    }
+  }, [player.index, player.state, segments.length, following, navigate]);
+
+  // The device's own voice stops when the screen goes off. Notice it, and offer the Google voice.
+  const [stoppedByScreen, setStoppedByScreen] = useState(false);
+  const playingRef = useRef(false);
+  playingRef.current = player.state === 'playing';
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.hidden && playingRef.current && voice.provider === 'browser') setStoppedByScreen(true);
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, [voice.provider]);
+  const [googleAvailable, setGoogleAvailable] = useState(false);
+  useEffect(() => void fetchGoogleVoiceAvailable().then(setGoogleAvailable), []);
 
   // Start reading at once (works where the browser allows sound without a new tap; otherwise
   // the play button is right there).
   const started = useRef(false);
   useEffect(() => {
-    if (!carryOn || started.current) return;
+    if (!carryOn || started.current || (streams && !followingReady)) return;
     started.current = true;
     player.play();
     // Don't do it again when coming back to this chapter through the history.
     navigate(location.pathname, { replace: true, state: null });
-  }, [carryOn, player, navigate, location.pathname]);
+  }, [carryOn, player, navigate, location.pathname, streams, followingReady]);
   const [showVoices, setShowVoices] = useState(false);
   const online = useOnline();
   const [hero, ...moreImages] = chapter.images;
-  const reading = player.state === 'playing' || player.index > 0;
+  const reading = player.state === 'playing' || index > 0;
   const slideshow = view === 'pictures';
   const closeFullscreen = useCallback(() => setFullscreen(false), []);
 
   // The slideshow shows the picture of the section being read (before the first one: the hero).
-  const paragraph = segments[player.index]?.paragraph ?? 0;
+  const paragraph = segments[index]?.paragraph ?? 0;
   const shownFigure = [...figures].reverse().find((f) => f.paragraph <= paragraph);
   const slide = shownFigure
     ? { src: shownFigure.src, alt: shownFigure.alt, caption: shownFigure.caption }
@@ -109,7 +188,7 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
       : null;
 
   // Remember the sentence (reaching the last one marks the chapter as read).
-  useEffect(() => saveProgress(chapter.id, player.index, segments.length), [chapter.id, player.index, segments.length]);
+  useEffect(() => saveProgress(chapter.id, index, segments.length), [chapter.id, index, segments.length]);
 
   return (
     <div className="flex h-full flex-col">
@@ -123,7 +202,7 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
                 <img key={slide.src} src={mediaUrl(slide.src)} alt={slide.alt} className="fade-in max-h-[45vh] w-full rounded-lg object-contain" />
               </div>
               <p className="mt-2 line-clamp-3 min-h-[3lh] font-serif text-base leading-snug md:text-lg" aria-live="polite">
-                {reading ? segments[player.index]?.text : (slide.caption ?? '')}
+                {reading ? segments[index]?.text : (slide.caption ?? '')}
               </p>
             </div>
           </div>
@@ -148,7 +227,7 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
           <ChapterText
             segments={segments}
             figures={figures}
-            current={player.index}
+            current={index}
             active={reading}
             follow={reading && !slideshow}
             showFigures={!slideshow}
@@ -239,8 +318,31 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
         )}
         <KeepAwakeButton />
       </div>
+      {stoppedByScreen && voice.provider === 'browser' && (
+        <div className="border-t border-line bg-surface-2 px-4 py-2 text-sm">
+          <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-2">
+            <span>Enhedens stemme stopper, når skærmen slukker.{googleAvailable ? ' Google-stemmen læser videre.' : ''}</span>
+            <span className="flex gap-3">
+              {googleAvailable && online && (
+                <button
+                  onClick={() => {
+                    setVoice({ provider: 'google' });
+                    setStoppedByScreen(false);
+                  }}
+                  className="font-medium text-accent underline"
+                >
+                  Brug Google-stemmen
+                </button>
+              )}
+              <button onClick={() => setStoppedByScreen(false)} aria-label="Luk beskeden" className="text-muted underline">
+                Luk
+              </button>
+            </span>
+          </div>
+        </div>
+      )}
       <Player
-        index={player.index}
+        index={index}
         count={segments.length}
         state={player.state}
         error={player.error}
@@ -253,14 +355,14 @@ function ChapterView({ chapter }: { chapter: Chapter }) {
       {fullscreen && slide && (
         <FullscreenSlideshow
           slide={slide}
-          text={reading ? (segments[player.index]?.text ?? '') : (slide.caption ?? chapter.title)}
+          text={reading ? (segments[index]?.text ?? '') : (slide.caption ?? chapter.title)}
           playing={player.state === 'playing'}
-          canPrev={player.index > 0}
-          canNext={player.index < segments.length - 1}
+          canPrev={index > 0}
+          canNext={index < segments.length - 1}
           onPlay={player.play}
           onPause={player.pause}
-          onPrev={() => player.seek(player.index - 1)}
-          onNext={() => player.seek(player.index + 1)}
+          onPrev={() => player.seek(index - 1)}
+          onNext={() => player.seek(index + 1)}
           onClose={closeFullscreen}
         />
       )}

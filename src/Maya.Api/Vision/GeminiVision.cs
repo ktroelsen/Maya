@@ -12,8 +12,8 @@ public class GeminiOptions
     public string? ApiKey { get; set; }
     public string Model { get; set; } = "gemini-3.5-flash";
     public string BaseUrl { get; set; } = "https://generativelanguage.googleapis.com/";  // tests point this at a fake
-    public int RequestsPerMinute { get; set; } = 6;    // per IP (no login)
-    public int DailyLimit { get; set; } = 300;         // questions a day in total: a cost cap
+    public int RequestsPerMinute { get; set; }        // per IP; 0 (the default): no limit
+    public int DailyLimit { get; set; }               // questions a day in total; 0 (the default): no limit
 
     public bool Configured => !string.IsNullOrEmpty(ApiKey);
 }
@@ -160,7 +160,7 @@ public class VisionUsage(IOptions<GeminiOptions> options, TimeProvider? clock = 
         {
             var today = DateOnly.FromDateTime(_clock.GetUtcNow().UtcDateTime);
             if (today != _day) (_day, _count) = (today, 0);
-            if (_count >= options.Value.DailyLimit) return false;
+            if (options.Value.DailyLimit > 0 && _count >= options.Value.DailyLimit) return false;
             _count++;
             return true;
         }

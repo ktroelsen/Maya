@@ -1,7 +1,8 @@
-import { Camera, FileText, ImageUp, Pause, Send, Volume2, X } from 'lucide-react';
+import { Camera, FileText, ImageUp, Pause, Send, Trash2, Volume2, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
-import { ApiError, fetchVisionAvailable, problemDetail, type VisionAnswer } from '../api';
+import { ApiError, fetchTopic, fetchVisionAvailable, problemDetail, type VisionAnswer } from '../api';
+import { deleteEntry, guideHistorySupported, listEntries, saveEntry, type GuideEntry } from '../guideHistory';
 import Status from '../components/Status';
 import { useOnline } from '../offline';
 import { shrinkPhoto } from '../photo';
@@ -10,7 +11,6 @@ import { engine, useVoiceSettings } from '../speech/settings';
 import { usePageTitle } from '../topicTitle';
 
 type Mode = 'object' | 'sign';
-type Asked = { id: number; photo: string; mode: Mode; question: string; answer: VisionAnswer };
 
 // "Guide in the pocket": photograph an object or a sign at the exhibition and get it explained,
 // with the chapters that tell more. Needs a network (Gemini on the server).
@@ -22,12 +22,23 @@ export default function GuidePage() {
   const [question, setQuestion] = useState('');
   const [asking, setAsking] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [history, setHistory] = useState<Asked[]>([]);
+  const [history, setHistory] = useState<GuideEntry[]>([]);
+  const [topicId, setTopicId] = useState<string | null>(null);
   const camera = useRef<HTMLInputElement>(null);
   const library = useRef<HTMLInputElement>(null);
   const nextMode = useRef<Mode>('object');
 
   useEffect(() => void fetchVisionAvailable().then(setAvailable), []);
+
+  // The answers saved on this device, for this topic.
+  useEffect(() => {
+    void fetchTopic()
+      .then(async (t) => {
+        setTopicId(t.id);
+        if (guideHistorySupported()) setHistory(await listEntries(t.id));
+      })
+      .catch(() => {});
+  }, []);
 
   if (available === null) return <Status />;
 
@@ -57,7 +68,12 @@ export default function GuidePage() {
       const text = await res.text();
       if (!res.ok) throw new ApiError(res.status, res.statusText, problemDetail(text));
       const answer = JSON.parse(text) as VisionAnswer;
-      setHistory((h) => [{ id: Date.now(), photo: draft.url, mode: draft.mode, question: question.trim(), answer }, ...h]);
+      const entry = { topic: topicId ?? '', mode: draft.mode, question: question.trim(), answer, photo: draft.file };
+      const saved = guideHistorySupported()
+        ? await saveEntry(entry).catch(() => ({ ...entry, id: String(Date.now()), createdAt: Date.now() }))
+        : { ...entry, id: String(Date.now()), createdAt: Date.now() };
+      setHistory((h) => [saved, ...h]);
+      URL.revokeObjectURL(draft.url);
       setDraft(null);
       setQuestion('');
     } catch (err) {
@@ -130,12 +146,25 @@ export default function GuidePage() {
       <input ref={camera} type="file" accept="image/*" capture="environment" hidden onChange={(e) => void chosen(e.target.files?.[0]).finally(() => (e.target.value = ''))} />
       <input ref={library} type="file" accept="image/*" hidden onChange={(e) => void chosen(e.target.files?.[0]).finally(() => (e.target.value = ''))} />
 
-      <ol className="mt-8 space-y-6">
+      {history.length > 0 && (
+        <h2 className="mt-10 mb-3 text-sm font-semibold tracking-widest text-muted uppercase">
+          Dine billeder ({history.length})
+        </h2>
+      )}
+      <ol className="space-y-6">
         {history.map((h) => (
-          <AnswerCard key={h.id} asked={h} />
+          <AnswerCard
+            key={h.id}
+            entry={h}
+            onDelete={() => {
+              if (!window.confirm('Slet dette billede og svaret fra telefonen?')) return;
+              void deleteEntry(h.id).catch(() => {});
+              setHistory((list) => list.filter((x) => x.id !== h.id));
+            }}
+          />
         ))}
       </ol>
-      {history.length > 0 && <p className="mt-6 text-xs text-muted">Svarene er lavet af AI (Gemini) og kan tage fejl. De gemmes ikke.</p>}
+      {history.length > 0 && <p className="mt-6 text-xs text-muted">Svarene er lavet af AI (Gemini) og kan tage fejl. Billeder og svar gemmes kun på denne telefon.</p>}
     </div>
   );
 }
@@ -152,12 +181,20 @@ function BigButton({ icon: Icon, title, onClick }: { icon: typeof Camera; title:
   );
 }
 
-function AnswerCard({ asked }: { asked: Asked }) {
+function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => void }) {
   const [voice] = useVoiceSettings();
   const [speaking, setSpeaking] = useState(false);
   const run = useRef(0); // a new token per reading, so a stopped one quietly ends
   const active = useRef(false);
-  const { answer } = asked;
+  const { answer } = entry;
+  // The photo is a blob on the device: show it through an object URL while the card is shown.
+  const [photo, setPhoto] = useState<string | null>(null);
+  useEffect(() => {
+    const url = URL.createObjectURL(entry.photo);
+    setPhoto(url);
+    return () => URL.revokeObjectURL(url);
+  }, [entry.photo]);
+  const when = new Date(entry.createdAt).toLocaleString('da-DK', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
 
   // Leaving the page stops the reading.
   useEffect(
@@ -190,10 +227,10 @@ function AnswerCard({ asked }: { asked: Asked }) {
 
   return (
     <li className="overflow-hidden rounded-xl border border-line bg-surface">
-      <img src={asked.photo} alt="" className="max-h-56 w-full object-cover" />
+      {photo && <img src={photo} alt="Dit billede" className="max-h-56 w-full object-cover" />}
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
-          <h2 className="font-serif text-xl font-semibold">{answer.title}</h2>
+          <h2 className="min-w-0 flex-1 font-serif text-xl font-semibold">{answer.title}</h2>
           <button
             onClick={() => void read()}
             aria-label={speaking ? 'Stop oplæsning' : 'Læs svaret op'}
@@ -201,8 +238,14 @@ function AnswerCard({ asked }: { asked: Asked }) {
           >
             {speaking ? <Pause className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
           </button>
+          <button onClick={onDelete} aria-label="Slet billede og svar" className="shrink-0 rounded-full border border-line p-2 text-muted hover:text-danger">
+            <Trash2 className="h-5 w-5" />
+          </button>
         </div>
-        {asked.question && <p className="mt-1 text-sm text-muted italic">»{asked.question}«</p>}
+        <p className="mt-0.5 text-xs text-muted">
+          {entry.mode === 'sign' ? 'Skilt' : 'Genstand'} · {when}
+        </p>
+        {entry.question && <p className="mt-1 text-sm text-muted italic">»{entry.question}«</p>}
         <div className="mt-2 space-y-3 font-serif text-lg leading-relaxed">
           {answer.answer.split(/\n\s*\n/).map((p, i) => (
             <p key={i}>{p}</p>

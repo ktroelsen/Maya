@@ -1,4 +1,4 @@
-import { Camera, FileText, ImageUp, Pause, Send, Trash2, Volume2, X } from 'lucide-react';
+import { Camera, Download, FileText, ImageUp, Pause, Send, Trash2, Volume2, X } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { api, ApiError, fetchTopic, fetchVisionAvailable, problemDetail, type GuideEntry } from '../api';
@@ -151,9 +151,12 @@ export default function GuidePage() {
       <input ref={library} type="file" accept="image/*" hidden onChange={(e) => void chosen(e.target.files?.[0]).finally(() => (e.target.value = ''))} />
 
       {history.length > 0 && (
-        <h2 className="mt-10 mb-3 text-sm font-semibold tracking-widest text-muted uppercase">
-          Billeder fra alle ({history.length})
-        </h2>
+        <div className="mt-10 mb-3 flex items-center justify-between gap-3">
+          <h2 className="text-sm font-semibold tracking-widest text-muted uppercase">Billeder fra alle ({history.length})</h2>
+          <a href="/api/guide/photos.zip" download className="flex items-center gap-1.5 text-sm text-blue underline">
+            <Download className="h-4 w-4" /> Hent alle
+          </a>
+        </div>
       )}
       <ol className="space-y-6">
         {history.map((h) => (
@@ -195,6 +198,7 @@ function AnswerCard({ entry, onDelete, readAtOnce = false }: { entry: GuideEntry
   const run = useRef(0); // a new token per reading, so a stopped one quietly ends
   const active = useRef(false);
   const { answer } = entry;
+  const download = `${entry.photo}?download=1`;
   const when = new Date(entry.createdAt).toLocaleString('da-DK', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
 
   // Leaving the page stops the reading.
@@ -241,7 +245,7 @@ function AnswerCard({ entry, onDelete, readAtOnce = false }: { entry: GuideEntry
       <button onClick={() => setZoomed(true)} aria-label="Vis billedet i fuld størrelse" className="block w-full">
         <img src={entry.photo} alt="Billedet, guiden svarede på" loading="lazy" className="max-h-56 w-full object-cover" />
       </button>
-      {zoomed && <PhotoViewer src={entry.photo} alt="Billedet, guiden svarede på" onClose={closeZoom} />}
+      {zoomed && <PhotoViewer src={entry.photo} alt="Billedet, guiden svarede på" download={download} onClose={closeZoom} />}
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
           <h2 className="min-w-0 flex-1 font-serif text-xl font-semibold">{answer.title}</h2>
@@ -252,6 +256,9 @@ function AnswerCard({ entry, onDelete, readAtOnce = false }: { entry: GuideEntry
           >
             {speaking ? <Pause className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
           </button>
+          <a href={download} download aria-label="Hent billedet" className="shrink-0 rounded-full border border-line p-2 text-blue hover:bg-surface-2">
+            <Download className="h-5 w-5" />
+          </a>
           <button onClick={onDelete} aria-label="Slet billede og svar" className="shrink-0 rounded-full border border-line p-2 text-muted hover:text-danger">
             <Trash2 className="h-5 w-5" />
           </button>

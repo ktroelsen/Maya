@@ -20,10 +20,19 @@ public static class GuideEndpoints
 
         guide.MapGet("/", (GuideStore store, ContentStore content) => Results.Ok(store.List(content.Topic.Id)));
 
-        guide.MapGet("/photos/{id}", (string id, GuideStore store) =>
+        // ?download=1 saves it under a readable name instead of showing it.
+        guide.MapGet("/photos/{id}", (string id, string? download, GuideStore store) =>
             store.Find(id) is { } entry && File.Exists(store.PhotoPath(entry))
-                ? Results.File(store.PhotoPath(entry), entry.PhotoType, enableRangeProcessing: false)
+                ? Results.File(store.PhotoPath(entry), entry.PhotoType, download is "1" or "true" ? store.DownloadName(entry) : null, enableRangeProcessing: false)
                 : Results.NotFound());
+
+        // Every photo at once, as a zip (with the answers in svar.txt).
+        guide.MapGet("/photos.zip", (GuideStore store, ContentStore content) =>
+        {
+            var topic = content.Topic;
+            var day = GuideStore.LocalTime(DateTimeOffset.UtcNow);
+            return Results.File(store.Zip(topic.Id), "application/zip", $"{topic.Title} – billeder fra guiden {day:yyyy-MM-dd}.zip");
+        });
 
         guide.MapDelete("/{id}", (string id, GuideStore store) => store.Delete(id) ? Results.NoContent() : Results.NotFound());
 

@@ -279,6 +279,45 @@ public class SharedGuideTests
     }
 
     [Fact]
+    public async Task Photos_can_be_downloaded_one_by_one_or_all_at_once()
+    {
+        using var factory = new VisionFactory();
+        var client = factory.CreateClient();
+        (await client.PostAsync("/api/vision", VisionForm.Photo(bytes: 1000, question: "En"))).EnsureSuccessStatusCode();
+        (await client.PostAsync("/api/vision", VisionForm.Photo(bytes: 2000, mode: "sign", question: "To"))).EnsureSuccessStatusCode();
+        var list = (await client.GetFromJsonAsync<JsonArray>("/api/guide"))!;
+        var title = list[0]!["answer"]!["title"]!.GetValue<string>();
+
+        // One: the same photo, saved under a readable name.
+        var one = await client.GetAsync(list[0]!["photo"]!.GetValue<string>() + "?download=1");
+        one.EnsureSuccessStatusCode();
+        Assert.Equal("attachment", one.Content.Headers.ContentDisposition!.DispositionType);
+        var name = one.Content.Headers.ContentDisposition.FileNameStar ?? one.Content.Headers.ContentDisposition.FileName!;
+        Assert.Matches(@"^\d{4}-\d{2}-\d{2} \d{2}\.\d{2} .+\.jpg$", name);
+        Assert.Contains(title, name);
+        Assert.Equal(2000, (await one.Content.ReadAsByteArrayAsync()).Length);
+        // Without ?download the photo is just shown.
+        Assert.Null((await client.GetAsync(list[0]!["photo"]!.GetValue<string>())).Content.Headers.ContentDisposition);
+
+        // All: a zip with every photo (distinct names) and the answers.
+        var all = await client.GetAsync("/api/guide/photos.zip");
+        all.EnsureSuccessStatusCode();
+        Assert.Equal("application/zip", all.Content.Headers.ContentType!.MediaType);
+        using var zip = new System.IO.Compression.ZipArchive(await all.Content.ReadAsStreamAsync());
+        var photos = zip.Entries.Where(e => e.Name.EndsWith(".jpg")).ToList();
+        Assert.Equal(2, photos.Count);
+        Assert.Equal(2, photos.Select(e => e.Name).Distinct().Count());
+        Assert.Equal([1000L, 2000L], photos.Select(e => e.Length).Order());
+        using var answers = new StreamReader(zip.GetEntry("svar.txt")!.Open());
+        var text = await answers.ReadToEndAsync();
+        Assert.Contains("Spørgsmål: En", text);
+        Assert.Contains("Spørgsmål: To", text);
+
+        // The temporary zip is gone again.
+        Assert.Empty(Directory.EnumerateFiles(Path.Combine(factory.DataDir, "guide"), "*.tmp"));
+    }
+
+    [Fact]
     public async Task By_default_there_is_no_limit_on_photos()
     {
         using var factory = new UnlimitedVisionFactory();

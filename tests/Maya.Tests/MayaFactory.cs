@@ -6,6 +6,7 @@ namespace Maya.Tests;
 // Boots the real API (with the real content packages) against a throwaway App_Data dir.
 public class MayaFactory : WebApplicationFactory<Program>
 {
+    public string DataDir => _dataDir;
     readonly string _dataDir = Path.Combine(Path.GetTempPath(), "maya-tests", Guid.NewGuid().ToString("n"));
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)

@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Text.Json;
 using Maya.Api.Vision;
 using Microsoft.Extensions.Options;
@@ -54,6 +55,58 @@ public class GuideStore(string dir, IOptions<GuideOptions> options, ILogger<Guid
     public GuideEntry? Find(string id) => ValidId(id) ? Read(Path.Combine(dir, id + ".json")) : null;
 
     public string PhotoPath(GuideEntry entry) => Path.Combine(dir, entry.Id + Extensions.GetValueOrDefault(entry.PhotoType, ".jpg"));
+
+    static readonly TimeZoneInfo Local =
+        TimeZoneInfo.TryFindSystemTimeZoneById("Europe/Copenhagen", out var tz) ? tz : TimeZoneInfo.Utc;
+
+    /// <summary>The time in Denmark, where the app is used (the server may run in UTC).</summary>
+    public static DateTime LocalTime(DateTimeOffset t) => TimeZoneInfo.ConvertTime(t, Local).DateTime;
+
+    /// <summary>A file name people can recognise: "2026-11-07 14.32 Jademaske.jpg".</summary>
+    public string DownloadName(GuideEntry entry)
+    {
+        var title = new string([.. entry.Answer.Title.Select(c => Path.GetInvalidFileNameChars().Contains(c) || "<>:\"/\\|?*".Contains(c) || char.IsControl(c) ? ' ' : c)]).Trim();
+        if (title.Length > 60) title = title[..60].Trim();
+        var name = $"{LocalTime(entry.CreatedAt):yyyy-MM-dd HH.mm} {title}".Trim();
+        return name + Extensions.GetValueOrDefault(entry.PhotoType, ".jpg");
+    }
+
+    /// <summary>All of the topic's photos as a zip, with the answers in svar.txt. Written to a
+    /// temporary file in the guide folder that is deleted when the returned stream is closed.</summary>
+    public Stream Zip(string topic)
+    {
+        var entries = List(topic);
+        Directory.CreateDirectory(dir);
+        var stream = new FileStream(Path.Combine(dir, $"download-{Guid.NewGuid():n}.zip.tmp"), FileMode.CreateNew, FileAccess.ReadWrite,
+            FileShare.None, 81920, FileOptions.DeleteOnClose);
+        using (var zip = new System.IO.Compression.ZipArchive(stream, System.IO.Compression.ZipArchiveMode.Create, leaveOpen: true))
+        {
+            var used = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var text = new System.Text.StringBuilder();
+            foreach (var entry in entries)
+            {
+                var photo = PhotoPath(entry);
+                if (!File.Exists(photo)) continue;
+                var name = DownloadName(entry);
+                if (!used.Add(name)) used.Add(name = Path.GetFileNameWithoutExtension(name) + " " + entry.Id[..6] + Path.GetExtension(name));
+                // Photos are compressed already.
+                zip.CreateEntryFromFile(photo, name, System.IO.Compression.CompressionLevel.NoCompression);
+
+                text.AppendLine(name);
+                text.AppendLine(entry.Answer.Title);
+                if (entry.Question.Length > 0) text.AppendLine($"Spørgsmål: {entry.Question}");
+                if (entry.Answer.SignText is { Length: > 0 } sign) text.AppendLine().AppendLine("Teksten på skiltet:").AppendLine(sign);
+                text.AppendLine().AppendLine(entry.Answer.Answer).AppendLine().AppendLine(new string('-', 40)).AppendLine();
+            }
+            if (text.Length > 0)
+            {
+                using var writer = new StreamWriter(zip.CreateEntry("svar.txt").Open(), new System.Text.UTF8Encoding(true));
+                writer.Write(text.ToString().Replace("\r\n", "\n").Replace("\n", "\r\n"));   // Windows' Notepad too
+            }
+        }
+        stream.Position = 0;
+        return stream;
+    }
 
     public bool Delete(string id)
     {

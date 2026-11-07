@@ -1,9 +1,9 @@
-import { X } from 'lucide-react';
+import { Download, X } from 'lucide-react';
 import { useEffect } from 'react';
 
 // A photo on the whole screen, uncropped. Tap anywhere (or ✕ / Esc) to close; the browser's
-// own pinch-zoom still works for a closer look.
-export default function PhotoViewer({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
+// own pinch-zoom still works for a closer look. With download, a button saves the photo.
+export default function PhotoViewer({ src, alt, download, onClose }: { src: string; alt: string; download?: string; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
@@ -20,9 +20,19 @@ export default function PhotoViewer({ src, alt, onClose }: { src: string; alt: s
       role="dialog"
       aria-label="Billedet i fuld størrelse"
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-2 pt-[max(0.5rem,env(safe-area-inset-top))] pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black p-2 pt-[max(0.5rem,env(safe-area-inset-top))] pb-[max(0.5rem,env(safe-area-inset-bottom))]"
     >
       <img src={src} alt={alt} className="max-h-full max-w-full object-contain" />
+      {download && (
+        <a
+          href={download}
+          download
+          onClick={(e) => e.stopPropagation()}
+          className="absolute top-[max(0.75rem,env(safe-area-inset-top))] left-3 flex items-center gap-2 rounded-full bg-black/60 px-4 py-2 text-white"
+        >
+          <Download className="h-5 w-5" /> Hent billedet
+        </a>
+      )}
       <button
         onClick={onClose}
         aria-label="Luk billedet"

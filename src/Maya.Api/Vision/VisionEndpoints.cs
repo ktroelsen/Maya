@@ -9,10 +9,12 @@ public static class VisionEndpoints
     public const int MaxQuestionLength = 500;
     static readonly string[] ImageTypes = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
 
+    public static bool IsImageType(string contentType) => ImageTypes.Contains(contentType.ToLowerInvariant());
+
     public static void MapVisionEndpoints(this IEndpointRouteBuilder app)
     {
         // multipart/form-data: image (file), mode ("object" | "sign"), question (optional).
-        app.MapPost("/api/vision", async (HttpRequest request, GeminiVision gemini, VisionUsage usage,
+        app.MapPost("/api/vision", async (HttpRequest request, GeminiVision gemini, VisionUsage usage, Guide.GuideStore guide, Content.ContentStore content,
             IOptions<GeminiOptions> options, ILogger<GeminiVision> log, CancellationToken ct) =>
         {
             if (!options.Value.Configured)
@@ -36,7 +38,10 @@ public static class VisionEndpoints
             await file.CopyToAsync(buffer, ct);
             try
             {
-                return Results.Ok(await gemini.AskAsync(buffer.ToArray(), type, mode, question, ct));
+                var photo = buffer.ToArray();
+                var answer = await gemini.AskAsync(photo, type, mode, question, ct);
+                // Shared with everyone: the photo and the answer are kept on the server.
+                return Results.Ok(guide.Save(content.Topic.Id, mode, question.Trim(), answer, photo, type));
             }
             catch (Exception ex) when (ex is VisionException or HttpRequestException or TaskCanceledException && !ct.IsCancellationRequested)
             {

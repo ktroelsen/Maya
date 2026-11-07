@@ -1,8 +1,8 @@
 import { Camera, FileText, ImageUp, Pause, Send, Trash2, Volume2, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
-import { ApiError, fetchTopic, fetchVisionAvailable, problemDetail, type VisionAnswer } from '../api';
-import { deleteEntry, guideHistorySupported, listEntries, saveEntry, type GuideEntry } from '../guideHistory';
+import { api, ApiError, fetchTopic, fetchVisionAvailable, problemDetail, type GuideEntry } from '../api';
+import { deleteEntry, guideHistorySupported, listEntries } from '../guideHistory';
 import Status from '../components/Status';
 import { useOnline } from '../offline';
 import { shrinkPhoto } from '../photo';
@@ -23,21 +23,24 @@ export default function GuidePage() {
   const [asking, setAsking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<GuideEntry[]>([]);
-  const [topicId, setTopicId] = useState<string | null>(null);
   const camera = useRef<HTMLInputElement>(null);
   const library = useRef<HTMLInputElement>(null);
   const nextMode = useRef<Mode>('object');
 
   useEffect(() => void fetchVisionAvailable().then(setAvailable), []);
 
-  // The answers saved on this device, for this topic.
+  // Everyone's answers, from the server. Answers this phone kept before they were shared are
+  // handed over first (once), so nothing gets lost.
   useEffect(() => {
-    void fetchTopic()
-      .then(async (t) => {
-        setTopicId(t.id);
-        if (guideHistorySupported()) setHistory(await listEntries(t.id));
-      })
-      .catch(() => {});
+    void (async () => {
+      try {
+        const topic = await fetchTopic();
+        if (navigator.onLine && guideHistorySupported()) await handOverLocal(topic.id);
+      } catch {
+        /* keep them on the phone for next time */
+      }
+      setHistory(await api<GuideEntry[]>('/api/guide').catch(() => []));
+    })();
   }, []);
 
   if (available === null) return <Status />;
@@ -67,11 +70,7 @@ export default function GuidePage() {
       const res = await fetch('/api/vision', { method: 'POST', body: form });
       const text = await res.text();
       if (!res.ok) throw new ApiError(res.status, res.statusText, problemDetail(text));
-      const answer = JSON.parse(text) as VisionAnswer;
-      const entry = { topic: topicId ?? '', mode: draft.mode, question: question.trim(), answer, photo: draft.file };
-      const saved = guideHistorySupported()
-        ? await saveEntry(entry).catch(() => ({ ...entry, id: String(Date.now()), createdAt: Date.now() }))
-        : { ...entry, id: String(Date.now()), createdAt: Date.now() };
+      const saved = JSON.parse(text) as GuideEntry;
       setHistory((h) => [saved, ...h]);
       URL.revokeObjectURL(draft.url);
       setDraft(null);
@@ -148,7 +147,7 @@ export default function GuidePage() {
 
       {history.length > 0 && (
         <h2 className="mt-10 mb-3 text-sm font-semibold tracking-widest text-muted uppercase">
-          Dine billeder ({history.length})
+          Billeder fra alle ({history.length})
         </h2>
       )}
       <ol className="space-y-6">
@@ -157,14 +156,15 @@ export default function GuidePage() {
             key={h.id}
             entry={h}
             onDelete={() => {
-              if (!window.confirm('Slet dette billede og svaret fra telefonen?')) return;
-              void deleteEntry(h.id).catch(() => {});
-              setHistory((list) => list.filter((x) => x.id !== h.id));
+              if (!window.confirm('Slet billedet og svaret? Det forsvinder for alle.')) return;
+              void api(`/api/guide/${h.id}`, { method: 'DELETE' })
+                .then(() => setHistory((list) => list.filter((x) => x.id !== h.id)))
+                .catch(() => window.alert('Det lykkedes ikke at slette. Er du på nettet?'));
             }}
           />
         ))}
       </ol>
-      {history.length > 0 && <p className="mt-6 text-xs text-muted">Svarene er lavet af AI (Gemini) og kan tage fejl. Billeder og svar gemmes kun på denne telefon.</p>}
+      {history.length > 0 && <p className="mt-6 text-xs text-muted">Svarene er lavet af AI (Gemini) og kan tage fejl. Billeder og svar deles med alle, der bruger appen.</p>}
     </div>
   );
 }
@@ -187,13 +187,6 @@ function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => vo
   const run = useRef(0); // a new token per reading, so a stopped one quietly ends
   const active = useRef(false);
   const { answer } = entry;
-  // The photo is a blob on the device: show it through an object URL while the card is shown.
-  const [photo, setPhoto] = useState<string | null>(null);
-  useEffect(() => {
-    const url = URL.createObjectURL(entry.photo);
-    setPhoto(url);
-    return () => URL.revokeObjectURL(url);
-  }, [entry.photo]);
   const when = new Date(entry.createdAt).toLocaleString('da-DK', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
 
   // Leaving the page stops the reading.
@@ -227,7 +220,7 @@ function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => vo
 
   return (
     <li className="overflow-hidden rounded-xl border border-line bg-surface">
-      {photo && <img src={photo} alt="Dit billede" className="max-h-56 w-full object-cover" />}
+      <img src={entry.photo} alt="Billedet, guiden svarede på" loading="lazy" className="max-h-56 w-full object-cover" />
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
           <h2 className="min-w-0 flex-1 font-serif text-xl font-semibold">{answer.title}</h2>
@@ -243,7 +236,7 @@ function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => vo
           </button>
         </div>
         <p className="mt-0.5 text-xs text-muted">
-          {entry.mode === 'sign' ? 'Skilt' : 'Genstand'} · {when}
+          {entry.mode === 'Sign' ? 'Skilt' : 'Genstand'} · {when}
         </p>
         {entry.question && <p className="mt-1 text-sm text-muted italic">»{entry.question}«</p>}
         <div className="mt-2 space-y-3 font-serif text-lg leading-relaxed">
@@ -267,4 +260,24 @@ function AnswerCard({ entry, onDelete }: { entry: GuideEntry; onDelete: () => vo
       </div>
     </li>
   );
+}
+
+// Before answers were shared, the phone kept them itself: send each to the server, then forget it.
+async function handOverLocal(topic: string) {
+  for (const local of await listEntries(topic)) {
+    const form = new FormData();
+    form.append('image', local.photo, 'foto.jpg');
+    form.append(
+      'entry',
+      JSON.stringify({
+        mode: local.mode === 'sign' ? 'Sign' : 'Object',
+        question: local.question,
+        answer: local.answer,
+        createdAt: new Date(local.createdAt).toISOString(),
+      }),
+    );
+    const res = await fetch('/api/guide', { method: 'POST', body: form });
+    if (res.ok || res.status === 400) await deleteEntry(local.id); // 400: unusable, don't retry forever
+    else break; // try again next time
+  }
 }

@@ -46,8 +46,42 @@ public static class VisionEndpoints
             catch (Exception ex) when (ex is VisionException or HttpRequestException or TaskCanceledException && !ct.IsCancellationRequested)
             {
                 log.LogError(ex, "Gemini vision failed");
-                return Results.Problem("Billedet kunne ikke genkendes lige nu. Prøv igen om lidt.", statusCode: 502);
+                return Results.Problem($"Billedet kunne ikke genkendes: {Reason(ex)}", statusCode: 502);
             }
         }).RequireRateLimiting(RateLimit).DisableAntiforgery();
+
+        // Does Gemini answer from the server? For finding out why the guide fails (open it in a
+        // browser). A tiny text question; the result is kept a minute, so it can't run up costs.
+        app.MapGet("/api/vision/check", async (GeminiVision gemini, IOptions<GeminiOptions> options, VisionCheckCache cache, ILogger<GeminiVision> log, CancellationToken ct) =>
+        {
+            if (!options.Value.Configured) return Results.Ok(new { ok = false, problem = "Gemini:ApiKey mangler på serveren (GEMINI_API_KEY)." });
+            if (cache.Last is { } last && DateTimeOffset.UtcNow - last.At < TimeSpan.FromMinutes(1)) return Results.Ok(last.Result);
+            object result;
+            try
+            {
+                result = new { ok = true, model = await gemini.CheckAsync(ct) };
+            }
+            catch (Exception ex) when (ex is VisionException or HttpRequestException or TaskCanceledException && !ct.IsCancellationRequested)
+            {
+                log.LogWarning(ex, "Gemini check failed");
+                result = new { ok = false, model = options.Value.Model, problem = Reason(ex) };
+            }
+            cache.Last = (DateTimeOffset.UtcNow, result);
+            return Results.Ok(result);
+        });
     }
+
+    static string Reason(Exception ex) => ex switch
+    {
+        VisionException v => v.Message,
+        TaskCanceledException => "Gemini svarede ikke i tide.",
+        HttpRequestException h => $"Serveren kunne ikke nå Gemini ({h.Message}).",
+        _ => ex.Message,
+    };
+}
+
+/// <summary>The last /api/vision/check result, kept a minute.</summary>
+public class VisionCheckCache
+{
+    public (DateTimeOffset At, object Result)? Last { get; set; }
 }

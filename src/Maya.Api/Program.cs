@@ -34,6 +34,7 @@ builder.Services.AddSingleton<TtsStreams>();
 builder.Services.Configure<GeminiOptions>(builder.Configuration.GetSection("Gemini"));
 builder.Services.AddHttpClient<GeminiVision>(c => c.Timeout = TimeSpan.FromSeconds(60));
 builder.Services.AddSingleton<VisionUsage>();
+builder.Services.AddSingleton<VisionCheckCache>();
 
 // The guide's photos and answers, shared with everyone, in App_Data/guide.
 builder.Services.Configure<GuideOptions>(builder.Configuration.GetSection("Guide"));

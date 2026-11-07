@@ -16,6 +16,9 @@ public class FakeGemini : HttpMessageHandler
 {
     public List<(string Path, string? Key, JsonObject Body)> Requests { get; } = [];
     public HttpStatusCode Status { get; set; } = HttpStatusCode.OK;
+    public string ErrorJson { get; set; } = "{}";
+    /// <summary>A model Google says doesn't exist (404) for this key.</summary>
+    public string? MissingModel { get; set; }
     public string ReplyJson { get; set; } =
         """{"title":"Jademaske","answer":"Det er en dødsmaske af jade.","chapters":["09-kunst-og-arkitektur","findes-ikke","14-klar-til-moesgaard"]}""";
 
@@ -23,7 +26,9 @@ public class FakeGemini : HttpMessageHandler
     {
         var body = JsonNode.Parse(await req.Content!.ReadAsStringAsync(ct))!.AsObject();
         lock (Requests) Requests.Add((req.RequestUri!.AbsolutePath, req.Headers.TryGetValues("x-goog-api-key", out var k) ? k.First() : null, body));
-        if (Status != HttpStatusCode.OK) return new HttpResponseMessage(Status) { Content = new StringContent("{}") };
+        if (MissingModel is not null && req.RequestUri.AbsolutePath.Contains(MissingModel))
+            return new HttpResponseMessage(HttpStatusCode.NotFound) { Content = new StringContent("{\"error\":{\"code\":404,\"message\":\"models/x is not found\",\"status\":\"NOT_FOUND\"}}") };
+        if (Status != HttpStatusCode.OK) return new HttpResponseMessage(Status) { Content = new StringContent(ErrorJson) };
         var reply = new { candidates = new[] { new { content = new { parts = new[] { new { text = ReplyJson } } } } } };
         return new HttpResponseMessage(HttpStatusCode.OK)
         {
@@ -294,5 +299,52 @@ public class UnlimitedVisionFactory : MayaFactory
         builder.UseSetting("Gemini:ApiKey", "gemini-test-key");
         builder.UseSetting("Gemini:BaseUrl", "https://gemini.test/");
         builder.ConfigureTestServices(s => s.AddHttpClient<GeminiVision>().ConfigurePrimaryHttpMessageHandler(() => Gemini));
+    }
+}
+
+public class VisionDiagnosticsTests
+{
+    [Theory]
+    [InlineData(HttpStatusCode.TooManyRequests, "{\"error\":{\"code\":429,\"message\":\"Spend cap exceeded\",\"status\":\"RESOURCE_EXHAUSTED\"}}", "udgiftsloftet")]
+    [InlineData(HttpStatusCode.BadRequest, "{\"error\":{\"code\":400,\"message\":\"API key not valid. Please pass a valid API key.\",\"status\":\"INVALID_ARGUMENT\"}}", "ugyldig")]
+    [InlineData(HttpStatusCode.Forbidden, "{\"error\":{\"code\":403,\"message\":\"Permission denied\",\"status\":\"PERMISSION_DENIED\"}}", "ikke adgang")]
+    [InlineData(HttpStatusCode.ServiceUnavailable, "ikke json", "problemer lige nu")]
+    public async Task The_reason_from_google_is_shown(HttpStatusCode status, string body, string expected)
+    {
+        using var factory = new VisionFactory();
+        factory.Gemini.Status = status;
+        factory.Gemini.ErrorJson = body;
+        var res = await factory.CreateClient().PostAsync("/api/vision", VisionForm.Photo());
+        Assert.Equal(HttpStatusCode.BadGateway, res.StatusCode);
+        Assert.Contains(expected, await res.Content.ReadAsStringAsync());
+    }
+
+    [Fact]
+    public async Task A_missing_model_falls_back_to_the_latest_flash()
+    {
+        using var factory = new VisionFactory();
+        factory.Gemini.MissingModel = "gemini-3.5-flash";
+        var res = await factory.CreateClient().PostAsync("/api/vision", VisionForm.Photo());
+        res.EnsureSuccessStatusCode();
+        Assert.Contains(factory.Gemini.Requests, r => r.Path.Contains("gemini-flash-latest"));
+    }
+
+    [Fact]
+    public async Task The_check_page_says_whether_gemini_answers()
+    {
+        using var ok = new VisionFactory();
+        ok.Gemini.ReplyJson = "ok";
+        var good = await ok.CreateClient().GetFromJsonAsync<JsonObject>("/api/vision/check");
+        Assert.True(good!["ok"]!.GetValue<bool>());
+
+        using var capped = new VisionFactory();
+        capped.Gemini.Status = HttpStatusCode.TooManyRequests;
+        var bad = await capped.CreateClient().GetFromJsonAsync<JsonObject>("/api/vision/check");
+        Assert.False(bad!["ok"]!.GetValue<bool>());
+        Assert.Contains("udgiftsloftet", bad["problem"]!.GetValue<string>());
+
+        using var none = new MayaFactory();
+        var off = await none.CreateClient().GetFromJsonAsync<JsonObject>("/api/vision/check");
+        Assert.Contains("mangler", off!["problem"]!.GetValue<string>());
     }
 }

@@ -1,8 +1,9 @@
 import { Camera, FileText, ImageUp, Pause, Send, Trash2, Volume2, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { api, ApiError, fetchTopic, fetchVisionAvailable, problemDetail, type GuideEntry } from '../api';
 import { deleteEntry, guideHistorySupported, listEntries } from '../guideHistory';
+import PhotoViewer from '../components/PhotoViewer';
 import Status from '../components/Status';
 import { useOnline } from '../offline';
 import { shrinkPhoto } from '../photo';
@@ -187,6 +188,8 @@ function BigButton({ icon: Icon, title, onClick }: { icon: typeof Camera; title:
 }
 
 function AnswerCard({ entry, onDelete, readAtOnce = false }: { entry: GuideEntry; onDelete: () => void; readAtOnce?: boolean }) {
+  const [zoomed, setZoomed] = useState(false);
+  const closeZoom = useCallback(() => setZoomed(false), []);
   const [voice] = useVoiceSettings();
   const [speaking, setSpeaking] = useState(false);
   const run = useRef(0); // a new token per reading, so a stopped one quietly ends
@@ -235,7 +238,10 @@ function AnswerCard({ entry, onDelete, readAtOnce = false }: { entry: GuideEntry
 
   return (
     <li className="overflow-hidden rounded-xl border border-line bg-surface">
-      <img src={entry.photo} alt="Billedet, guiden svarede på" loading="lazy" className="max-h-56 w-full object-cover" />
+      <button onClick={() => setZoomed(true)} aria-label="Vis billedet i fuld størrelse" className="block w-full">
+        <img src={entry.photo} alt="Billedet, guiden svarede på" loading="lazy" className="max-h-56 w-full object-cover" />
+      </button>
+      {zoomed && <PhotoViewer src={entry.photo} alt="Billedet, guiden svarede på" onClose={closeZoom} />}
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
           <h2 className="min-w-0 flex-1 font-serif text-xl font-semibold">{answer.title}</h2>

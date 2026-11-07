@@ -132,7 +132,8 @@ export const fetchTopic = () => cached<Topic>('/api/topic');
 export const fetchVisionAvailable = () =>
   cached<Health>('/api/health').then((h) => h.vision ?? false).catch(() => false);
 
-export type VisionAnswer = { title: string; answer: string; chapters: ChapterLink[] };
+/** The guide's answer; signText is a sign's own text, read off the photo (in Danish). */
+export type VisionAnswer = { title: string; answer: string; chapters: ChapterLink[]; signText?: string | null };
 
 /** A photo the guide answered, shared with everyone who uses the app (kept on the server). */
 export type GuideEntry = {

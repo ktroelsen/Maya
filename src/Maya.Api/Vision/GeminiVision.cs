@@ -11,6 +11,8 @@ public class GeminiOptions
 {
     public string? ApiKey { get; set; }
     public string Model { get; set; } = "gemini-3.5-flash";
+    /// <summary>Tried when Google says the model doesn't exist for this key (404).</summary>
+    public string FallbackModel { get; set; } = "gemini-flash-latest";
     public string BaseUrl { get; set; } = "https://generativelanguage.googleapis.com/";  // tests point this at a fake
     public int RequestsPerMinute { get; set; }        // per IP; 0 (the default): no limit
     public int DailyLimit { get; set; }               // questions a day in total; 0 (the default): no limit
@@ -21,7 +23,8 @@ public class GeminiOptions
 /// <summary>What the visitor points the camera at: an object, or a sign/label to explain.</summary>
 public enum VisionMode { Object, Sign }
 
-public record VisionAnswer(string Title, string Answer, List<VisionChapter> Chapters);
+/// <summary>The guide's answer. SignText: for a sign, its text read off the photo (in Danish).</summary>
+public record VisionAnswer(string Title, string Answer, List<VisionChapter> Chapters, string? SignText = null);
 
 public record VisionChapter(string Id, int Number, string Title);
 
@@ -34,7 +37,6 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
 
     public async Task<VisionAnswer> AskAsync(byte[] image, string mimeType, VisionMode mode, string? question, CancellationToken ct)
     {
-        var o = options.Value;
         var body = new
         {
             systemInstruction = new { parts = new[] { new { text = SystemPrompt() } } },
@@ -58,6 +60,7 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
                     properties = new
                     {
                         title = new { type = "STRING" },
+                        signText = new { type = "STRING" },
                         answer = new { type = "STRING" },
                         chapters = new { type = "ARRAY", items = new { type = "STRING" } },
                     },
@@ -66,21 +69,11 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
             },
         };
 
-        using var req = new HttpRequestMessage(HttpMethod.Post, new Uri(new Uri(o.BaseUrl), $"v1beta/models/{o.Model}:generateContent"))
-        {
-            Content = JsonContent.Create(body),
-        };
-        req.Headers.Add("x-goog-api-key", o.ApiKey);
-        using var res = await http.SendAsync(req, ct);
-        if (!res.IsSuccessStatusCode)
-        {
-            var detail = await res.Content.ReadAsStringAsync(ct);
-            throw new VisionException($"Gemini svarede {(int)res.StatusCode}: {detail[..Math.Min(detail.Length, 300)]}");
-        }
-
-        var reply = await res.Content.ReadFromJsonAsync<GenerateResponse>(Json, ct);
-        var text = reply?.Candidates?.FirstOrDefault()?.Content?.Parts?.LastOrDefault(p => p.Text is not null)?.Text
-            ?? throw new VisionException("Gemini returnerede intet svar.");
+        var reply = await GenerateAsync(body, ct);
+        var text = reply.Candidates?.FirstOrDefault()?.Content?.Parts?.LastOrDefault(p => p.Text is not null && p.Thought != true)?.Text
+            ?? throw new VisionException(reply.PromptFeedback?.BlockReason is { } blocked
+                ? $"Gemini ville ikke svare på billedet ({blocked})."
+                : $"Gemini returnerede intet svar ({reply.Candidates?.FirstOrDefault()?.FinishReason ?? "ukendt grund"}).");
         RawAnswer raw;
         try
         {
@@ -97,7 +90,47 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
             .Take(3)
             .Select(c => new VisionChapter(c.Id, c.Number, c.Title))
             .ToList();
-        return new VisionAnswer(raw.Title?.Trim() ?? "", raw.Answer?.Trim() ?? "", chapters);
+        var signText = mode == VisionMode.Sign && !string.IsNullOrWhiteSpace(raw.SignText) ? raw.SignText.Trim() : null;
+        return new VisionAnswer(raw.Title?.Trim() ?? "", raw.Answer?.Trim() ?? "", chapters, signText);
+    }
+
+    /// <summary>A tiny text question, to see whether Gemini answers with this key and model.</summary>
+    public async Task<string> CheckAsync(CancellationToken ct)
+    {
+        var reply = await GenerateAsync(new { contents = new[] { new { parts = new[] { new { text = "Svar kun: ok" } } } } }, ct);
+        return reply.ModelUsed;
+    }
+
+    // Calls the configured model; if Google says it doesn't exist for this key, the fallback model.
+    async Task<GenerateResponse> GenerateAsync(object body, CancellationToken ct)
+    {
+        var o = options.Value;
+        try
+        {
+            return await GenerateAsync(o.Model, body, ct);
+        }
+        catch (VisionException ex) when (ex.Status == 404 && !string.IsNullOrEmpty(o.FallbackModel) && o.FallbackModel != o.Model)
+        {
+            return await GenerateAsync(o.FallbackModel, body, ct);
+        }
+    }
+
+    async Task<GenerateResponse> GenerateAsync(string model, object body, CancellationToken ct)
+    {
+        var o = options.Value;
+        using var req = new HttpRequestMessage(HttpMethod.Post, new Uri(new Uri(o.BaseUrl), $"v1beta/models/{model}:generateContent"))
+        {
+            Content = JsonContent.Create(body),
+        };
+        req.Headers.Add("x-goog-api-key", o.ApiKey);
+        using var res = await http.SendAsync(req, ct);
+        if (!res.IsSuccessStatusCode)
+        {
+            var detail = await res.Content.ReadAsStringAsync(ct);
+            throw VisionException.FromGoogle((int)res.StatusCode, detail, model);
+        }
+        var reply = await res.Content.ReadFromJsonAsync<GenerateResponse>(Json, ct) ?? new GenerateResponse(null, null);
+        return reply with { ModelUsed = model };
     }
 
     string SystemPrompt()
@@ -132,19 +165,62 @@ public class GeminiVision(HttpClient http, IOptions<GeminiOptions> options, Cont
     static string UserPrompt(VisionMode mode, string? question)
     {
         var task = mode == VisionMode.Sign
-            ? "Billedet viser et skilt eller en tekst. Forklar, hvad der står, og fortæl lidt mere om emnet."
-            : "Billedet viser en genstand. Hvad er det, og hvad skal jeg lægge mærke til?";
+            ? "Billedet viser et skilt eller en tekst på en udstilling.\n"
+              + "signText: skriv HELE teksten på skiltet af, ordret og i den rækkefølge, den læses – overskrift først, afsnit adskilt af en tom linje. "
+              + "Står teksten på flere sprog, så brug den danske; findes der ingen dansk, så oversæt til dansk. Udelad intet, og tilføj intet. "
+              + "Kan noget ikke læses, så skriv […].\n"
+              + "answer: 2–4 korte sætninger, der forklarer eller sætter teksten i sammenhæng – ikke en gentagelse af den."
+            : "Billedet viser en genstand. Hvad er det, og hvad skal jeg lægge mærke til? signText: lad den være tom.";
         return string.IsNullOrWhiteSpace(question) ? task : $"{task}\nMit spørgsmål: {question.Trim()}";
     }
 
-    record RawAnswer(string? Title, string? Answer, List<string>? Chapters);
-    record GenerateResponse([property: JsonPropertyName("candidates")] List<Candidate>? Candidates);
-    record Candidate([property: JsonPropertyName("content")] CandidateContent? Content);
+    record RawAnswer(string? Title, string? Answer, List<string>? Chapters, string? SignText);
+    record GenerateResponse(
+        [property: JsonPropertyName("candidates")] List<Candidate>? Candidates,
+        [property: JsonPropertyName("promptFeedback")] PromptFeedback? PromptFeedback)
+    {
+        [JsonIgnore] public string ModelUsed { get; init; } = "";
+    }
+    record PromptFeedback([property: JsonPropertyName("blockReason")] string? BlockReason);
+    record Candidate(
+        [property: JsonPropertyName("content")] CandidateContent? Content,
+        [property: JsonPropertyName("finishReason")] string? FinishReason);
     record CandidateContent([property: JsonPropertyName("parts")] List<Part>? Parts);
-    record Part([property: JsonPropertyName("text")] string? Text);
+    record Part([property: JsonPropertyName("text")] string? Text, [property: JsonPropertyName("thought")] bool? Thought);
 }
 
-public class VisionException(string message) : Exception(message);
+public class VisionException(string message, int status = 0) : Exception(message)
+{
+    /// <summary>Google's HTTP status, when the error came from Google.</summary>
+    public int Status => status;
+
+    // Google's error, put into words a visitor (or the person fixing it) can act on. Google's own
+    // message never contains the key.
+    public static VisionException FromGoogle(int status, string body, string model)
+    {
+        string? message = null, reason = null;
+        try
+        {
+            var error = JsonDocument.Parse(body).RootElement.GetProperty("error");
+            message = error.TryGetProperty("message", out var m) ? m.GetString() : null;
+            reason = error.TryGetProperty("status", out var r) ? r.GetString() : null;
+        }
+        catch (Exception ex) when (ex is JsonException or KeyNotFoundException or InvalidOperationException)
+        {
+        }
+        var said = message is { Length: > 0 } ? message[..Math.Min(message.Length, 200)] : $"HTTP {status}";
+        var text = status switch
+        {
+            429 => "Gemini-kvoten eller udgiftsloftet er brugt op. Tjek udgiftsloftet i Google Cloud, eller prøv igen senere.",
+            400 when said.Contains("API key", StringComparison.OrdinalIgnoreCase) => "Gemini-nøglen på serveren er ugyldig (GEMINI_API_KEY).",
+            401 or 403 => $"Gemini-nøglen på serveren har ikke adgang: {said}",
+            404 => $"Gemini-modellen {model} findes ikke for nøglen: {said}",
+            >= 500 => $"Gemini har problemer lige nu ({status}). Prøv igen om lidt.",
+            _ => $"Gemini svarede {status}{(reason is null ? "" : $" {reason}")}: {said}",
+        };
+        return new VisionException(text, status);
+    }
+}
 
 // Questions asked today, in memory (an app-pool recycle resets it): a cost cap.
 public class VisionUsage(IOptions<GeminiOptions> options, TimeProvider? clock = null)
